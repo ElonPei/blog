@@ -12,7 +12,7 @@ title: test
 
 <aside>
 
-<img class="emoji" draggable="false" alt="💡" src="https://twemoji.maxcdn.com/v/13.1.0/72x72/1f4a1.png"/> test
+<img class="emoji" draggable="false" alt="🤮" src="https://twemoji.maxcdn.com/v/13.1.0/72x72/1f92e.png"/> test
 </aside>
 
 ```java
