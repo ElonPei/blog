@@ -1,6 +1,6 @@
 on: [workflow_dispatch, watch]
 
-name: notion
+name: notion_hexo_to_aliyun
 
 jobs:
   notion:
