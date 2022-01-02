@@ -1,6 +1,6 @@
-on: [workflow_dispatch, repository_dispatch, watch]
+on: [workflow_dispatch, watch]
 
-name: deploy by notion
+name: notion
 
 jobs:
   notion:
@@ -10,7 +10,7 @@ jobs:
       with:
         submodules: false
 
-    - uses: erick-pei/notion-blog-actions/notion@main
+    - uses: mohuishou/notion-blog-actions/notion@main
       with:
         token: ${{ secrets.NOTION_TOKEN }}
         token_v2: ${{ secrets.NOTION_TOKEN_V2 }}
@@ -19,14 +19,14 @@ jobs:
         output: "./tmp/"
 
     - name: "migrate image"
-      uses: erick-pei/notion-blog-actions/migrate@main
+      uses: mohuishou/notion-blog-actions/migrate@main
       with:
         input: "./tmp/*.md"
 
     - name: "cp md files"
       run: |
-        cp -f ./tmp/*.md ./source/_posts/notion/
-        rm -rf ./tmp
+        cp -f tmp/*.md source/_posts/notion/
+        rm -rf tmp
 
     - name: git setting
       run: |
