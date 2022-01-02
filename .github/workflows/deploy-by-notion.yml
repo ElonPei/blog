@@ -38,3 +38,36 @@ jobs:
         git add source
         git commit -m "feat: auto update by notion sync"
         git push
+
+    # 使用 node:10
+    - name: use Node.js 10
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10
+    
+    # npm install
+    - name: npm install
+      run: |
+        npm install -g hexo-cli
+        npm install
+      env:
+        CI: true
+    
+    # build
+    - name: hexo build
+      run: |
+        hexo clean
+        hexo generate
+      env:
+        CI: true
+
+    # Deploy
+    - name: Deploy
+      uses: easingthemes/ssh-deploy@v2.0.7
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.ACCESS_TOKEN }}
+        ARGS: "-avz --delete"
+        SOURCE: "public/"
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        REMOTE_USER: ${{ secrets.REMOTE_USER }}
+        TARGET: ${{ secrets.TARGET }}
