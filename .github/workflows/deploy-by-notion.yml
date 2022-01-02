@@ -51,7 +51,7 @@ jobs:
       run: |
         npm install -g hexo-cli
         npm install
-        dpkg -i pandoc.deb
+        sudo dpkg -i pandoc.deb
       env:
         CI: true
     
