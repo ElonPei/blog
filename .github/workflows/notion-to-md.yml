@@ -1,9 +1,9 @@
 on: [workflow_dispatch, watch]
 
-name: notion_hexo_to_aliyun
+name: notion-to-md
 
 jobs:
-  notion_hexo_to_aliyun:
+  notion-to-md:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
