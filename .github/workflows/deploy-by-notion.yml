@@ -32,12 +32,7 @@ jobs:
       run: |
         git config --global user.email "erick.el.pei@gmail.com"
         git config --global user.name "Erick"
-      
-    - name: update blog
-      run: |
-        git add source
-        git commit -m "feat: auto update by notion sync"
-        git push
+
     # 切换分支
     - name: Checkout
       uses: actions/checkout@main
