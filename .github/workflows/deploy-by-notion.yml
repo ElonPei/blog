@@ -1,6 +1,6 @@
 on: [workflow_dispatch, repository_dispatch, watch]
 
-name: notion
+name: deploy by notion
 
 jobs:
   notion:
