@@ -1,4 +1,11 @@
-on: [push, workflow_dispatch, watch]
+on:
+  push:
+    branches:
+      - main
+  workflow_run:
+    workflows: ["notion-to-md"]
+    types:
+      - completed
 
 name: deploy-to-aliyun
 
