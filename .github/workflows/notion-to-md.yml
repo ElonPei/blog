@@ -25,7 +25,6 @@ jobs:
 
     - name: "cp md files"
       run: |
-        rm -rf source/_posts/notion/*
         cp -f tmp/*.md source/_posts/notion/
         rm -rf tmp
 
