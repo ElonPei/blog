@@ -1,6 +1,13 @@
 ---
-show_category: No
+categories:
+  - Java
+date: 2018/08/03
+excerpt: 近日，由于公司系统架构调整，发现tomcat8下日志输出有问题，但是tomcat7没有问题，其中但凡引用 slf4j 输出的日志都不输出了。
+show_category: Yes
 status: 待发布
+tags:
+  - Java
+urlname: Tomcat不打印日志
 title: Tomcat 不打印日志解决办法
 ---
 
@@ -37,8 +44,11 @@ SLF4J: Actual binding is of type [org.slf4j.helpers.NOPLoggerFactory]
 
 先上代码
 
-```
-private static final Logger LOGGER = LoggerFactory.getLogger(Test.class);private void testLogger(){    LOGGER.info("this is a test");}
+```java
+private static final Logger LOGGER = LoggerFactory.getLogger(Test.class);
+private void testLogger(){
+    LOGGER.info("this is a test");
+}
 ```
 
 在Tomcat7下，用可以打印出日志的配置执行代码，`Logger`的具体实现类是`org.slf4j.impl.Log4jLoggerAdapter`，其中打印的启动日志也说明了这一点。
@@ -57,20 +67,117 @@ private static final Logger LOGGER = LoggerFactory.getLogger(Test.class);private
 
 首先`LoggerFactory`的`getLogger()`方法实现如下：
 
-```
-  public static Logger getLogger(Class clazz) {    return getLogger(clazz.getName());  }  /**   * Return a logger named according to the name parameter using the statically   * bound {@link ILoggerFactory} instance.   *   * @param name The name of the logger.   * @return logger   */  public static Logger getLogger(String name) {    ILoggerFactory iLoggerFactory = getILoggerFactory();    return iLoggerFactory.getLogger(name);  }
+```java
+public static Logger getLogger(Class clazz) {
+    return getLogger(clazz.getName());
+  }
+  
+  /**
+   * Return a logger named according to the name parameter using the statically
+   * bound {@link ILoggerFactory} instance.
+   *
+   * @param name The name of the logger.
+   * @return logger
+   */
+  public static Logger getLogger(String name) {
+    ILoggerFactory iLoggerFactory = getILoggerFactory();
+    return iLoggerFactory.getLogger(name);
+  }
 ```
 
 具体选择那种日志实现(e.g. java.util.logging, logback, log4j) 就在以上代码中 `ILoggerFactory` 接口的具体实现，所以我们接着看`getILoggerFactory()`方法的具体实现。
 
-```
-public static ILoggerFactory getILoggerFactory() {    if (INITIALIZATION_STATE == UNINITIALIZED) {      INITIALIZATION_STATE = ONGOING_INITIALIZATION;      performInitialization();    }    switch (INITIALIZATION_STATE) {      case SUCCESSFUL_INITIALIZATION:        return StaticLoggerBinder.getSingleton().getLoggerFactory();      case NOP_FALLBACK_INITIALIZATION:        return NOP_FALLBACK_FACTORY;      case FAILED_INITIALIZATION:        throw new IllegalStateException(UNSUCCESSFUL_INIT_MSG);      case ONGOING_INITIALIZATION:        // support re-entrant behavior.        // See also http://bugzilla.slf4j.org/show_bug.cgi?id=106        return TEMP_FACTORY;    }    throw new IllegalStateException("Unreachable code");  }
+```java
+public static ILoggerFactory getILoggerFactory() {
+    if (INITIALIZATION_STATE == UNINITIALIZED) {
+      INITIALIZATION_STATE = ONGOING_INITIALIZATION;
+      performInitialization();
+    }
+    switch (INITIALIZATION_STATE) {
+      case SUCCESSFUL_INITIALIZATION:
+        return StaticLoggerBinder.getSingleton().getLoggerFactory();
+      case NOP_FALLBACK_INITIALIZATION:
+        return NOP_FALLBACK_FACTORY;
+      case FAILED_INITIALIZATION:
+        throw new IllegalStateException(UNSUCCESSFUL_INIT_MSG);
+      case ONGOING_INITIALIZATION:
+        // support re-entrant behavior.
+        // See also http://bugzilla.slf4j.org/show_bug.cgi?id=106
+        return TEMP_FACTORY;
+    }
+    throw new IllegalStateException("Unreachable code");
+  }
 ```
 
 根据debug执行，tomcat7和tomcat8中都会执行到switch语句 `SUCCESSFUL_INITIALIZATION` 分支中，其中`StaticLoggerBinder`类的实例，其中`StaticLoggerBinder`中的`loggerFactory`接口属性指向了不同的实现（这也正是slf4j所谓的外观(Facade)模式，并不是具体的日志解决方案），所以我们接下来看`LoggerFactory`初始化时类加载器对`org/slf4j/impl/StaticLoggerBinder.class`类的加载的验证过程。我们看`performInitialization()`方法的实现。
 
-```
-  private final static void performInitialization() {    bind();    if (INITIALIZATION_STATE == SUCCESSFUL_INITIALIZATION) {      versionSanityCheck();    }}  private final static void bind() {    try {      Set staticLoggerBinderPathSet = findPossibleStaticLoggerBinderPathSet();      reportMultipleBindingAmbiguity(staticLoggerBinderPathSet);      // the next line does the binding      StaticLoggerBinder.getSingleton();      INITIALIZATION_STATE = SUCCESSFUL_INITIALIZATION;      reportActualBinding(staticLoggerBinderPathSet);      emitSubstituteLoggerWarning();    } catch (NoClassDefFoundError ncde) {      String msg = ncde.getMessage();      if (messageContainsOrgSlf4jImplStaticLoggerBinder(msg)) {        INITIALIZATION_STATE = NOP_FALLBACK_INITIALIZATION;        Util.report("Failed to load class \"org.slf4j.impl.StaticLoggerBinder\".");        Util.report("Defaulting to no-operation (NOP) logger implementation");        Util.report("See " + NO_STATICLOGGERBINDER_URL                + " for further details.");      } else {        failedBinding(ncde);        throw ncde;      }    } catch (java.lang.NoSuchMethodError nsme) {      String msg = nsme.getMessage();      if (msg != null && msg.indexOf("org.slf4j.impl.StaticLoggerBinder.getSingleton()") != -1) {        INITIALIZATION_STATE = FAILED_INITIALIZATION;        Util.report("slf4j-api 1.6.x (or later) is incompatible with this binding.");        Util.report("Your binding is version 1.5.5 or earlier.");        Util.report("Upgrade your binding to version 1.6.x.");      }      throw nsme;    } catch (Exception e) {      failedBinding(e);      throw new IllegalStateException("Unexpected initialization failure", e);    }  }  private static Set findPossibleStaticLoggerBinderPathSet() {    // use Set instead of list in order to deal with  bug #138    // LinkedHashSet appropriate here because it preserves insertion order during iteration    Set staticLoggerBinderPathSet = new LinkedHashSet();    try {      ClassLoader loggerFactoryClassLoader = LoggerFactory.class              .getClassLoader();      Enumeration paths;      if (loggerFactoryClassLoader == null) {        paths = ClassLoader.getSystemResources(STATIC_LOGGER_BINDER_PATH);      } else {        paths = loggerFactoryClassLoader                .getResources(STATIC_LOGGER_BINDER_PATH);      }      while (paths.hasMoreElements()) {        URL path = (URL) paths.nextElement();        staticLoggerBinderPathSet.add(path);      }    } catch (IOException ioe) {      Util.report("Error getting resources from path", ioe);    }    return staticLoggerBinderPathSet;  }
+```java
+private final static void performInitialization() {
+    bind();
+    if (INITIALIZATION_STATE == SUCCESSFUL_INITIALIZATION) {
+      versionSanityCheck();
+    }
+}
+
+private final static void bind() {
+  try {
+    Set staticLoggerBinderPathSet = findPossibleStaticLoggerBinderPathSet();
+    reportMultipleBindingAmbiguity(staticLoggerBinderPathSet);
+    // the next line does the binding
+    StaticLoggerBinder.getSingleton();
+    INITIALIZATION_STATE = SUCCESSFUL_INITIALIZATION;
+    reportActualBinding(staticLoggerBinderPathSet);
+    emitSubstituteLoggerWarning();
+  } catch (NoClassDefFoundError ncde) {
+    String msg = ncde.getMessage();
+    if (messageContainsOrgSlf4jImplStaticLoggerBinder(msg)) {
+      INITIALIZATION_STATE = NOP_FALLBACK_INITIALIZATION;
+      Util.report("Failed to load class \"org.slf4j.impl.StaticLoggerBinder\".");
+      Util.report("Defaulting to no-operation (NOP) logger implementation");
+      Util.report("See " + NO_STATICLOGGERBINDER_URL
+              + " for further details.");
+    } else {
+      failedBinding(ncde);
+      throw ncde;
+    }
+  } catch (java.lang.NoSuchMethodError nsme) {
+    String msg = nsme.getMessage();
+    if (msg != null && msg.indexOf("org.slf4j.impl.StaticLoggerBinder.getSingleton()") != -1) {
+      INITIALIZATION_STATE = FAILED_INITIALIZATION;
+      Util.report("slf4j-api 1.6.x (or later) is incompatible with this binding.");
+      Util.report("Your binding is version 1.5.5 or earlier.");
+      Util.report("Upgrade your binding to version 1.6.x.");
+    }
+    throw nsme;
+  } catch (Exception e) {
+    failedBinding(e);
+    throw new IllegalStateException("Unexpected initialization failure", e);
+  }
+}
+
+private static Set findPossibleStaticLoggerBinderPathSet() {
+  // use Set instead of list in order to deal with  bug #138
+  // LinkedHashSet appropriate here because it preserves insertion order during iteration
+  Set staticLoggerBinderPathSet = new LinkedHashSet();
+  try {
+    ClassLoader loggerFactoryClassLoader = LoggerFactory.class
+            .getClassLoader();
+    Enumeration paths;
+    if (loggerFactoryClassLoader == null) {
+      paths = ClassLoader.getSystemResources(STATIC_LOGGER_BINDER_PATH);
+    } else {
+      paths = loggerFactoryClassLoader
+              .getResources(STATIC_LOGGER_BINDER_PATH);
+    }
+    while (paths.hasMoreElements()) {
+      URL path = (URL) paths.nextElement();
+      staticLoggerBinderPathSet.add(path);
+    }
+  } catch (IOException ioe) {
+    Util.report("Error getting resources from path", ioe);
+  }
+  return staticLoggerBinderPathSet;
+}
 ```
 
 其中，`findPossibleStaticLoggerBinderPathSet()`方法中查找所有加载过的path，然后将其放到一个Set中，在后续的`reportMultipleBindingAmbiguity()`方法中进行验证打印错误日志，tomcat日志中我们看到的日志就是这个方法输出的。至此，源码分析完毕。
@@ -100,8 +207,18 @@ public static ILoggerFactory getILoggerFactory() {    if (INITIALIZATION_STATE =
 
 ***其中最后一行为找到冲突包的位置，也就是日志不输出的罪魁祸首，在`aliyun-sdk-opensearch:jar`包中依赖，所以在配置文件中把它干掉。***
 
-```
-<dependency>    <groupId>com.aliyun.opensearch</groupId>    <artifactId>aliyun-sdk-opensearch</artifactId>    <version>2.1.3</version>    <exclusions>        <exclusion>            <groupId>org.slf4j</groupId>            <artifactId>slf4j-nop</artifactId>        </exclusion>    </exclusions></dependency>
+```xml
+<dependency>
+    <groupId>com.aliyun.opensearch</groupId>
+    <artifactId>aliyun-sdk-opensearch</artifactId>
+    <version>2.1.3</version>
+    <exclusions>
+        <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
 ```
 
 至此，问题完美解决，
