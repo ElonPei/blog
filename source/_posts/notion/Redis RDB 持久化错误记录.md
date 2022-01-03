@@ -1,7 +1,7 @@
 ---
 categories:
   - Java
-date: 2029/01/03
+date: 2022/01/03
 excerpt: 在 Java 客户端输出的日志上，报错的意思是无法在磁盘进行RDB快照持久化，但是在监控系统中 Redis
   所在服务器磁盘并没有压力，可以排除磁盘满而无法进行持久化。
 show_category: Yes
