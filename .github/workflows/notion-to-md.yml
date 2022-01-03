@@ -1,4 +1,10 @@
-on: [workflow_dispatch, watch]
+on: 
+  workflow_dispatch:
+    branches:
+      - main
+  repository_dispatch:
+    types:
+      - webhook
 
 name: notion-to-md
 
