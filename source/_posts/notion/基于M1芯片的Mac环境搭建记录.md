@@ -2,7 +2,7 @@
 categories:
   - Mac
 date: 2022/01/16
-excerpt: 作为Java程序员，在M1芯片的Mac平台工作已经接近两年，近期购入M1Pro的MacBook
+excerpt: 作为Java程序员，在M1芯片的Mac平台工作已经接近两年，近期购入M1 Pro的MacBook
   Pro后，简单折腾和优化了下开发环境，并记录本文章，供后续查看。
 show_category: Yes
 status: 待发布
@@ -14,7 +14,7 @@ title: 基于M1芯片的Mac环境搭建记录
 
 <aside>
 
-<img class="emoji" draggable="false" alt="💡" src="https://twemoji.maxcdn.com/v/13.1.0/72x72/1f4a1.png"/> 作为Java程序员，在M1芯片的Mac平台工作已经接近两年，近期购入M1Pro的MacBook Pro后，简单折腾和优化了下开发环境，并记录本文章，供后续查看。
+<img class="emoji" draggable="false" alt="💡" src="https://twemoji.maxcdn.com/v/13.1.0/72x72/1f4a1.png"/> 作为Java程序员，在M1芯片的Mac平台工作已经接近两年，近期购入M1 Pro的MacBook Pro后，简单折腾和优化了下开发环境，并记录本文章，供后续查看。
 </aside>
 
 # Docker启动Nacos环境
