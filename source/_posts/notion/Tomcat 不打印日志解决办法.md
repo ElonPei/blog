@@ -20,10 +20,7 @@ title: Tomcat 不打印日志解决办法
 
 首先，定位问题，由于代码没有做过任何改动，所以直接定位到tomcat7和tomcat8差异引起的，感觉像是包冲突，所以沿着这个思路排查问题。
 
-### 通过日志来分析：在我的电脑上分别下载 `tomcat7` 和 `tomcat8`，在日志中看到打印到如下异常日志
-
-> 不想看分析过程的直接看结果吧点此跳转到结果
-> 
+通过日志来分析，在我的电脑上分别下载 `tomcat7` 和 `tomcat8`，在日志中看到打印到如下异常日志。
 
 ```
 SLF4J: Class path contains multiple SLF4J bindings.
@@ -40,7 +37,51 @@ SLF4J: Actual binding is of type [org.slf4j.helpers.NOPLoggerFactory]
 
 使用 `exclusion` 来排除 `org.slf4j.helpers.NOPLoggerFactory` 的依赖即可。
 
-### 另一种方式：通过源码分析的思路，Debug模式下查看slf4j的`Logger`接口的具体实现类是什么?
+## 解决方式
+
+有两种思路都解决了，第二种更优雅。
+
+1. 尝试升级`slf4j`版本和`slf4j-log4j`桥接包版本，从1.7.9升级至1.7.25，问题解决。
+2. 不升级版本，解决依赖冲突，找到`slf4j-nop`包的maven依赖来源，从mvaen中使用`<exclusions>`标签排除依赖。
+
+**maven检查依赖冲突方式:** 使用`mvn dependency:tree`查看依赖树。
+
+```
+[INFO] +- com.aliyun:aliyun-java-sdk-core:jar:2.1.9:compile
+[INFO] +- com.aliyun.oss:aliyun-sdk-oss:jar:2.0.5:compile
+[INFO] |  +- org.apache.httpcomponents:httpclient:jar:4.4:compile
+[INFO] |  |  \\- org.apache.httpcomponents:httpcore:jar:4.4:compile
+[INFO] |  \\- net.sf.json-lib:json-lib:jar:jdk15:2.4:compile
+[INFO] |     \\- net.sf.ezmorph:ezmorph:jar:1.0.6:compile
+[INFO] +- com.aliyun.opensearch:aliyun-sdk-opensearch:jar:2.1.3:compile
+[INFO] |  +- org.apache.httpcomponents:httpmime:jar:4.3.1:compile
+[INFO] |  +- org.json:json:jar:20131018:compile
+[INFO] |  \\- org.slf4j:slf4j-nop:jar:1.7.0:compile
+
+```
+
+***其中最后一行为找到冲突包的位置，也就是日志不输出的罪魁祸首，在`aliyun-sdk-opensearch:jar`包中依赖，所以在配置文件中把它干掉。***
+
+```
+<dependency>
+    <groupId>com.aliyun.opensearch</groupId>
+    <artifactId>aliyun-sdk-opensearch</artifactId>
+    <version>2.1.3</version>
+    <exclusions>
+        <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+
+```
+
+至此，问题完美解决，
+
+## 源码解析
+
+Debug模式下查看slf4j的`Logger`接口的具体实现类是什么?
 
 先上代码
 
@@ -55,13 +96,9 @@ private void testLogger(){
 
 ![http://peierlong-blog.oss-cn-hongkong.aliyuncs.com/006tKfTcly1fo6t6i7be4j31kw04dtdo.jpg](http://peierlong-blog.oss-cn-hongkong.aliyuncs.com/006tKfTcly1fo6t6i7be4j31kw04dtdo.jpg)
 
-006tKfTcly1fo6t6i7be4j31kw04dtdo.jpg
-
 同样的配置，在Tomcat8下，`Logger`的具体实现类是`org.slf4j.helpers.NOPLogger(NOP)` ，NOPLogger为slf4j默认的无操作Logger实现类，所以很显然不会有日志输出的。
 
 ![http://peierlong-blog.oss-cn-hongkong.aliyuncs.com/006tKfTcly1fo6ta061i8j31kw04g79d.jpg](http://peierlong-blog.oss-cn-hongkong.aliyuncs.com/006tKfTcly1fo6ta061i8j31kw04g79d.jpg)
-
-006tKfTcly1fo6ta061i8j31kw04g79d.jpg
 
 那么问题来了，是什么导致的`Logger`实现类的改变？看源码找找线索
 
@@ -186,51 +223,10 @@ private static Set findPossibleStaticLoggerBinderPathSet() {
 
 真正没有输出日志的原因是因为`Logger`引用指向的实现不是`log4j`的实现所导致的，其中`LoggerFactory`类在类加载过程中，`ClassLoader`对多个`StaticLoggerBinder.class`文件的加载顺序不同，导致实现的不同。
 
-### 解决
-
-有两种思路都解决了，第二种更优雅。 1. 尝试升级`slf4j`版本和`slf4j-log4j`桥接包版本，从1.7.9升级至1.7.25，问题解决。 2. 不升级版本，解决依赖冲突，找到`slf4j-nop`包的maven依赖来源，从mvaen中使用`<exclusions>`标签排除依赖。
-
-**maven检查依赖冲突方式:** 使用`mvn dependency:tree`查看依赖树。
-
-```
-[INFO] +- com.aliyun:aliyun-java-sdk-core:jar:2.1.9:compile
-[INFO] +- com.aliyun.oss:aliyun-sdk-oss:jar:2.0.5:compile
-[INFO] |  +- org.apache.httpcomponents:httpclient:jar:4.4:compile
-[INFO] |  |  \- org.apache.httpcomponents:httpcore:jar:4.4:compile
-[INFO] |  \- net.sf.json-lib:json-lib:jar:jdk15:2.4:compile
-[INFO] |     \- net.sf.ezmorph:ezmorph:jar:1.0.6:compile
-[INFO] +- com.aliyun.opensearch:aliyun-sdk-opensearch:jar:2.1.3:compile
-[INFO] |  +- org.apache.httpcomponents:httpmime:jar:4.3.1:compile
-[INFO] |  +- org.json:json:jar:20131018:compile
-[INFO] |  \- org.slf4j:slf4j-nop:jar:1.7.0:compile
-```
-
-***其中最后一行为找到冲突包的位置，也就是日志不输出的罪魁祸首，在`aliyun-sdk-opensearch:jar`包中依赖，所以在配置文件中把它干掉。***
-
-```xml
-<dependency>
-    <groupId>com.aliyun.opensearch</groupId>
-    <artifactId>aliyun-sdk-opensearch</artifactId>
-    <version>2.1.3</version>
-    <exclusions>
-        <exclusion>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-nop</artifactId>
-        </exclusion>
-    </exclusions>
-</dependency>
-```
-
-至此，问题完美解决，
-
-### 遗留问题
-
-1. tomcat7和tomcat8的`ParallelWebappClassLoader`类加载器的实现方式有何不同？为何加载顺序不同？（2018-2-26: 转一篇讲类加载器的 [文章](http://ifeve.com/classloader/)，讲的很不错）
-2. 在加载同名类的时候，真正运行的是哪个类是如何选择的？为何执行第一个被加载的类？
-
-### slf4j源码的两点个人感受
-
 1. 羡慕其代码的命名规范、合理的代码抽象、模式的运用。
 2. 程序员就要有工匠精神，代码也是一种艺术品。:)
 
-end
+## 遗留问题
+
+1. tomcat7和tomcat8的`ParallelWebappClassLoader`类加载器的实现方式有何不同？为何加载顺序不同？（2018-2-26: 转一篇讲类加载器的 [文章](http://ifeve.com/classloader/)，讲的很不错）
+2. 在加载同名类的时候，真正运行的是哪个类是如何选择的？为何执行第一个被加载的类？
