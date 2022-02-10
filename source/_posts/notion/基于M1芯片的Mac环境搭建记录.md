@@ -17,6 +17,46 @@ title: 基于M1芯片的Mac环境搭建记录
 <img class="emoji" draggable="false" alt="💡" src="https://twemoji.maxcdn.com/v/13.1.0/72x72/1f4a1.png"/> 作为Java程序员，在M1芯片的Mac平台工作已经接近两年，近期购入M1 Pro的MacBook Pro后，简单折腾和优化了下开发环境，并记录本文章，供后续查看。
 </aside>
 
+## homebrew环境安装
+
+> homeberw已经支持m1 mac
+> 
+
+```bash
+/bin/bash -c "$(curl -fsSL [https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh](https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh))"
+```
+
+## conda环境安装
+
+> anaconda 官方暂时不支持 m1，只能通过转译来运行，开源的 miniforge 支持 arm 架构，我们使用 brew 来安装这个版本。
+> 
+
+ 
+
+```bash
+brew install miniforge
+# 如果安装zsh环境，需要执行如下初始化
+conda init zsh
+# 如果中断是shell环境，执行如下命令
+conda init
+```
+
+## pytnon环境及常用依赖安装
+
+> 安装 conda 环境后，我们就可以管理我们的 python 环境了。
+> 
+
+```bash
+# 安装pandas
+conda install pandas
+# 安装numpy
+conda install numpy
+# 安装rich
+conda install rich
+# 安装mysql支持
+conda install PyMySQL
+```
+
 ## Docker启动Nacos环境
 
 ```bash
