@@ -12,3 +12,5 @@ title: UML类图基本关系DEMO
 
 
 ![UML类图学习.drawio.png](/notion_images/5b35f1480c59197c8714406797dcf327.png)
+
+提示：右键点击在新的标签页打开图片来查看大图。
