@@ -9,7 +9,7 @@ show_category: Yes
 status: 待发布
 tags:
   - Mac
-updated_time: February 19, 2022 2:44 PM
+updated_time: February 19, 2022 3:20 PM
 title: 基于M1芯片的Mac环境搭建记录
 ---
 
@@ -19,15 +19,7 @@ title: 基于M1芯片的Mac环境搭建记录
 <img class="emoji" draggable="false" alt="💡" src="https://twemoji.maxcdn.com/v/13.1.0/72x72/1f4a1.png"/> 作为Java程序员，在M1芯片的Mac平台工作已经接近两年，近期购入M1 Pro的MacBook Pro后，简单折腾和优化了下开发环境，并记录本文章，供后续查看。
 </aside>
 
-## 软件
-
-- test
-    
-    test
-    
-
-> test
-> 
+## 常用软件安装
 
 ### iTem2
 
