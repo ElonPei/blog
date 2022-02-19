@@ -1,6 +1,7 @@
 ---
 categories:
   - Mac
+created_time: January 16, 2022 1:02 PM
 date: 2022/01/16
 excerpt: 作为Java程序员，在M1芯片的Mac平台工作已经接近两年，近期购入M1 Pro的MacBook
   Pro后，简单折腾和优化了下开发环境，并记录本文章，供后续查看。
@@ -8,6 +9,7 @@ show_category: Yes
 status: 待发布
 tags:
   - Mac
+updated_time: February 19, 2022 2:44 PM
 title: 基于M1芯片的Mac环境搭建记录
 ---
 
@@ -19,16 +21,22 @@ title: 基于M1芯片的Mac环境搭建记录
 
 ## 软件
 
+- test
+    
+    test
+    
+
+> test
+> 
+
 ### iTem2
 
-> Mac上比较好用的终端工具
-> 
+- Mac上比较好用的终端工具
 - 支持m1
 
 ### Dash
 
-> Mac上比较好用的文档管理工具
-> 
+- Mac上比较好用的文档管理工具
 - 支持m1
 
 ## 开发环境
@@ -51,10 +59,7 @@ brew install mysql
 
 ### brew安装conda环境安装
 
-> anaconda 官方暂时不支持 m1，只能通过转译来运行，开源的 miniforge 支持 arm 架构，我们使用 brew 来安装这个版本。
-> 
-
- 
+- anaconda 官方暂时不支持 m1，只能通过转译来运行，开源的 miniforge 支持 arm 架构，我们使用 brew 来安装这个版本。
 
 ```bash
 brew install miniforge
@@ -66,8 +71,7 @@ conda init
 
 ### Pytnon环境及常用依赖安装
 
-> 安装 conda 环境后，我们就可以管理我们的 python 环境了。
-> 
+- 安装 conda 环境后，我们就可以管理我们的 python 环境了。
 
 ```bash
 # 安装pandas
@@ -78,6 +82,8 @@ conda install numpy
 conda install rich
 # 安装mysql支持
 conda install PyMySQL
+# 安装jupyter
+conda install jupyter
 ```
 
 ### Docker启动Nacos环境
