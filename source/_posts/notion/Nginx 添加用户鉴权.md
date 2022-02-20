@@ -1,12 +1,14 @@
 ---
 categories:
   - Nginx
-date: 2022/01/03
+created_time: November 23, 2021 10:44 PM
+date: 2019/05/31
 excerpt: 对于Nginx需要临时添加简单认证，可以使用该方法。
 show_category: Yes
 status: 待发布
 tags:
   - Nginx
+updated_time: February 20, 2022 9:38 AM
 title: Nginx 添加用户鉴权
 ---
 

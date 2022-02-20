@@ -2,10 +2,10 @@
 categories:
   - Android
 created_time: February 19, 2022 9:31 AM
-date: 2015/04/01
+date: 2015/03/16
 show_category: No
 status: 待发布
-updated_time: February 19, 2022 11:12 AM
+updated_time: February 20, 2022 9:38 AM
 title: Eclipse运行Android项目时Failed to install SqliteDemo.apk on device '6CY4255XR9!
 ---
 

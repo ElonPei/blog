@@ -1,12 +1,14 @@
 ---
 categories:
   - 数据库
-date: 2022/01/03
+created_time: December 12, 2021 4:36 PM
+date: 2021/11/08
 excerpt: 熟练使用 EXPLAIN 我们可以分析SQL查询语句的性能和发现优化思路。
 show_category: Yes
 status: 待发布
 tags:
   - MySQL
+updated_time: February 20, 2022 9:38 AM
 title: MySQL EXPLAIN
 ---
 
