@@ -9,7 +9,7 @@ status: 待发布
 tags:
   - Python
   - 效率
-updated_time: February 20, 2022 9:31 AM
+updated_time: February 20, 2022 9:34 AM
 title: 阿里云OSS文件上传Python脚本
 ---
 
@@ -24,3 +24,27 @@ title: 阿里云OSS文件上传Python脚本
  系统          : macOS 10.13
  Python版本    : 3.6.1
 ```
+
+## **使用方法**
+
+执行命令
+
+```
+  oss_2_mk.py [-absolute_path]
+```
+
+例:
+
+```
+  执行:
+  oss_2_mk.py /Users/elong/Desktop/war/gc_collector.jxpxg
+  输出:
+  obj_name : gc_collector.jxpxg
+  start upload to oss ....
+  end upload to oss
+  please CMD + v to paste markdown img grammar
+```
+
+## 原**代码**
+
+源代码已开源，**[点此查看](https://github.com/erick-pei/oss2mk/blob/master/oss_2_mk.py)**。
