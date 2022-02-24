@@ -9,7 +9,7 @@ show_category: Yes
 status: 待发布
 tags:
   - Mac
-updated_time: February 19, 2022 3:20 PM
+updated_time: February 24, 2022 4:30 PM
 title: 基于M1芯片的Mac环境搭建记录
 ---
 
@@ -47,6 +47,14 @@ title: 基于M1芯片的Mac环境搭建记录
 
 ```bash
 brew install mysql
+```
+
+## brew 安装 Redis 环境
+
+- 支持m1
+
+```bash
+brew install redis
 ```
 
 ### brew安装conda环境安装
