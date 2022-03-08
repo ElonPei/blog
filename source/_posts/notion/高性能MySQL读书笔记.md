@@ -8,7 +8,7 @@ show_category: Yes
 status: 待发布
 tags:
   - MySQL
-updated_time: March 8, 2022 11:42 AM
+updated_time: March 8, 2022 11:45 AM
 title: 高性能MySQL读书笔记
 ---
 
@@ -22,8 +22,11 @@ title: 高性能MySQL读书笔记
 
 ### 计数器表
 
-> 当我们使用单个记录来保存计数器，则在更新计数器时可能碰到并发问题。
-> 
+<aside>
+
+<img class="emoji" draggable="false" alt="💡" src="https://twemoji.maxcdn.com/v/13.1.0/72x72/1f4a1.png"/> 当我们使用单个记录来保存计数器，则在更新计数器时可能碰到并发问题。
+</aside>
+
 - 一个比较好的解决方式就是通过多个字段（`slot`，`cnt`）来保存计数器，然后查询的时候使用 `sum` 来求和。
 - 如果需要一天生成一个计数器，可以通过添加data字段来对应每天的计数。
 
@@ -34,8 +37,11 @@ title: 高性能MySQL读书笔记
 
 ### 只替换.frm文件的方法
 
-> 使用前需要考虑清楚执行的操作的合理性，有一定的心智负担。
-> 
+<aside>
+
+<img class="emoji" draggable="false" alt="💡" src="https://twemoji.maxcdn.com/v/13.1.0/72x72/1f4a1.png"/> 使用前需要考虑清楚执行的操作的合理性，有一定的心智负担。
+</aside>
+
 1. 创建一个有相同数据结构的空表，并进行所需要的修改。
 2. 执行 `FLUSH TABLES WITH READ LOCK` 关闭所有正在使用的表，并且禁止任何表被打开。
 3. 交换 .frm 文件。
@@ -67,8 +73,11 @@ B-Tree 索引对什么类型的查询有效？（ex: `key(last_name, first_name,
 
 ### 哈希索引
 
-> InnoDB 中的“自适应哈希索引”也是对哈希索引的一种利用，主要是在B-Tree索引上针对查询特别频繁的索引的一种优化。
-> 
+<aside>
+
+<img class="emoji" draggable="false" alt="💡" src="https://twemoji.maxcdn.com/v/13.1.0/72x72/1f4a1.png"/> InnoDB 中的“自适应哈希索引”也是对哈希索引的一种利用，主要是在B-Tree索引上针对查询特别频繁的索引的一种优化。
+</aside>
+
 - 只有Memory存储引擎显式支持哈希索引。
 
 哈希索引的限制
@@ -84,9 +93,8 @@ B-Tree 索引对什么类型的查询有效？（ex: `key(last_name, first_name,
 1. 面对比较长的字符串，用CRC32方法进行运算，把运算的结果放入单独的一列做索引。
 2. 避免哈希冲突的查询方式：
 
-```
+```sql
 SELECT * FROM user WHERE crc=CRC32('xxxxxx') and word = 'xxxxxxx';
-
 ```
 
 ### 空间数据索引（R-Tree）
