@@ -33,6 +33,7 @@ jobs:
     - name: hugo build
       run: |
         hugo
+        ls -al public
       env:
         CI: true
 
