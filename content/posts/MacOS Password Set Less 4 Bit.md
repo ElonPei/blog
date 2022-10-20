@@ -5,12 +5,11 @@ tags:
   - Mac
 ---
 
-> 10.14
+> 使用的 MacOS 版本 10.14
 
-1. 打开终端输入
-
-```bash
+```sh
+# 1. 打开终端输入
 pwpolicy -clearaccountpolicies
+# 2. 然后 `passwd` 可以更改密码
+passwd
 ```
-
-2. 然后 `passwd` 可以更改密码
