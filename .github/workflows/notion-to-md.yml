@@ -29,7 +29,7 @@ jobs:
 
     - name: "cp md files"
       run: |
-        cp -f ./tmp/*.md content/posts/notion/
+        cp -f ./tmp/*.md ./content/posts/
         rm -rf ./tmp
 
     - name: git setting
