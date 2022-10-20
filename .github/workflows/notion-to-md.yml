@@ -27,10 +27,10 @@ jobs:
       with:
         input: "./tmp/*.md"
 
-    # - name: "cp md files"
-    #   run: |
-    #     cp -f ./tmp/*.md content/posts/notion/
-    #     rm -rf ./tmp
+    - name: "cp md files"
+      run: |
+        cp -f ./tmp/*.md content/posts/notion/
+        rm -rf ./tmp
 
     - name: git setting
       run: |
