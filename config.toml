@@ -1,0 +1,4 @@
+baseURL = 'https://blog.peiel.com/'
+languageCode = 'en-us'
+title = 'Peiel'
+theme = "LoveIt"
