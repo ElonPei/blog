@@ -1,0 +1,12 @@
+User-agent: *
+
+Allow: /
+Allow: /posts/
+Allow: /about/
+Allow: /links/
+Allow: /projects/
+Allow: /tags/
+Allow: /categories/
+Allow: /donate/
+
+Sitemap: {{ "/sitemap.xml" | absLangURL }}
