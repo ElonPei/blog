@@ -22,20 +22,17 @@ jobs:
       with:
         node-version: 16
     
-    # npm install
-    - name: npm install
+    # install hugo
+    - name: install hugo
       run: |
-        npm install -g hexo-cli
-        npm install
-        sudo apt-get install pandoc
+        sudo apt-get install hugo
       env:
         CI: true
     
     # build
-    - name: hexo build
+    - name: hugo build
       run: |
-        hexo clean
-        hexo generate
+        hugo
       env:
         CI: true
 
