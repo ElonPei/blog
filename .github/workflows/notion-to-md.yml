@@ -14,7 +14,7 @@ jobs:
       with:
         submodules: false
 
-    - uses: erick-pei/notion-blog-actions/notion@main
+    - uses: peiel/notion-blog-actions/notion@main
       with:
         token: ${{ secrets.NOTION_TOKEN }}
         token_v2: ${{ secrets.NOTION_TOKEN_V2 }}
@@ -23,19 +23,19 @@ jobs:
         output: "./tmp/"
 
     - name: "migrate image"
-      uses: erick-pei/notion-blog-actions/migrate@main
+      uses: peiel/notion-blog-actions/migrate@main
       with:
         input: "./tmp/*.md"
 
     - name: "cp md files"
       run: |
-        cp -f tmp/*.md source/_posts/notion/
+        cp -f tmp/*.md content/posts/notion/
         rm -rf tmp
 
     - name: git setting
       run: |
-        git config --global user.email "erick.el.pei@gmail.com"
-        git config --global user.name "Erick"
+        git config --global user.email "peiel@gmail.com"
+        git config --global user.name "peiel"
 
     - name: update blog
       run: |
