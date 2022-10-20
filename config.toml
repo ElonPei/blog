@@ -1,4 +1,4 @@
-baseURL = "https://blog.peiel.com/"
+baseURL = "https://peiel.com/"
 relativeURLs = true
 theme = "LoveIt"
 title = "Peiel"
@@ -217,7 +217,7 @@ LanguageCode = "zh-CN"
 [author]
   name = "Peiel"
   email = "peielcn@gmail.com"
-  link = "https://blog.peiel.com"
+  link = "https://peiel.com"
 
 [sitemap]
   changefreq = "always"
