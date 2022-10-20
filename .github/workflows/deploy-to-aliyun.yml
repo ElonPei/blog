@@ -13,9 +13,17 @@ jobs:
   deploy-to-aliyun:
     runs-on: ubuntu-latest
     steps:
+    
     # 切换分支
     - name: Checkout
       uses: actions/checkout@main
+
+    # Update references
+    - name: Git Sumbodule Update
+      run: |
+        git pull --recurse-submodules
+        git submodule update --remote --recursive
+
     # 使用 node:16
     - name: use Node.js 16
       uses: actions/setup-node@v1
