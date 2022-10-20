@@ -172,22 +172,22 @@ LanguageCode = "zh-CN"
         name = "zu1k"
         logoUrl = "https://zu1k.com/images/logo.jpg"
 
-  [params.comment]
-      enable = true
-      [params.comment.giscus]
-        enable = true
-        repo = "zu1k/blog"
-        repoId = "MDEwOlJlcG9zaXRvcnkzMDExMDQ1OTU="
-        category = "Comments"
-        categoryId = "DIC_kwDOEfJ9084CA02V"
-        mapping = "og:title"
-      [params.comment.utterances]
-        enable = false
-        repo = "zu1k/comment"
-        issueTerm = "url"
-        label = "blog"
-        lightTheme = "github-light"
-        darkTheme = "github-dark"
+  # [params.comment]
+  #     enable = true
+  #     [params.comment.giscus]
+  #       enable = true
+  #       repo = "zu1k/blog"
+  #       repoId = "MDEwOlJlcG9zaXRvcnkzMDExMDQ1OTU="
+  #       category = "Comments"
+  #       categoryId = "DIC_kwDOEfJ9084CA02V"
+  #       mapping = "og:title"
+  #     [params.comment.utterances]
+  #       enable = false
+  #       repo = "zu1k/comment"
+  #       issueTerm = "url"
+  #       label = "blog"
+  #       lightTheme = "github-light"
+  #       darkTheme = "github-dark"
 
 [markup]
   # 语法高亮设置 (https://gohugo.io/content-management/syntax-highlighting)
