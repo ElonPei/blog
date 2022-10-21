@@ -88,9 +88,6 @@ LanguageCode = "zh-CN"
       paginate = 5
   [params.social]
     GitHub = "peiel"
-    Twitter = "zu1k_lv"
-    Tumblr = "t.lgf.im/?site="
-    Telegram = "peekfun"
     Email = "peielcn@gmail.com"
 
   [params.header]
@@ -110,16 +107,11 @@ LanguageCode = "zh-CN"
     hugo = false  # 是否显示 Hugo 和主题信息
     copyright = true  # 是否显示版权信息
     author = true  # 是否显示作者
-    since = 2017 # 网站创立年份
+    since = 2015 # 网站创立年份
     icp = "" # ICP 备案信息，仅在中国使用 (支持 HTML 格式)
     # 许可协议信息 (支持 HTML 格式)
     license= '<a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>'
     statistic = """"""
-
-    [params.footer.cdnprovider]
-      enable = false
-      name = "DogeCloud"
-      url = "https://www.dogecloud.com/?iuid=2357"
 
   # Section (所有文章) 页面配置
   [params.section]
@@ -169,8 +161,8 @@ LanguageCode = "zh-CN"
       images = ["/images/logo.jpg"]
       # 出版者信息
       [params.page.seo.publisher]
-        name = "zu1k"
-        logoUrl = "https://zu1k.com/images/logo.jpg"
+        name = "peiel"
+        logoUrl = "https://peiel.com/images/logo.jpg"
 
   # [params.comment]
   #     enable = true
