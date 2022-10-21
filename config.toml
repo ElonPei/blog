@@ -31,13 +31,13 @@ LanguageCode = "zh-CN"
     weight = 10
   [[menu.main]]
     identifier = "rss"
-    pre = "<i class='icon-rss'></i>"
+    pre = "<i class='fas fa-rss fa-fw'></i>"
     url = "/index.xml"
     title = "RSS"
     weight = 18
   [[menu.main]]
     identifier = "github"
-    pre = "<i class='icon-github'></i>"
+    pre = "<i class='fab fa-github fa-fw'></i>"
     url = "https://github.com/peiel"
     title = "GitHub"
     weight = 20
