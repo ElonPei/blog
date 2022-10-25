@@ -26,6 +26,9 @@ jobs:
     - name: Git Sumbodule Update
       run: |
         git submodule update --init
+        cd themes/LoveIt/
+        git pull
+        cd ../..
 
     # 使用 node:16
     - name: use Node.js 16
