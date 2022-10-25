@@ -10,13 +10,14 @@ date: 2016-06-01
 2.  导入CentOS虚拟机文件到虚拟机中。
 
 
-
 1.  配置CentOS网络适配器->`自定义`->`VMnet8(NAT模式)`。
 
 
 2.  虚拟机中 `编辑` -> `虚拟网络编辑器`
 
 >  选择VMnet8，配置`子网IP`、`子网掩码`和`网关`。
+
+
 
 ### 二、Linux下相关配置工作
 
@@ -108,6 +109,7 @@ export PATH=$PATH:$JAVA_HOME/bin
 使配置文件生效 `source /***/***`
 
 重启网络服务的命令 `service network restart`
+
 
 ### 安装Hadoop2.4.1
 

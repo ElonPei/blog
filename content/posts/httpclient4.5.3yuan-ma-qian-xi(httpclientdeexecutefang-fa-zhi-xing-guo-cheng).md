@@ -19,28 +19,28 @@ tags:
 
 
 ```Java
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public CloseableHttpResponse execute(
-            final HttpUriRequest request) throws IOException, ClientProtocolException {
-        return execute(request, (HttpContext) null);
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public CloseableHttpResponse execute(
-            final HttpUriRequest request,
-            final HttpContext context) throws IOException, ClientProtocolException {
-        Args.notNull(request, "HTTP request");
-        return doExecute(determineTarget(request), request, context);
-    }
-    
-    protected abstract CloseableHttpResponse doExecute(HttpHost target, HttpRequest request,
-            HttpContext context) throws IOException, ClientProtocolException;
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public CloseableHttpResponse execute(
+          final HttpUriRequest request) throws IOException, ClientProtocolException {
+      return execute(request, (HttpContext) null);
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public CloseableHttpResponse execute(
+          final HttpUriRequest request,
+          final HttpContext context) throws IOException, ClientProtocolException {
+      Args.notNull(request, "HTTP request");
+      return doExecute(determineTarget(request), request, context);
+  }
+  
+  protected abstract CloseableHttpResponse doExecute(HttpHost target, HttpRequest request,
+          HttpContext context) throws IOException, ClientProtocolException;
 
 ```
 
@@ -50,44 +50,44 @@ tags:
 
 
 ```Java
-    @Override
-    protected CloseableHttpResponse doExecute(
-            final HttpHost target,
-            final HttpRequest request,
-            final HttpContext context) throws IOException, ClientProtocolException {
-        Args.notNull(request, "HTTP request");
-        HttpExecutionAware execAware = null;
-        if (request instanceof HttpExecutionAware) {
-            execAware = (HttpExecutionAware) request;
-        }
-        try {
-            final HttpRequestWrapper wrapper = HttpRequestWrapper.wrap(request, target);
-            final HttpClientContext localcontext = HttpClientContext.adapt(
-                    context != null ? context : new BasicHttpContext());
-            RequestConfig config = null;
-            if (request instanceof Configurable) {
-                config = ((Configurable) request).getConfig();
-            }
-            if (config == null) {
-                final HttpParams params = request.getParams();
-                if (params instanceof HttpParamsNames) {
-                    if (!((HttpParamsNames) params).getNames().isEmpty()) {
-                        config = HttpClientParamConfig.getRequestConfig(params, this.defaultConfig);
-                    }
-                } else {
-                    config = HttpClientParamConfig.getRequestConfig(params, this.defaultConfig);
-                }
-            }
-            if (config != null) {
-                localcontext.setRequestConfig(config);
-            }
-            setupContext(localcontext);
-            final HttpRoute route = determineRoute(target, wrapper, localcontext);
-            return this.execChain.execute(route, wrapper, localcontext, execAware);
-        } catch (final HttpException httpException) {
-            throw new ClientProtocolException(httpException);
-        }
-    }
+  @Override
+  protected CloseableHttpResponse doExecute(
+          final HttpHost target,
+          final HttpRequest request,
+          final HttpContext context) throws IOException, ClientProtocolException {
+      Args.notNull(request, "HTTP request");
+      HttpExecutionAware execAware = null;
+      if (request instanceof HttpExecutionAware) {
+          execAware = (HttpExecutionAware) request;
+      }
+      try {
+          final HttpRequestWrapper wrapper = HttpRequestWrapper.wrap(request, target);
+          final HttpClientContext localcontext = HttpClientContext.adapt(
+                  context != null ? context : new BasicHttpContext());
+          RequestConfig config = null;
+          if (request instanceof Configurable) {
+              config = ((Configurable) request).getConfig();
+          }
+          if (config == null) {
+              final HttpParams params = request.getParams();
+              if (params instanceof HttpParamsNames) {
+                  if (!((HttpParamsNames) params).getNames().isEmpty()) {
+                      config = HttpClientParamConfig.getRequestConfig(params, this.defaultConfig);
+                  }
+              } else {
+                  config = HttpClientParamConfig.getRequestConfig(params, this.defaultConfig);
+              }
+          }
+          if (config != null) {
+              localcontext.setRequestConfig(config);
+          }
+          setupContext(localcontext);
+          final HttpRoute route = determineRoute(target, wrapper, localcontext);
+          return this.execChain.execute(route, wrapper, localcontext, execAware);
+      } catch (final HttpException httpException) {
+          throw new ClientProtocolException(httpException);
+      }
+  }
 ```
 
 
@@ -113,9 +113,9 @@ tags:
 
 
 ```Java
-    if (request instanceof HttpEntityEnclosingRequest) {
-        RequestEntityProxy.enhance((HttpEntityEnclosingRequest) request);
-    }
+  if (request instanceof HttpEntityEnclosingRequest) {
+      RequestEntityProxy.enhance((HttpEntityEnclosingRequest) request);
+  }
 ```
 
 
@@ -124,7 +124,7 @@ tags:
 
 
 ```Java
-    Object userToken = context.getUserToken();
+  Object userToken = context.getUserToken();
 ```
 
 
@@ -133,7 +133,7 @@ tags:
 
 
 ```Java
-    final ConnectionRequest connRequest = connManager.requestConnection(route, userToken);
+  final ConnectionRequest connRequest = connManager.requestConnection(route, userToken);
 ```
 
 
@@ -142,14 +142,14 @@ tags:
 
 
 ```Java
-    if (execAware != null) {
-            if (execAware.isAborted()) {
-                connRequest.cancel();
-                throw new RequestAbortedException("Request aborted");
-            } else {
-                execAware.setCancellable(connRequest);
-            }
-        }
+  if (execAware != null) {
+          if (execAware.isAborted()) {
+              connRequest.cancel();
+              throw new RequestAbortedException("Request aborted");
+          } else {
+              execAware.setCancellable(connRequest);
+          }
+      }
 ```
 
 
@@ -158,7 +158,7 @@ tags:
 
 
 ```Java
-        final RequestConfig config = context.getRequestConfig();
+      final RequestConfig config = context.getRequestConfig();
 ```
 
 
@@ -167,20 +167,20 @@ tags:
 
 
 ```Java
-        final HttpClientConnection managedConn;
-        try {
-            final int timeout = config.getConnectionRequestTimeout();
-            managedConn = connRequest.get(timeout > 0 ? timeout : 0, TimeUnit.MILLISECONDS);
-        } catch(final InterruptedException interrupted) {
-            Thread.currentThread().interrupt();
-            throw new RequestAbortedException("Request aborted", interrupted);
-        } catch(final ExecutionException ex) {
-            Throwable cause = ex.getCause();
-            if (cause == null) {
-                cause = ex;
-            }
-            throw new RequestAbortedException("Request execution failed", cause);
-        }
+      final HttpClientConnection managedConn;
+      try {
+          final int timeout = config.getConnectionRequestTimeout();
+          managedConn = connRequest.get(timeout > 0 ? timeout : 0, TimeUnit.MILLISECONDS);
+      } catch(final InterruptedException interrupted) {
+          Thread.currentThread().interrupt();
+          throw new RequestAbortedException("Request aborted", interrupted);
+      } catch(final ExecutionException ex) {
+          Throwable cause = ex.getCause();
+          if (cause == null) {
+              cause = ex;
+          }
+          throw new RequestAbortedException("Request execution failed", cause);
+      }
 ```
 
 
@@ -189,18 +189,18 @@ tags:
 
 
 ```Java
-    context.setAttribute(HttpCoreContext.HTTP_CONNECTION, managedConn);
+  context.setAttribute(HttpCoreContext.HTTP_CONNECTION, managedConn);
 
-        if (config.isStaleConnectionCheckEnabled()) {
-            // validate connection
-            if (managedConn.isOpen()) {
-                this.log.debug("Stale connection check");
-                if (managedConn.isStale()) {
-                    this.log.debug("Stale connection detected");
-                    managedConn.close();
-                }
-            }
-        }
+      if (config.isStaleConnectionCheckEnabled()) {
+          // validate connection
+          if (managedConn.isOpen()) {
+              this.log.debug("Stale connection check");
+              if (managedConn.isStale()) {
+                  this.log.debug("Stale connection detected");
+                  managedConn.close();
+              }
+          }
+      }
 ```
 
 
@@ -221,8 +221,8 @@ final ConnectionHolder connHolder = new ConnectionHolder(this.log, this.connMana
 
 ```Java
 if (execAware != null) {
-                execAware.setCancellable(connHolder);
-            }
+              execAware.setCancellable(connHolder);
+          }
 ```
 
 
@@ -230,67 +230,67 @@ if (execAware != null) {
 
 
 ```Java
-    HttpResponse response;
-            for (int execCount = 1;; execCount++) {
+  HttpResponse response;
+          for (int execCount = 1;; execCount++) {
 
-                if (execCount > 1 && !RequestEntityProxy.isRepeatable(request)) {
-                    throw new NonRepeatableRequestException("Cannot retry request " +
-                            "with a non-repeatable request entity.");
-                }
+              if (execCount > 1 && !RequestEntityProxy.isRepeatable(request)) {
+                  throw new NonRepeatableRequestException("Cannot retry request " +
+                          "with a non-repeatable request entity.");
+              }
 
-                if (execAware != null && execAware.isAborted()) {
-                    throw new RequestAbortedException("Request aborted");
-                }
+              if (execAware != null && execAware.isAborted()) {
+                  throw new RequestAbortedException("Request aborted");
+              }
 
-                if (!managedConn.isOpen()) {
-                    this.log.debug("Opening connection " + route);
-                    try {
-                        establishRoute(proxyAuthState, managedConn, route, request, context);
-                    } catch (final TunnelRefusedException ex) {
-                        if (this.log.isDebugEnabled()) {
-                            this.log.debug(ex.getMessage());
-                        }
-                        response = ex.getResponse();
-                        break;
-                    }
-                }
-                final int timeout = config.getSocketTimeout();
-                if (timeout >= 0) {
-                    managedConn.setSocketTimeout(timeout);
-                }
+              if (!managedConn.isOpen()) {
+                  this.log.debug("Opening connection " + route);
+                  try {
+                      establishRoute(proxyAuthState, managedConn, route, request, context);
+                  } catch (final TunnelRefusedException ex) {
+                      if (this.log.isDebugEnabled()) {
+                          this.log.debug(ex.getMessage());
+                      }
+                      response = ex.getResponse();
+                      break;
+                  }
+              }
+              final int timeout = config.getSocketTimeout();
+              if (timeout >= 0) {
+                  managedConn.setSocketTimeout(timeout);
+              }
 
-                if (execAware != null && execAware.isAborted()) {
-                    throw new RequestAbortedException("Request aborted");
-                }
+              if (execAware != null && execAware.isAborted()) {
+                  throw new RequestAbortedException("Request aborted");
+              }
 
-                if (this.log.isDebugEnabled()) {
-                    this.log.debug("Executing request " + request.getRequestLine());
-                }
+              if (this.log.isDebugEnabled()) {
+                  this.log.debug("Executing request " + request.getRequestLine());
+              }
 
-                // 。。。 省略auth相关
+              // 。。。 省略auth相关
 
-                response = requestExecutor.execute(request, managedConn, context);
+              response = requestExecutor.execute(request, managedConn, context);
 
-                // The connection is in or can be brought to a re-usable state.
-                if (reuseStrategy.keepAlive(response, context)) {
-                    // Set the idle duration of this connection
-                    final long duration = keepAliveStrategy.getKeepAliveDuration(response, context);
-                    if (this.log.isDebugEnabled()) {
-                        final String s;
-                        if (duration > 0) {
-                            s = "for " + duration + " " + TimeUnit.MILLISECONDS;
-                        } else {
-                            s = "indefinitely";
-                        }
-                        this.log.debug("Connection can be kept alive " + s);
-                    }
-                    connHolder.setValidFor(duration, TimeUnit.MILLISECONDS);
-                    connHolder.markReusable();
-                } else {
-                    connHolder.markNonReusable();
-                }
-                // 。。。 省略auth相关、
-            }
+              // The connection is in or can be brought to a re-usable state.
+              if (reuseStrategy.keepAlive(response, context)) {
+                  // Set the idle duration of this connection
+                  final long duration = keepAliveStrategy.getKeepAliveDuration(response, context);
+                  if (this.log.isDebugEnabled()) {
+                      final String s;
+                      if (duration > 0) {
+                          s = "for " + duration + " " + TimeUnit.MILLISECONDS;
+                      } else {
+                          s = "indefinitely";
+                      }
+                      this.log.debug("Connection can be kept alive " + s);
+                  }
+                  connHolder.setValidFor(duration, TimeUnit.MILLISECONDS);
+                  connHolder.markReusable();
+              } else {
+                  connHolder.markNonReusable();
+              }
+              // 。。。 省略auth相关、
+          }
 ```
 
 
@@ -314,30 +314,29 @@ if (execAware != null) {
 
 
 ```Java
-    if (userToken == null) {
-                userToken = userTokenHandler.getUserToken(context);
-                context.setAttribute(HttpClientContext.USER_TOKEN, userToken);
-            }
-            if (userToken != null) {
-                connHolder.setState(userToken);
-            }
+  if (userToken == null) {
+              userToken = userTokenHandler.getUserToken(context);
+              context.setAttribute(HttpClientContext.USER_TOKEN, userToken);
+          }
+          if (userToken != null) {
+              connHolder.setState(userToken);
+          }
 ```
 
 
 把当前用户标识保存给链接持有者。
 
 
-
 ```Java
-        // check for entity, release connection if possible
-        final HttpEntity entity = response.getEntity();
-        if (entity == null || !entity.isStreaming()) {
-            // connection not needed and (assumed to be) in re-usable state
-            connHolder.releaseConnection();
-            return new HttpResponseProxy(response, null);
-        } else {
-            return new HttpResponseProxy(response, connHolder);
-        }
+      // check for entity, release connection if possible
+      final HttpEntity entity = response.getEntity();
+      if (entity == null || !entity.isStreaming()) {
+          // connection not needed and (assumed to be) in re-usable state
+          connHolder.releaseConnection();
+          return new HttpResponseProxy(response, null);
+      } else {
+          return new HttpResponseProxy(response, connHolder);
+      }
 ```
 
 
@@ -347,6 +346,5 @@ if (execAware != null) {
 
 
 ---
-
 
 至此，`HttpClient`对象的`execute()`方法的简要的执行流程基本上就分析完毕。
