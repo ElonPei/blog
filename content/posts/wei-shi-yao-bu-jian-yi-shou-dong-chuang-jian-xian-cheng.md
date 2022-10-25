@@ -13,7 +13,7 @@ tags:
 
 更加明确线程池的运行规则，规避资源耗尽的风险。
 
-## `Executors` 返回的线程池有什么弊？
+## `Executors` 返回的线程池有什么弊端？
 
 1. `FixedThreadPool` 和 `SingleThreadPool`
 
