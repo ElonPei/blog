@@ -1,6 +1,9 @@
 ---
-title: LeetCode 9. Palindrome Number
+title: LeetCode009 Palindrome Number
 date: 2018-07-01
+tags:
+  - Algorithm
+  - LeetCode
 ---
 
 
@@ -11,8 +14,8 @@ date: 2018-07-01
 ## 代码
 
 
-`java
-ass Solution {
+```java
+class Solution {
 public boolean isPalindrome(int x) {
     char[] chars = String.valueOf(x).toCharArray();
     int lo = 0;
@@ -23,6 +26,7 @@ public boolean isPalindrome(int x) {
         }
     }
     return true;
+}
 }
 ```
 

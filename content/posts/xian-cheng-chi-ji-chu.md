@@ -44,9 +44,11 @@ tags:
 
 ### 线程池如何维护自身状态？
 
-![线程池的生命周期](https://raw.githubusercontent.com/peiel/oss/master/uPic/Cke0my.jpg){:height 194, :width 746}
+![线程池的生命周期](https://raw.githubusercontent.com/peiel/oss/master/uPic/Cke0my.jpg)
 
+```java
 private final AtomicInteger ctl = new AtomicInteger(ctlOf(RUNNING, 0));
+```
 
 ### 线程池如何管理任务？
 
@@ -72,11 +74,11 @@ private final AtomicInteger ctl = new AtomicInteger(ctlOf(RUNNING, 0));
 
 #### worker线程
 
-	  ```java
-	  private final class Worker extends AbstractQueuedSynchronizer implements Runnable{
-	    final Thread thread;//Worker持有的线程
-	    Runnable firstTask;//初始化的任务，可以为null
-	  }
+```java
+private final class Worker extends AbstractQueuedSynchronizer implements Runnable{
+  final Thread thread;//Worker持有的线程
+  Runnable firstTask;//初始化的任务，可以为null
+}
 ```
 
 #### worker线程的添加

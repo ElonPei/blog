@@ -1,6 +1,8 @@
 ---
 title: 估算规模为n的三层嵌套循环代码中数组访问次数
 date: 2018-01-01
+tags:
+  - Algorithm
 ---
 
 本题为《算法4》作者 Robert Sedgewick 和 Kevin Wayne 在 Cursera 上开设的公开课的习题解答，本题为WEEK1中第二部分视频中的选择题。地址为：
@@ -18,13 +20,13 @@ How many array accesses does the following code fragment make as a function of n
 <!--more-->
 
 
-`java
-t sum = 0;
-r(int i = 0; i < n; i++)
-or(int j = i+1; j < n; j++)
-for(int k = 1; k < n; k=k*2)
-	if(a[i] + a[j] >= a[k])
-		sum++;
+```java
+int sum = 0;
+for(int i = 0; i < n; i++)
+	for(int j = i+1; j < n; j++)
+		for(int k = 1; k < n; k=k*2)
+			if(a[i] + a[j] >= a[k])
+				sum++;
 ```
 
 

@@ -9,12 +9,12 @@ date: 2019-04-01
 ## 数据库建表语句
 
 
-`sql
-EATE TABLE `sequence` (
-`id` int(11) NOT NULL AUTO_INCREMENT,
-`stub` char(1) NOT NULL,
-PRIMARY KEY (`id`)
-ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='主键id发号器';
+```sql
+CREATE TABLE `sequence` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `stub` char(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='主键id发号器';
 ```
 
 
@@ -24,9 +24,9 @@ ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='主键id发号器';
 可以使用任何语言来实现，保证执行的两个sql处于同一个事务即可，如果不在同一个事务，多线程下会产生竞态条件。
 
 
-`sql
-PLACE INTO `sequence` (stub) VALUES ('o');
-LECT LAST_INSERT_ID();
+```sql
+REPLACE INTO `sequence` (stub) VALUES ('o');
+SELECT LAST_INSERT_ID();
 ```
 
 

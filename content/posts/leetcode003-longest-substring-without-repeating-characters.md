@@ -31,27 +31,30 @@ tags:
 进行最大值求解
 
 
-`java
-blic static int lengthOfLongestSubstring(String s) {
-  int max = 0;
-  for (int i = 0; i < s.length(); i++) {
-      for (int j = i; j < s.length(); j++) {
-          if (isSubstring(s, i, j)) {
-              max = Math.max(max, j - i + 1);
-          }
-      }
-  }
-  return max;
-ivate static boolean isSubstring(String s, int start, int end) {
-  Map<Character, Integer> map = new HashMap<>();
-  for (int i = start; i <= end; i++) {
-      char c = s.charAt(i);
-      map.put(c, map.get(c) == null ? 1 : map.get(c) + 1);
-      if (map.get(c) > 1) {
-          return false;
-      }
-  }
-  return true;
+```java
+public static int lengthOfLongestSubstring(String s) {
+    int max = 0;
+    for (int i = 0; i < s.length(); i++) {
+        for (int j = i; j < s.length(); j++) {
+            if (isSubstring(s, i, j)) {
+                max = Math.max(max, j - i + 1);
+            }
+        }
+    }
+    return max;
+}
+
+private static boolean isSubstring(String s, int start, int end) {
+    Map<Character, Integer> map = new HashMap<>();
+    for (int i = start; i <= end; i++) {
+        char c = s.charAt(i);
+        map.put(c, map.get(c) == null ? 1 : map.get(c) + 1);
+        if (map.get(c) > 1) {
+            return false;
+        }
+    }
+    return true;
+}
 ```
 
 
@@ -68,32 +71,33 @@ ivate static boolean isSubstring(String s, int start, int end) {
 然后遍历 `list` 求出最长的子串即可
 
 
-`java
-blic static int lengthOfLongestSubstring(String s) {
-List<String> list = new ArrayList<>();
-// 算出所有可能的子串
-StringBuilder substring = new StringBuilder();
-char[] chars = s.toCharArray();
-for (int i = 0; i < chars.length; i++) {
-    char c = chars[i];
-    if (!substring.toString().contains(c + "")) {
-        substring.append(c);
-    } else {
-        list.add(substring.toString());
-        i = i - substring.length();
-        substring = new StringBuilder();
-    }
+```java
+public static int lengthOfLongestSubstring(String s) {
+		List<String> list = new ArrayList<>();
+		// 算出所有可能的子串
+		StringBuilder substring = new StringBuilder();
+		char[] chars = s.toCharArray();
+		for (int i = 0; i < chars.length; i++) {
+		    char c = chars[i];
+		    if (!substring.toString().contains(c + "")) {
+		        substring.append(c);
+		    } else {
+		        list.add(substring.toString());
+		        i = i - substring.length();
+		        substring = new StringBuilder();
+		    }
+		}
+		list.add(substring.toString());
+		// 求出最长子串
+		int max = 0;
+		for (String s1 : list) {
+		    int len = s1.length();
+		    if (len > max) {
+		        max = len;
+		    }
+		}
+		return max;
 }
-list.add(substring.toString());
-// 求出最长子串
-int max = 0;
-for (String s1 : list) {
-    int len = s1.length();
-    if (len > max) {
-        max = len;
-    }
-}
-return max;
 ```
 
 
@@ -117,29 +121,30 @@ return max;
 循环结束后返回结果即可。
 
 
-`java
-blic int lengthOfLongestSubstring(String s) {
-  int res = 0;
-  int n = s.length();
-  int first = 0;
-  int last = 0;
-  Set<Character> set = new HashSet<>();
-  while (first < n && last < n){
-      if (set.contains(s.charAt(last))){
-          set.remove(s.charAt(first++));
-      }else {
-          set.add(s.charAt(last++));
-          res = Math.max(res, last - first);
-      }
-  }
-  return res;
+```java
+public int lengthOfLongestSubstring(String s) {
+    int res = 0;
+    int n = s.length();
+    int first = 0;
+    int last = 0;
+    Set<Character> set = new HashSet<>();
+    while (first < n && last < n){
+        if (set.contains(s.charAt(last))){
+            set.remove(s.charAt(first++));
+        }else {
+            set.add(s.charAt(last++));
+            res = Math.max(res, last - first);
+        }
+    }
+    return res;
+}
 ```
 
 
 测试用例返回情况：
 
 
-![Untitled](https://peierlong-blog.oss-cn-hongkong.aliyuncs.com/uPic/LeetCode003 1.png)
+![Untitled](https://peierlong-blog.oss-cn-hongkong.aliyuncs.com/uPic/LeetCode003%201.png)
 
 
 The End!

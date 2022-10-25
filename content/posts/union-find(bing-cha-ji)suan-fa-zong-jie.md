@@ -1,6 +1,8 @@
 ---
 title: Union-find(并查集)算法总结
 date: 2017-12-01
+tags:
+  - Algorithm
 ---
 
 # 并查集算法总结
@@ -47,29 +49,31 @@ Union：将两个子集合并成同一个集合。
 ### 主要代码
 
 
-`java
-ivate List<List<Integer>> components;
-初始化 - time complexity: N
-r (int i = 0; i < N; i++) {
-  List<Integer> component = new ArrayList<>();
-  component.add(i);
-  components.add(component);
-查找index - time complexity: N²
-r (List<Integer> component : components) {
-  for (Integer z : component) {
-      if (p == z) {
-          return components.indexOf(component);
-      }
-  }
-合并 - time complexity: N²+
-t pidx = find(p);
-t qidx = find(q);
- (pidx != qidx) {
-  List<Integer> qcomponent = components.get(qidx);
-  List<Integer> pcomponent = components.get(pidx);
-  pcomponent.addAll(qcomponent);
-  components.remove(qidx);
-
+```java
+private List<List<Integer>> components;
+//初始化 - time complexity: N
+for (int i = 0; i < N; i++) {
+    List<Integer> component = new ArrayList<>();
+    component.add(i);
+    components.add(component);
+}
+//查找index - time complexity: N²
+for (List<Integer> component : components) {
+    for (Integer z : component) {
+        if (p == z) {
+            return components.indexOf(component);
+        }
+    }
+}
+//合并 - time complexity: N²+
+int pidx = find(p);
+int qidx = find(q);
+if (pidx != qidx) {
+    List<Integer> qcomponent = components.get(qidx);
+    List<Integer> pcomponent = components.get(pidx);
+    pcomponent.addAll(qcomponent);
+    components.remove(qidx);
+} 
 ```
 
 
@@ -85,20 +89,22 @@ t qidx = find(q);
 ### 部分代码
 
 
-`java
-初始化 N
- = new int[N];
-r (int i = 0; i < N; i++) {
-  id[i] = i;
-查询 1
-turn id[p];
-合并 N(两个子集合并，需要循环修改数组中的内容)
-t pid = find(p);
-t qid = find(q);
-r (int i = 0; i < id.length; i++) {
-  if (id[i] == pid) {
-      id[i] = qid;
-  }
+```java
+//初始化 N
+id = new int[N];
+for (int i = 0; i < N; i++) {
+    id[i] = i;
+}
+//查询 1
+return id[p];
+//合并 N(两个子集合并，需要循环修改数组中的内容)
+int pid = find(p);
+int qid = find(q);
+for (int i = 0; i < id.length; i++) {
+    if (id[i] == pid) {
+        id[i] = qid;
+    }
+}
 ```
 
 
@@ -120,19 +126,21 @@ r (int i = 0; i < id.length; i++) {
 ### 主要代码
 
 
-`java
-初始化 同上 - N
-寻找根节点 N(取决于树的高度)
-ile (i != id[i]) {
-  i = id[i];
-turn i;
-合并 - N(取决于树的高度)
- (!connected(p, q)) {
-  int i = root(p);
-  int j = root(q);
-  id[i] = j;
-查询联通 - N(取决于树的高度)
-turn root(p) == root(q);
+```java
+//初始化 同上 - N
+//寻找根节点 N(取决于树的高度)
+while (i != id[i]) {
+    i = id[i];
+}
+return i;
+//合并 - N(取决于树的高度)
+if (!connected(p, q)) {
+    int i = root(p);
+    int j = root(q);
+    id[i] = j;
+}
+//查询联通 - N(取决于树的高度)
+return root(p) == root(q);
 ```
 
 
@@ -153,18 +161,19 @@ turn root(p) == root(q);
 #### 优化代码
 
 
-`java
-ivate int[] size;
-初始时全部初始化成1
-ze[i] = 1;
- 合并操作，重量小的向重量大的合并，建立一个数组来记录相应root节点的权重
- 巨大优化，合并查询操作时间复杂度提升到对数级别。
- (size[rootP] < size[rootQ]) {
-  id[rootP] = rootQ;
-  size[rootQ] += size[rootP];
-else {
-  id[rootQ] = id[rootP];
-  size[rootP] += size[rootQ];
+```java
+private int[] size;
+//初始时全部初始化成1
+size[i] = 1;
+// 合并操作，重量小的向重量大的合并，建立一个数组来记录相应root节点的权重
+// 巨大优化，合并查询操作时间复杂度提升到对数级别。
+if (size[rootP] < size[rootQ]) {
+    id[rootP] = rootQ;
+    size[rootQ] += size[rootP];
+} else {
+    id[rootQ] = id[rootP];
+    size[rootP] += size[rootQ];
+}
 ```
 
 
@@ -180,8 +189,8 @@ else {
 > 用偶像的话来说，one line code, amazing
 
 
-`java
-[i] = id[id[i]];
+```java
+id[i] = id[id[i]];
 ```
 
 

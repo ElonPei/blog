@@ -1,6 +1,8 @@
 ---
 title: 二分查找的增长阶数
 date: 2017-12-01
+tags:
+  - Algorithm
 ---
 
 <script type="text/x-mathjax-config">

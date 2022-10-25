@@ -1,6 +1,8 @@
 ---
 title: Deque和RandomizedQueue的实现
 date: 2017-12-11
+tags:
+  - Algorithm
 ---
 
 本文为《算法4》作者 Robert Sedgewick 和 Kevin Wayne 在 Cursera 上开设的公开课的编程作业，出自WEEK2编程作业，作业详情链接。
@@ -40,111 +42,129 @@ date: 2017-12-11
 ### 2. 实现代码
 
 
-`Java
-blic class Deque<Item> implements Iterable<Item> {
-  private Node<Item> first;
-  private Node<Item> last;
-  private int size;
-  public Deque() {
-  }
-  public boolean isEmpty() {
-      return first == null;
-  }
-  public int size() {
-      return size;
-  }
-  public void addFirst(Item item) {
-      verifyItem(item);
-      Node<Item> f = first;
-      first = new Node<>(item, null, f);
-      if (f == null) {
-          last = first;
-      } else {
-          f.next = first;
-      }
-      size++;
-  }
-  public void addLast(Item item) {
-      verifyItem(item);
-      Node<Item> ol = last;
-      last = new Node<>(item, ol, null);
-      if (ol == null) {
-          first = last;
-      } else {
-          ol.prev = last;
-      }
-      size++;
-  }
-  public Item removeFirst() {
-      if (isEmpty()) {
-          throw new NoSuchElementException("the deque is empty");
-      }
-      Item item = first.item;
-      first = first.prev;
-      if (first != null) {
-          first.next = null;
-      } else {
-          last = null;
-      }
-      size--;
-      return item;
-  }
-  public Item removeLast() {
-      if (isEmpty()) {
-          throw new NoSuchElementException("the deque is empty");
-      }
-      Item item = last.item;
-      last = last.next;
-      if (last != null) {
-          last.prev = null;
-      } else {
-          first = null;
-      }
-      size--;
-      return item;
-  }
-  @Override
-  public Iterator<Item> iterator() {
-      return new DequeIterator<>();
-  }
-  private void verifyItem(Item item) {
-      if (item == null) {
-          throw new IllegalArgumentException("the item is null");
-      }
-  }
-  private class Node<E> {
-      private final E item;
-      private Node<E> next;
-      private Node<E> prev;
-      Node(E item, Node<E> next, Node<E> prev) {
-          this.item = item;
-          this.next = next;
-          this.prev = prev;
-      }
-  }
-  private class DequeIterator<E> implements Iterator<E> {
-      private Node<Item> current = first;
-      private int i = size;
-      @Override
-      public boolean hasNext() {
-          return i > 0;
-      }
-      @SuppressWarnings("unchecked")
-      @Override
-      public E next() {
-          if (!hasNext()) {
-              throw new NoSuchElementException("the deque no more item to return");
-          }
-          Item item = current.item;
-          current = current.prev;
-          i--;
-          return (E) item;
-      }
-      @Override
-      public void remove() {
-          throw new UnsupportedOperationException("iterator can't remove item");
-      }
-  }
+```Java
+public class Deque<Item> implements Iterable<Item> {
+
+    private Node<Item> first;
+    private Node<Item> last;
+    private int size;
+
+    public Deque() {
+    }
+
+    public boolean isEmpty() {
+        return first == null;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public void addFirst(Item item) {
+        verifyItem(item);
+        Node<Item> f = first;
+        first = new Node<>(item, null, f);
+        if (f == null) {
+            last = first;
+        } else {
+            f.next = first;
+        }
+        size++;
+    }
+
+    public void addLast(Item item) {
+        verifyItem(item);
+        Node<Item> ol = last;
+        last = new Node<>(item, ol, null);
+        if (ol == null) {
+            first = last;
+        } else {
+            ol.prev = last;
+        }
+        size++;
+    }
+
+    public Item removeFirst() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("the deque is empty");
+        }
+        Item item = first.item;
+        first = first.prev;
+        if (first != null) {
+            first.next = null;
+        } else {
+            last = null;
+        }
+        size--;
+        return item;
+    }
+
+    public Item removeLast() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("the deque is empty");
+        }
+        Item item = last.item;
+        last = last.next;
+        if (last != null) {
+            last.prev = null;
+        } else {
+            first = null;
+        }
+        size--;
+        return item;
+    }
+
+    @Override
+    public Iterator<Item> iterator() {
+        return new DequeIterator<>();
+    }
+
+    private void verifyItem(Item item) {
+        if (item == null) {
+            throw new IllegalArgumentException("the item is null");
+        }
+    }
+
+    private class Node<E> {
+        private final E item;
+        private Node<E> next;
+        private Node<E> prev;
+
+        Node(E item, Node<E> next, Node<E> prev) {
+            this.item = item;
+            this.next = next;
+            this.prev = prev;
+        }
+    }
+
+    private class DequeIterator<E> implements Iterator<E> {
+
+        private Node<Item> current = first;
+        private int i = size;
+
+        @Override
+        public boolean hasNext() {
+            return i > 0;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public E next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException("the deque no more item to return");
+            }
+            Item item = current.item;
+            current = current.prev;
+            i--;
+            return (E) item;
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException("iterator can't remove item");
+        }
+    }
+}
 ```
 
 
@@ -159,17 +179,19 @@ blic class Deque<Item> implements Iterable<Item> {
 因为没有读全原题的本意，在迭代器中使用顺序迭代，在提交测试后报如下错误
 
 
-`
-st 9: create two nested iterators over the same randomized queue
-* n = 10
-    two inner iterators return the same sequence of items
-    they should return the same set of items but in a
-    different order
-* n = 50
-    two inner iterators return the same sequence of items
-    they should return the same set of items but in a
-    different order
-> FAILED
+```
+Test 9: create two nested iterators over the same randomized queue
+  * n = 10
+      two inner iterators return the same sequence of items
+      they should return the same set of items but in a
+      different order
+
+  * n = 50
+      two inner iterators return the same sequence of items
+      they should return the same set of items but in a
+      different order
+
+==> FAILED
 ```
 
 
@@ -179,132 +201,150 @@ st 9: create two nested iterators over the same randomized queue
 ### 实现代码
 
 
-`Java
-blic class RandomizedQueue<Item> implements Iterable<Item> {
-  private static final int CAPTURE_DOMAIN = 4;
-  private Object[] data;
-  private int size;
-  public RandomizedQueue() {
-      data = new Object[1];
-  }
-  public boolean isEmpty() {
-      return size == 0;
-  }
-  public int size() {
-      return size;
-  }
-  public void enqueue(Item item) {
-      verifyItem(item);
-      if (size == data.length) {
-          resize(data.length * 2);
-      }
-      data[size++] = item;
-  }
-  @SuppressWarnings("unchecked")
-  public Item dequeue() {
-      if (isEmpty()) {
-          throw new NoSuchElementException("The queue is empty");
-      }
-      if (size == data.length / CAPTURE_DOMAIN) {
-          resize(data.length / 2);
-      }
-      int index = StdRandom.uniform(size);
-      Object item = data[index];
-      if (index == size - 1) {
-          data[index] = null;
-      } else {
-          data[index] = data[size - 1];
-          data[size - 1] = null;
-      }
-      size--;
-      return (Item) item;
-  }
-  private void resize(int capacity) {
-      Object[] copy = new Object[capacity];
-      for (int i = 0; i < size; i++) {
-          copy[i] = data[i];
-      }
-      data = copy;
-  }
-  private void verifyItem(Item item) {
-      if (item == null) {
-          throw new IllegalArgumentException("The item is null");
-      }
-  }
-  @SuppressWarnings("unchecked")
-  public Item sample() {
-      if (isEmpty()) {
-          throw new NoSuchElementException("The queue is empty");
-      }
-      int index = StdRandom.uniform(size);
-      return (Item) data[index];
-  }
-  @Override
-  public Iterator<Item> iterator() {
-      return new RandomizedQueueIterator<>();
-  }
-  private class RandomizedQueueIterator<E> implements Iterator<E> {
-      private int pointer;
-      private int[] shuffleIndex = new int[size];
-      public RandomizedQueueIterator() {
-          pointer = 0;
-          for (int i = 0; i < size; i++) {
-              shuffleIndex[i] = i;
-          }
-          StdRandom.shuffle(shuffleIndex);
-      }
-      @Override
-      public boolean hasNext() {
-          return pointer < size;
-      }
-      @SuppressWarnings("unchecked")
-      @Override
-      public E next() {
-          if (!hasNext()) {
-              throw new NoSuchElementException("The queue is empty");
-          }
-          return (E) data[shuffleIndex[pointer++]];
-      }
-      @Override
-      public void remove() {
-          throw new UnsupportedOperationException();
-      }
-  }
-  public static void main(String[] args) {
-      RandomizedQueue<String> queue = new RandomizedQueue<>();
-      queue.enqueue("a");
-      queue.enqueue("b");
-      queue.enqueue("c");
-      queue.enqueue("d");
-      StdOut.println(queue.dequeue());
-      StdOut.println(queue.dequeue());
-      for (String s : queue) {
-          StdOut.print(s + " ");
-      }
-      StdOut.println();
-      for (int i = 0; i < 3; i++) {
-          StdOut.print(queue.sample() + " ");
-      }
-  }
+```Java
+public class RandomizedQueue<Item> implements Iterable<Item> {
+    private static final int CAPTURE_DOMAIN = 4;
+
+    private Object[] data;
+    private int size;
+
+    public RandomizedQueue() {
+        data = new Object[1];
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public void enqueue(Item item) {
+        verifyItem(item);
+        if (size == data.length) {
+            resize(data.length * 2);
+        }
+        data[size++] = item;
+    }
+
+    @SuppressWarnings("unchecked")
+    public Item dequeue() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("The queue is empty");
+        }
+        if (size == data.length / CAPTURE_DOMAIN) {
+            resize(data.length / 2);
+        }
+        int index = StdRandom.uniform(size);
+        Object item = data[index];
+        if (index == size - 1) {
+            data[index] = null;
+        } else {
+            data[index] = data[size - 1];
+            data[size - 1] = null;
+        }
+        size--;
+        return (Item) item;
+    }
+
+    private void resize(int capacity) {
+        Object[] copy = new Object[capacity];
+        for (int i = 0; i < size; i++) {
+            copy[i] = data[i];
+        }
+        data = copy;
+    }
+
+    private void verifyItem(Item item) {
+        if (item == null) {
+            throw new IllegalArgumentException("The item is null");
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public Item sample() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("The queue is empty");
+        }
+        int index = StdRandom.uniform(size);
+        return (Item) data[index];
+    }
+
+    @Override
+    public Iterator<Item> iterator() {
+        return new RandomizedQueueIterator<>();
+    }
+
+    private class RandomizedQueueIterator<E> implements Iterator<E> {
+        private int pointer;
+        private int[] shuffleIndex = new int[size];
+
+        public RandomizedQueueIterator() {
+            pointer = 0;
+            for (int i = 0; i < size; i++) {
+                shuffleIndex[i] = i;
+            }
+            StdRandom.shuffle(shuffleIndex);
+        }
+
+        @Override
+        public boolean hasNext() {
+            return pointer < size;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public E next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException("The queue is empty");
+            }
+            return (E) data[shuffleIndex[pointer++]];
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
+    }
+
+    public static void main(String[] args) {
+        RandomizedQueue<String> queue = new RandomizedQueue<>();
+        queue.enqueue("a");
+        queue.enqueue("b");
+        queue.enqueue("c");
+        queue.enqueue("d");
+        StdOut.println(queue.dequeue());
+        StdOut.println(queue.dequeue());
+        for (String s : queue) {
+            StdOut.print(s + " ");
+        }
+        StdOut.println();
+        for (int i = 0; i < 3; i++) {
+            StdOut.print(queue.sample() + " ");
+        }
+    }
+}
 ```
 
 
 ## 标准输入流打印实现
 
 
-`Java
-blic class Permutation {
-  public static void main(String[] args) {
-      RandomizedQueue<String> queue = new RandomizedQueue<>();
-      while (!StdIn.isEmpty()) {
-          queue.enqueue(StdIn.readString());
-      }
-      if (args.length > 0 && args[0] != null) {
-          for (int i = 0; i < Integer.parseInt(args[0]); i++) {
-              StdOut.println(queue.dequeue());
-          }
-      }
-  }
+```Java
+public class Permutation {
+    public static void main(String[] args) {
+        RandomizedQueue<String> queue = new RandomizedQueue<>();
+        while (!StdIn.isEmpty()) {
+            queue.enqueue(StdIn.readString());
+        }
+        if (args.length > 0 && args[0] != null) {
+            for (int i = 0; i < Integer.parseInt(args[0]); i++) {
+                StdOut.println(queue.dequeue());
+            }
+        }
+    }
+}
 ```
 
 

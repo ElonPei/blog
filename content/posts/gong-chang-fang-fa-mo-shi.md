@@ -76,8 +76,8 @@ ConcreteFactory：具体工厂
 JDBC的工厂方法
 
 
-`java
-nnection conn=DriverManager.getConnection("jdbc:microsoft:sqlserver://localhost:1433; DatabaseName=DB;user=sa;password=");
-atement statement=conn.createStatement();
-sultSet rs=statement.executeQuery("select * from UserInfo");
+```java
+Connection conn=DriverManager.getConnection("jdbc:microsoft:sqlserver://localhost:1433; DatabaseName=DB;user=sa;password=");
+Statement statement=conn.createStatement();
+ResultSet rs=statement.executeQuery("select * from UserInfo");
 ```

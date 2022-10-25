@@ -2,6 +2,7 @@
 title: LeetCode001 Two Sum
 date: 2022-04-22
 tags:
+  - Algorithm
   - LeetCode
 ---
 
@@ -9,20 +10,20 @@ tags:
 
 双重for循环暴力解题，直接上代码。
 
- ```java
- class Solution {
-   public int[] twoSum(int[] nums, int target) {
-       int len = nums.length;
-       for (int i = 0; i < len; i++) {
-           for (int j = i + 1; j < len; j++) {
-               if (nums[i] + nums[j] == target) {
-                   return new int[]{i, j};
-               }
-           }
-       }
-       return new int[]{};
-   }
- }
+```java
+class Solution {
+  public int[] twoSum(int[] nums, int target) {
+      int len = nums.length;
+      for (int i = 0; i < len; i++) {
+          for (int j = i + 1; j < len; j++) {
+              if (nums[i] + nums[j] == target) {
+                  return new int[]{i, j};
+              }
+          }
+      }
+      return new int[]{};
+  }
+}
 ```
 
 时间复杂度 O(n^2)
@@ -45,22 +46,22 @@ tags:
 
 代码
 
-  ```java
-  class Solution {
-    public int[] twoSum(int[] nums, int target) {
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < nums.length; i++) {
-            map.put(nums[i], i);
-        }
-        for (int i = 0; i < nums.length; i++) {
-            int diff = target - nums[i];
-            if (map.containsKey(diff) && map.get(diff) != i) {
-                return new int[]{i, map.get(diff)};
-            }
-        }
-        return null;
-    }
+```java
+class Solution {
+  public int[] twoSum(int[] nums, int target) {
+      Map<Integer, Integer> map = new HashMap<>();
+      for (int i = 0; i < nums.length; i++) {
+          map.put(nums[i], i);
+      }
+      for (int i = 0; i < nums.length; i++) {
+          int diff = target - nums[i];
+          if (map.containsKey(diff) && map.get(diff) != i) {
+              return new int[]{i, map.get(diff)};
+          }
+      }
+      return null;
   }
+}
 ```
 
 时间复杂度 O(n)

@@ -1,6 +1,8 @@
 ---
 title: 什么是幂定律（幂律分布）？
 date: 2018-03-01
+tags:
+  - Algorithm
 ---
 
 > 英文：Power Law (Power Law Distribution)

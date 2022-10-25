@@ -23,17 +23,17 @@ date: 2015-03-23
 **日志和提交记录查看**
 
 
-`shell
-t reflog
-t log
+```shell
+git reflog
+git log
 ```
 
 
 **把commit_id所指向的版本之后的提交抛弃**
 
 
-`shell
-t reset --hard commit_id
+```shell
+git reset --hard commit_id
 ```
 
 
@@ -47,8 +47,8 @@ t reset --hard commit_id
 **抛弃commit_id所指向的版本**
 
 
-`shell
-t revert 
+```shell
+git revert 
 ```
 
 
@@ -60,16 +60,16 @@ t revert
 **只在工作区修改**
 
 
-`shell
-t checkout -- {file}
+```shell
+git checkout -- {file}
 ```
 
 
 **已经add到暂存区了**
 
 
-`shell
-t reset HEAD {file}
+```shell
+git reset HEAD {file}
 ```
 
 
@@ -81,16 +81,16 @@ t reset HEAD {file}
 **创建分支**
 
 
-`
-t branch test
+```
+git branch test
 ```
 
 
 **切换分支**
 
 
-`
-t checkout test
+```
+git checkout test
 ```
 
 
@@ -106,16 +106,16 @@ t checkout test
 **查看当前分支**
 
 
-`
-t branch
+```
+git branch
 ```
 
 
 **合并分支**
 
 
-`
-t merge test
+```
+git merge test
 ```
 
 
@@ -128,8 +128,8 @@ t merge test
 **删除分支**
 
 
-`
-t branch -d test
+```
+git branch -d test
 ```
 
 
@@ -142,8 +142,8 @@ t branch -d test
 3. 查看合并情况
 
 
-`shell
-t log --graph
+```shell
+git log --graph
 ```
 
 
@@ -171,16 +171,16 @@ t log --graph
 **查看远程库信息**
 
 
-`
-t remote -v
+```
+git remote -v
 ```
 
 
 **推送分支**
 
 
-`
-t push origin master
+```
+git push origin master
 ```
 
 
@@ -190,24 +190,24 @@ t push origin master
 > clone默认拉取master分支
 
 
-`
-t clone {url}
+```
+git clone {url}
 ```
 
 
 > 拉取远程分支
 
 
-`
-t checkout -b dev origin/dev
+```
+git checkout -b dev origin/dev
 ```
 
 
 > 更新
 
 
-`
-t pull
+```
+git pull
 ```
 
 
@@ -217,8 +217,8 @@ t pull
 ### 打标签(可指定版本号)
 
 
-`
-t tag v1.0 [commit id]
+```
+git tag v1.0 [commit id]
 ```
 
 
@@ -228,16 +228,16 @@ t tag v1.0 [commit id]
 1. 查看列表
 
 
-`
-t tag
+```
+git tag
 ```
 
 
 2. 查看详情
 
 
-`
-t show {标签名}
+```
+git show {标签名}
 ```
 
 
@@ -250,31 +250,31 @@ t show {标签名}
 > 删除
 
 
-`
-t tag -d {tag.name}
+```
+git tag -d {tag.name}
 ```
 
 
 > 推送标签到远程
 
 
-`
-t push origin <tagname>
+```
+git push origin <tagname>
 ```
 
 
 > 全部推送
 
 
-`
-t push origin --tags
+```
+git push origin --tags
 ```
 
 
 > 删除远程标签
 
 
-`
-t tag -d <tag_name>
-t push origin :refs/tags/<tag_name>
+```
+git tag -d <tag_name>
+git push origin :refs/tags/<tag_name>
 ```

@@ -15,31 +15,31 @@ tags:
 
 ## Java实现插入排序
 
- ```java
- public class InsertionSort {
- 
-   public static void sort(Comparable[] a) {
-       for (int i = 1; i < a.length; i++) {
-           for (int j = i; j > 0; j--) {
-               if (less(a[j], a[j - 1])) {
-                   swap(a, j, j - 1);
-               } else {
-                   break;
-               } 
-           }
-       }
-   }
- 
-   public static void main(String[] args) {
-       Integer[] a = {6, 5, 7, 8, 10, 1, 100, 23, 76, 19, 11};
-       sort(a);
-       for (Integer integer : a) {
-           StdOut.print(integer + " ");
-       }
-   }
- 
- }
- 
+```java
+public class InsertionSort {
+
+  public static void sort(Comparable[] a) {
+      for (int i = 1; i < a.length; i++) {
+          for (int j = i; j > 0; j--) {
+              if (less(a[j], a[j - 1])) {
+                  swap(a, j, j - 1);
+              } else {
+                  break;
+              } 
+          }
+      }
+  }
+
+  public static void main(String[] args) {
+      Integer[] a = {6, 5, 7, 8, 10, 1, 100, 23, 76, 19, 11};
+      sort(a);
+      for (Integer integer : a) {
+          StdOut.print(integer + " ");
+      }
+  }
+
+}
+
 ```
 
 插入排序的实现也很简单，它是希尔排序的基础，执行效率相对于选择排序更高。

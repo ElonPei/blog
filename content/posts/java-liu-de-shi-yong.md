@@ -7,19 +7,19 @@ tags:
 
 ## 流的创建
 
- ```java
- // 从Collection和数组中创建
- Collection.stream();
- Collection.parallelStream();
- Arrays.stream(T array);
- Stream.of();
- // 从BefferReader中创建
- java.io.BufferedReader.lines();
- // 静态工厂
- java.util.stream.IntStream.range();
- java.nio.file.Files.walk();
- // 自己构建
- java.util.Spliterator
+```java
+// 从Collection和数组中创建
+Collection.stream();
+Collection.parallelStream();
+Arrays.stream(T array);
+Stream.of();
+// 从BefferReader中创建
+java.io.BufferedReader.lines();
+// 静态工厂
+java.util.stream.IntStream.range();
+java.nio.file.Files.walk();
+// 自己构建
+java.util.Spliterator
 ```
 
 ## 流的常用操作

@@ -15,10 +15,10 @@ date: 2016-10-01
 
 
 
-`
-NTAINER_ID=$(docker start <containner_id>)
-cker stop $CONTAINER_ID
-cker restart $CONTAINER_ID
+```
+CONTAINER_ID=$(docker start <containner_id>)
+docker stop $CONTAINER_ID
+docker restart $CONTAINER_ID
 ```
 
 
@@ -33,8 +33,8 @@ cker restart $CONTAINER_ID
 官方文档中说`attach`后可以通过`CTRL-C`来detach，但实际上经过我的[测试](http://lib.csdn.net/base/softwaretest)，如果container当前在运行bash，`CTRL-C`自然是当前行的输入，没有退出；如果container当前正在前台运行进程，如输出nginx的access.log日志，`CTRL-C`不仅会导致退出容器，而且还stop了。这不是我们想要的，detach的意思按理应该是脱离容器终端，但容器依然运行。好在`attach`是可以带上`--sig-proxy=false`来确保`CTRL-D`或`CTRL-C`不会关闭容器。
 
 
-`
-docker attach --sig-proxy=false $CONTAINER_ID
+```
+# docker attach --sig-proxy=false $CONTAINER_ID
 ```
 
 
@@ -44,10 +44,10 @@ docker attach --sig-proxy=false $CONTAINER_ID
 `inspect`的对象可以是image、运行中的container和停止的container。
 
 
-`
-容器的内部IP
-docker inspect --format='{{.NetworkSettings.IPAddress}}' $CONTAINER_ID
-2.17.42.35
+```
+查看容器的内部IP
+# docker inspect --format='{{.NetworkSettings.IPAddress}}' $CONTAINER_ID
+172.17.42.35
 ```
 
 
@@ -74,9 +74,10 @@ TO-DO
 `docker rm `
 
 
-`
-所有停止的容器
-cker rm $(docker ps -a -q)
+```
+删除所有停止的容器
+docker rm $(docker ps -a -q)
+
 ```
 
 
@@ -88,33 +89,38 @@ cker rm $(docker ps -a -q)
 下面是一个完整的示例：
 
 
-`
-docker images            <==
-untu            13.10        195eb90b5349       4 months ago       184.6 MB
-untu            saucy        195eb90b5349       4 months ago       184.6 MB
-anlook/ubuntu   rm_test      195eb90b5349       4 months ago       184.6 MB
-195eb90b5349启动、停止一个容器后，删除这个镜像
-docker rmi 195eb90b5349
-ror response from daemon: Conflict, cannot delete image 195eb90b5349 because it is 
-gged in multiple repositories, use -f to force
-14/11/04 14:19:00 Error: failed to remove one or more images
-seanlook仓库中的tag     <==
-docker rmi seanlook/ubuntu:rm_test
-tagged: seanlook/ubuntu:rm_test
-删除镜像，还会由于container的存在不能rmi
-docker rmi 195eb90b5349
-ror response from daemon: Conflict, cannot delete 195eb90b5349 because the 
-ontainer eef3648a6e77 is using it, use -f to force
-14/11/04 14:24:15 Error: failed to remove one or more images
-除由这个镜像启动的容器    <==
-docker rm eef3648a6e77
-镜像                    <==
-docker rmi 195eb90b5349
-leted: 195eb90b534950d334188c3627f860fbdf898e224d8a0a11ec54ff453175e081
-leted: 209ea56fda6dc2fb013e4d1e40cb678b2af91d1b54a71529f7df0bd867adc961
-leted: 0f4aac48388f5d65a725ccf8e7caada42f136026c566528a5ee9b02467dac90a
-leted: fae16849ebe23b48f2bedcc08aaabd45408c62b531ffd8d3088592043d5e7364
-leted: f127542f0b6191e99bb015b672f5cf48fa79d974784ac8090b11aeac184eaaff
+```
+# docker images            <==
+ubuntu            13.10        195eb90b5349       4 months ago       184.6 MB
+ubuntu            saucy        195eb90b5349       4 months ago       184.6 MB
+seanlook/ubuntu   rm_test      195eb90b5349       4 months ago       184.6 MB
+
+使用195eb90b5349启动、停止一个容器后，删除这个镜像
+# docker rmi 195eb90b5349
+Error response from daemon: Conflict, cannot delete image 195eb90b5349 because it is 
+tagged in multiple repositories, use -f to force
+2014/11/04 14:19:00 Error: failed to remove one or more images
+
+删除seanlook仓库中的tag     <==
+# docker rmi seanlook/ubuntu:rm_test
+Untagged: seanlook/ubuntu:rm_test
+
+现在删除镜像，还会由于container的存在不能rmi
+# docker rmi 195eb90b5349
+Error response from daemon: Conflict, cannot delete 195eb90b5349 because the 
+ container eef3648a6e77 is using it, use -f to force
+2014/11/04 14:24:15 Error: failed to remove one or more images
+
+先删除由这个镜像启动的容器    <==
+# docker rm eef3648a6e77
+
+删除镜像                    <==
+# docker rmi 195eb90b5349
+Deleted: 195eb90b534950d334188c3627f860fbdf898e224d8a0a11ec54ff453175e081
+Deleted: 209ea56fda6dc2fb013e4d1e40cb678b2af91d1b54a71529f7df0bd867adc961
+Deleted: 0f4aac48388f5d65a725ccf8e7caada42f136026c566528a5ee9b02467dac90a
+Deleted: fae16849ebe23b48f2bedcc08aaabd45408c62b531ffd8d3088592043d5e7364
+Deleted: f127542f0b6191e99bb015b672f5cf48fa79d974784ac8090b11aeac184eaaff
 ```
 
 
@@ -132,24 +138,26 @@ leted: f127542f0b6191e99bb015b672f5cf48fa79d974784ac8090b11aeac184eaaff
 请看下面的例子：
 
 
-`
-cat Dockerfile 
-OM seanlook/nginx:bash_vim
-POSE 80
-TRYPOINT /usr/sbin/nginx -c /etc/nginx/nginx.conf && /bin/bash
-docker build -t seanlook/nginx:bash_vim_Df .
-nding build context to Docker daemon 73.45 MB
-nding build context to Docker daemon 
-ep 0 : FROM seanlook/nginx:bash_vim
---> aa8516fa0bb7
-ep 1 : EXPOSE 80
---> Using cache
---> fece07e2b515
-ep 2 : ENTRYPOINT /usr/sbin/nginx -c /etc/nginx/nginx.conf && /bin/bash
---> Running in e08963fd5afb
---> d9bbd13f5066
-moving intermediate container e08963fd5afb
-ccessfully built d9bbd13f5066
+```
+# cat Dockerfile 
+FROM seanlook/nginx:bash_vim
+EXPOSE 80
+ENTRYPOINT /usr/sbin/nginx -c /etc/nginx/nginx.conf && /bin/bash
+
+# docker build -t seanlook/nginx:bash_vim_Df .
+Sending build context to Docker daemon 73.45 MB
+Sending build context to Docker daemon 
+Step 0 : FROM seanlook/nginx:bash_vim
+ ---> aa8516fa0bb7
+Step 1 : EXPOSE 80
+ ---> Using cache
+ ---> fece07e2b515
+Step 2 : ENTRYPOINT /usr/sbin/nginx -c /etc/nginx/nginx.conf && /bin/bash
+ ---> Running in e08963fd5afb
+ ---> d9bbd13f5066
+Removing intermediate container e08963fd5afb
+Successfully built d9bbd13f5066
+
 ```
 
 
@@ -166,11 +174,13 @@ TO-DO
 tag的作用主要有两点：一是为镜像起一个容易理解的名字，二是可以通过`docker tag`来重新指定镜像的仓库，这样在`push`时自动提交到仓库。
 
 
-`
-一IMAGE_ID的所有tag，合并为一个新的
-docker tag 195eb90b5349 seanlook/ubuntu:rm_test
-一个tag，保留旧的那条记录
-docker tag Registry/Repos:Tag New_Registry/New_Repos:New_Tag
+```
+将同一IMAGE_ID的所有tag，合并为一个新的
+# docker tag 195eb90b5349 seanlook/ubuntu:rm_test
+
+新建一个tag，保留旧的那条记录
+# docker tag Registry/Repos:Tag New_Registry/New_Repos:New_Tag
+
 ```
 
 

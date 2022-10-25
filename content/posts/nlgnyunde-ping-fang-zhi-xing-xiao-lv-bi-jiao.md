@@ -1,6 +1,8 @@
 ---
 title: nlgn与n的平方执行效率比较
 date: 2017-12-01
+tags:
+  - Algorithm
 ---
 
 <script type="text/x-mathjax-config">

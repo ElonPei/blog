@@ -19,26 +19,30 @@ tags:
 ## Java实现该算法
 
 
-`Java
-blic class SelectionSort {
-  private static void sort(Comparable[] a) {
-      for (int i = 0; i < a.length; i++) {
-          int min = i;
-          for (int j = i + 1; j < a.length; j++) {
-              if (less(a[j], a[min])) {
-                  min = j;
-              }
-          }
-          swap(a, i, min);
-      }
-  }
-  public static void main(String[] args) {
-      Integer[] a = {6, 5, 7, 8, 10, 1, 100, 23, 76, 19, 11};
-      sort(a);
-      for (Integer integer : a) {
-          StdOut.print(integer + " ");
-      }
-  }
+```Java
+public class SelectionSort {
+
+    private static void sort(Comparable[] a) {
+        for (int i = 0; i < a.length; i++) {
+            int min = i;
+            for (int j = i + 1; j < a.length; j++) {
+                if (less(a[j], a[min])) {
+                    min = j;
+                }
+            }
+            swap(a, i, min);
+        }
+    }
+
+    public static void main(String[] args) {
+        Integer[] a = {6, 5, 7, 8, 10, 1, 100, 23, 76, 19, 11};
+        sort(a);
+        for (Integer integer : a) {
+            StdOut.print(integer + " ");
+        }
+    }
+
+}
 ```
 
 

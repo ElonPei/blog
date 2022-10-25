@@ -207,24 +207,24 @@ Kent Beck将它列为极限编程的核心原则之一，并称之为“一次�
 保证时序耦合
 
 
-  ```java
-  public void dive(String reason){
-    saturateGradient();
-    reticulateSplines();
-    diveForMoog(reason);
-  }
+```java
+public void dive(String reason){
+  saturateGradient();
+  reticulateSplines();
+  diveForMoog(reason);
+}
 ```
 
 
 程序员可以在调用saturateGradient()函数之前调用reticulateSplines()函数,从而导致抛出异常.
 
 
-  ```java
-  public void dive(String reason){
-    Gradient gradient = saturateGradient();
-    List<Spline> splines = reticulateSplines(gradient);
-    diveForMoog(splines, reason);
-  }
+```java
+public void dive(String reason){
+  Gradient gradient = saturateGradient();
+  List<Spline> splines = reticulateSplines(gradient);
+  diveForMoog(splines, reason);
+}
 ```
 
 
@@ -233,23 +233,23 @@ Kent Beck将它列为极限编程的核心原则之一，并称之为“一次�
 封装边界条件
 
 
-  ```java
-  if(level + 1 < tags.length){
-    parts = new Parts(body, tags, level + 1, offset + endTag);
-    body = null;
-  }
+```java
+if(level + 1 < tags.length){
+  parts = new Parts(body, tags, level + 1, offset + endTag);
+  body = null;
+}
 ```
 
 
 以上代码出现了两次level + 1，这个应该封装到名为nextLevel的变量中的边界条件.
 
 
-  ```java
-  int nextLevel = level + 1;
-  if(nextLevel < tags.length){
-    parts = new Parts(body, tags, nextLevel, offset + endTag);
-    body = null;
-  }
+```java
+int nextLevel = level + 1;
+if(nextLevel < tags.length){
+  parts = new Parts(body, tags, nextLevel, offset + endTag);
+  body = null;
+}
 ```
 
 在较高层级放置可配置数据

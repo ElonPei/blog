@@ -35,15 +35,16 @@ sqlparse模块  （使用 `pip install sqlparse` 来安装模块)
 ![WX20200622-102249@2x](http://peierlong-blog.oss-cn-hongkong.aliyuncs.com/uPic/WX20200622-102249@2x.png)
 
 
-`python
-/Users/peiel/.pyenv/shims/python
-oding=utf-8
-port sqlparse
-port sys
-l = sys.stdin.read()
-atements = sqlparse.split(sql)
-rst = statements[0]
-int(sqlparse.format(first, reindent=True, keyword_case='upper'), end = '')
+```python
+#!/Users/peiel/.pyenv/shims/python
+#coding=utf-8
+import sqlparse
+import sys
+sql = sys.stdin.read()
+statements = sqlparse.split(sql)
+first = statements[0]
+print(sqlparse.format(first, reindent=True, keyword_case='upper'), end = '')
+
 ```
 
 

@@ -1,20 +1,17 @@
 ---
-title: LeetCode 8. String to Integer (atoi)
+title: LeetCode008 String to Integer
 date: 2018-07-01
+tags:
+  - Algorithm
+  - LeetCode
 ---
-
-
-# 8. String to Integer (atoi)
 
 
 [官方链接点此查看](https://leetcode.com/problems/string-to-integer-atoi/)
 
-
-### 简要说明：
-
+## 读题
 
 简单理解，就是把一个字符串转换成一个整数。
-
 
 区分正负数，从左到右，如果直接遇到非整数字符，直接返回 0。
 
@@ -22,12 +19,10 @@ date: 2018-07-01
 
 遇到空格，忽略。
 
+## 代码
 
-### 代码：
-
-
-`java
-ass Solution {
+```java
+class Solution {
   public int myAtoi(String str) {
       str = str.trim();
       if (str.isEmpty()) {
@@ -63,16 +58,16 @@ ass Solution {
       }
       return 0;
   }
+
+
   private boolean isDigit(char c) {
       return (byte) c >= 48 && (byte) c <= 57;
   }
 
 
+}
 ```
-
 
 ### LeetCode 提交评分
 
-
 ![](https://raw.githubusercontent.com/peiel/oss/master/uPic/q8ISPL.png)
-

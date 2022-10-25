@@ -32,8 +32,8 @@ tags:
 ### 代码
 
 
-`jsx
-blic static String convert(String s, int numRows) {
+```jsx
+public static String convert(String s, int numRows) {
 StringBuilder[] arr = new StringBuilder[numRows];
 int currentIdx = 0;
 boolean direction = true;
@@ -61,6 +61,7 @@ for (StringBuilder sb : arr) {
     }
 }
 return ans.toString();
+}
 ```
 
 
@@ -71,6 +72,6 @@ return ans.toString();
 
 ## 测试用例情况
 
-![](https://peierlong-blog.oss-cn-hongkong.aliyuncs.com/uPic/Zigzag 1.png)
+![](https://peierlong-blog.oss-cn-hongkong.aliyuncs.com/uPic/Zigzag%201.png)
 
 The End！

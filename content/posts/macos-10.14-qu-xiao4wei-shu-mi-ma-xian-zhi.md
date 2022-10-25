@@ -8,8 +8,8 @@ tags:
 
 1. 打开终端输入
 
- ```bash
- pwpolicy -clearaccountpolicies
+```bash
+pwpolicy -clearaccountpolicies
 ```
 
 2. 然后 `passwd` 可以更改密码

@@ -12,29 +12,29 @@ tags:
 
 ## 运行环境
 
- ```
-  系统          : macOS 10.13
-  Python版本    : 3.6.1
+```
+ 系统          : macOS 10.13
+ Python版本    : 3.6.1
 ```
 
 ## 使用方法
 
 执行命令
 
- ```shell
- oss_2_mk.py [-absolute_path]
+```shell
+oss_2_mk.py [-absolute_path]
 ```
 
 例
 
- ```shell
- 执行:
- oss_2_mk.py /Users/elong/Desktop/war/gc_collector.jxpxg
- 输出:
- obj_name : gc_collector.jxpxg
- start upload to oss ....
- end upload to oss
- please CMD + v to paste markdown img grammar
+```shell
+执行:
+oss_2_mk.py /Users/elong/Desktop/war/gc_collector.jxpxg
+输出:
+obj_name : gc_collector.jxpxg
+start upload to oss ....
+end upload to oss
+please CMD + v to paste markdown img grammar
 ```
 
 ## 原代码

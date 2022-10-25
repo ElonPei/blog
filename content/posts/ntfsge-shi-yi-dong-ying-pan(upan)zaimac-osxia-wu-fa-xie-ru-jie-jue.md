@@ -11,8 +11,8 @@ tags:
 
 在终端执行查看磁盘命令：
 
- ```
- diskutil list
+```
+diskutil list
 ```
 
 显示硬盘的格式是NTFS。
@@ -21,26 +21,26 @@ tags:
 
 在终端执行进入root权限shell环境中（root权限请谨慎操作）
 
-  ```
-  sudo -s
+```
+sudo -s
 ```
 
 第一步：进入sbin目录
 
-  ```
-  cd /sbin
+```
+cd /sbin
 ```
 
 第二步：重命名系统自带挂载程序
 
-  ```
-  mv mount_ntfs mount_ntfs_orig
+```
+mv mount_ntfs mount_ntfs_orig
 ```
 
 第三步：新建我们我挂载的脚本
 
-  ```
-  vim mount_ntfs
+```
+vim mount_ntfs
 ```
 
 
@@ -48,14 +48,14 @@ tags:
 
 第四步：保存退出，添加可执行权限
 
-  ```
-    chmod 755 mount_ntfs
+```
+  chmod 755 mount_ntfs
 ```
 
 退出root身份
 
-  ```
-    exit
+```
+  exit
 ```
 
 ## 注意事项
@@ -64,14 +64,14 @@ tags:
 
 取消隐藏命令
 
-  ```
-    sudo chflags nohidden /Volumes
+```
+  sudo chflags nohidden /Volumes
 ```
 
 创建快捷方式命令
 
-  ```
-    sudo ln -s [源目录] [快捷方式目录]
+```
+  sudo ln -s [源目录] [快捷方式目录]
 ```
 
 ## 参考相关文章

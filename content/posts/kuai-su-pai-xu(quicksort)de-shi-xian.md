@@ -1,6 +1,8 @@
 ---
 title: 快速排序(QuickSort)的实现
 date: 2017-12-01
+tags:
+  - Algorithm
 ---
 
 ## 快速的排序逻辑
@@ -15,60 +17,60 @@ date: 2017-12-01
 
 ## Java代码实现
 
- ```Java
- public class QuickSort {
- 
- public static void sort(Comparable[] a) {
-     Shuffle.shuffle(a);
-     sort(a, 0, a.length - 1);
- }
- 
- private static void sort(Comparable[] a, int lo, int hi) {
-     if (hi <= lo) {
-         return;
-     }
-     int j = partition(a, lo, hi);
-     sort(a, lo, j - 1);
-     sort(a, j + 1, hi);
- }
- 
- private static int partition(Comparable[] a, int lo, int hi) {
-     int i = lo, j = hi + 1;
-     while (true) {
-         while (less(a[++i], a[lo])) {
-             if (i == hi) {
-                 break;
-             }
-         }
-         while (less(a[lo], a[--j])) {
-             if (j == lo) {
-                 break;
-             }
-         }
-         if (i >= j) {
-             break;
-         }
-         swap(a, i, j);
-     }
-     swap(a, lo, j);
-     return j;
- }
- 
- }
+```Java
+public class QuickSort {
+
+public static void sort(Comparable[] a) {
+    Shuffle.shuffle(a);
+    sort(a, 0, a.length - 1);
+}
+
+private static void sort(Comparable[] a, int lo, int hi) {
+    if (hi <= lo) {
+        return;
+    }
+    int j = partition(a, lo, hi);
+    sort(a, lo, j - 1);
+    sort(a, j + 1, hi);
+}
+
+private static int partition(Comparable[] a, int lo, int hi) {
+    int i = lo, j = hi + 1;
+    while (true) {
+        while (less(a[++i], a[lo])) {
+            if (i == hi) {
+                break;
+            }
+        }
+        while (less(a[lo], a[--j])) {
+            if (j == lo) {
+                break;
+            }
+        }
+        if (i >= j) {
+            break;
+        }
+        swap(a, i, j);
+    }
+    swap(a, lo, j);
+    return j;
+}
+
+}
 ```
 
 ## 小优化
 
 在数组大小较小时，使用插入排序比快速排序执行效率要高。
 
- ```
- private static final int INSERTIONSORT_THRESHOLD = 7;
+```
+private static final int INSERTIONSORT_THRESHOLD = 7;
 ```
 
- ```Java
- if ((hi - lo) < INSERTIONSORT_THRESHOLD) {
- 	InsertionSort.sort(a, lo, hi);
- }
+```Java
+if ((hi - lo) < INSERTIONSORT_THRESHOLD) {
+	InsertionSort.sort(a, lo, hi);
+}
 ```
 
 以上，快速排序的思想真的有些烧脑，实现起来坑还是很多，需要仔细仔细再仔细的思考每一个细节。

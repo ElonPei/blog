@@ -6,7 +6,7 @@ tags:
   - LeetCode
 ---
 
-![](https://peierlong-blog.oss-cn-hongkong.aliyuncs.com/uPic/Longest Palindrome.png)
+![](https://peierlong-blog.oss-cn-hongkong.aliyuncs.com/uPic/Longest%20Palindrome.png)
 
 ## 读题
 
@@ -29,24 +29,27 @@ tags:
 ### 代码如下
 
 
-`jsx
-blic static String longestPalindrome(String s) {
-int start = 0, end = 0;
-for (int i = 0; i < s.length(); i++) {
-    int len = Math.max(expandAroundCenter(s, i, i), expandAroundCenter(s, i, i + 1));
-    if (len > end - start) {
-        start = i - (len - 1) / 2;
-        end = i + len / 2;
-    }
+```jsx
+public static String longestPalindrome(String s) {
+  int start = 0, end = 0;
+  for (int i = 0; i < s.length(); i++) {
+      int len = Math.max(expandAroundCenter(s, i, i), expandAroundCenter(s, i, i + 1));
+      if (len > end - start) {
+          start = i - (len - 1) / 2;
+          end = i + len / 2;
+      }
+  }
+  return s.substring(start, end + 1);
 }
-return s.substring(start, end + 1);
-blic static int expandAroundCenter(String s, int left, int right) {
-int l = left, r = right;
-while (l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) {
-    l--;
-    r++;
+
+public static int expandAroundCenter(String s, int left, int right) {
+  int l = left, r = right;
+  while (l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) {
+      l--;
+      r++;
+  }
+  return r - l - 1;
 }
-return r - l - 1;
 ```
 
 
@@ -57,6 +60,6 @@ return r - l - 1;
 
 ## 测试用例结果
 
-![](https://peierlong-blog.oss-cn-hongkong.aliyuncs.com/uPic/Longest Palindrome 1.png)
+![](https://peierlong-blog.oss-cn-hongkong.aliyuncs.com/uPic/Longest%20Palindrome%201.png)
 
 The End！

@@ -27,52 +27,52 @@ tags:
 
 我们给线程池无限加线程，然后看效果。
 
- ```java
- public static void main(String[] args) {
-   ExecutorService executorService = Executors.newCachedThreadPool();
-   int i = 0;
-   while (true) {
-       executorService.submit(new Task(i++));
-   }
- }
+```java
+public static void main(String[] args) {
+  ExecutorService executorService = Executors.newCachedThreadPool();
+  int i = 0;
+  while (true) {
+      executorService.submit(new Task(i++));
+  }
+}
 ```
 
 jvm 参数
 
- ```java
- -Xms10M //堆内存初始化大小
- -Xmx10M //堆内存最大大小
+```java
+-Xms10M //堆内存初始化大小
+-Xmx10M //堆内存最大大小
 ```
 
 执行结果
 
- ```java
- ...
- pool-1-thread-4071 4070
- pool-1-thread-4072 4071
- Exception in thread "main" java.lang.OutOfMemoryError: unable to create new native thread
- at java.lang.Thread.start0(Native Method)
- at java.lang.Thread.start(Thread.java:717)
- at java.util.concurrent.ThreadPoolExecutor.addWorker(ThreadPoolExecutor.java:957)
- at java.util.concurrent.ThreadPoolExecutor.execute(ThreadPoolExecutor.java:1378)
- at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:112)
- at com.peierlong.concurrency.ThreadPoolOomTest.main(ThreadPoolOomTest.java:18)
- Error occurred during initialization of VM
- java.lang.OutOfMemoryError: unable to create new native thread
+```java
+...
+pool-1-thread-4071 4070
+pool-1-thread-4072 4071
+Exception in thread "main" java.lang.OutOfMemoryError: unable to create new native thread
+at java.lang.Thread.start0(Native Method)
+at java.lang.Thread.start(Thread.java:717)
+at java.util.concurrent.ThreadPoolExecutor.addWorker(ThreadPoolExecutor.java:957)
+at java.util.concurrent.ThreadPoolExecutor.execute(ThreadPoolExecutor.java:1378)
+at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:112)
+at com.peierlong.concurrency.ThreadPoolOomTest.main(ThreadPoolOomTest.java:18)
+Error occurred during initialization of VM
+java.lang.OutOfMemoryError: unable to create new native thread
 ```
 
 ## 应该用什么
 
 `ThreadPoolExecutor`，其具有如下构造函数。
 
- ```java
- public ThreadPoolExecutor(int corePoolSize,	//核心线程数量
-                         int maximumPoolSize,	//线程池最大的数量
-                         long keepAliveTime,	//空闲线程存货时间
-                         TimeUnit unit,
-                         BlockingQueue<Runnable> workQueue,	//线程池所使用的缓冲队列
-                         ThreadFactory threadFactory,	//线程池创建线程所使用的工厂
-                         RejectedExecutionHandler handler)	//线程池对拒绝的任务的处理策略
+```java
+public ThreadPoolExecutor(int corePoolSize,	//核心线程数量
+                        int maximumPoolSize,	//线程池最大的数量
+                        long keepAliveTime,	//空闲线程存货时间
+                        TimeUnit unit,
+                        BlockingQueue<Runnable> workQueue,	//线程池所使用的缓冲队列
+                        ThreadFactory threadFactory,	//线程池创建线程所使用的工厂
+                        RejectedExecutionHandler handler)	//线程池对拒绝的任务的处理策略
 ```
 
 执行流程如下
@@ -85,8 +85,8 @@ jvm 参数
 
 推荐 CPU+1，CPU 数量获取代码如下
 
-  ```java
-  Runtime.getRuntime().availableProcessors()
+```java
+Runtime.getRuntime().availableProcessors()
 ```
 
 ### IO 密集型
@@ -109,10 +109,10 @@ CPU 数量 * CPU 利用率 * （1 + 线程等待时间/线程CPU 时间）
 
 ## 正确的线程池创建的方式
 
- ```java
- // 获取处理器数量和创建线程工厂
- int threadCnt = Runtime.getRuntime().availableProcessors();
- ThreadFactory factory = new ThreadFactoryBuilder().setNameFormat("demo-pool-%d").build();
- // Common Thread Pool
- new ThreadPoolExecutor(threadCnt, 200, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(1024), factory, new ThreadPoolExecutor.AbortPolicy());
+```java
+// 获取处理器数量和创建线程工厂
+int threadCnt = Runtime.getRuntime().availableProcessors();
+ThreadFactory factory = new ThreadFactoryBuilder().setNameFormat("demo-pool-%d").build();
+// Common Thread Pool
+new ThreadPoolExecutor(threadCnt, 200, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(1024), factory, new ThreadPoolExecutor.AbortPolicy());
 ```

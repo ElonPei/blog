@@ -7,14 +7,14 @@ date: 2018-01-01
 
 2. 然后解压：
 
-`
-r zxvf mongodb-linux-x86_64-2.2.3.tgz
+```
+tar zxvf mongodb-linux-x86_64-2.2.3.tgz
 ```
 
 3. 移动目录到/usr/local/mongodb
 
-`
- mongodb-linux-x86_64-2.2.3 /usr/local/mongodb
+```
+mv mongodb-linux-x86_64-2.2.3 /usr/local/mongodb
 ```
 
 
@@ -24,38 +24,38 @@ r zxvf mongodb-linux-x86_64-2.2.3.tgz
 
 4. 进入mongodb目录
 
-`
- /usr/local/mongodb
+```
+cd /usr/local/mongodb
 ```
 
 5. 新建自定义数据目录
 
-`
-dir -p ./data/db/
+```
+mkdir -p ./data/db/
 ```
 
 6. 新建日志目录
 
-`
-dir logs
+```
+mkdir logs
 ```
 
 7. 以后台运行方式启动mongodb
 
-`
-sr/local/mongodb/bin/mongod --dbpath=/usr/local/mongodb/data/db --logpath=/usr/local/mongodb/logs/mongodb.log --fork
+```
+/usr/local/mongodb/bin/mongod --dbpath=/usr/local/mongodb/data/db --logpath=/usr/local/mongodb/logs/mongodb.log --fork
 ```
 
 8. 设置开机自启动：
 
-`
-ho "/usr/local/mongodb/bin/mongod --dbpath=/usr/local/mongodb/data/db --logpath=/usr/local/mongodb/logs/mongodb.log --fork" >> /etc/rc.local
+```
+echo "/usr/local/mongodb/bin/mongod --dbpath=/usr/local/mongodb/data/db --logpath=/usr/local/mongodb/logs/mongodb.log --fork" >> /etc/rc.local
 ```
 
 查看MongoDB日志
 
-`
-il -f /usr/local/mongodb/logs/mongodb.log
+```
+tail -f /usr/local/mongodb/logs/mongodb.log
 ```
 
 

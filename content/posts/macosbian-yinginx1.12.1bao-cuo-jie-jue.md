@@ -1,28 +1,29 @@
 ---
-title: MacOS编译Nginx1-12-1报错解决
+title: MacOS编译Nginx1.12.1报错解决
 date: 2018-01-01
 tags:
   - Mac
 ---
 
+
 ## 编译报错日志
 
- ```
- dyld: Library not loaded: /usr/local/lib/libluajit-5.1.2.dylib
+```
+dyld: Library not loaded: /usr/local/lib/libluajit-5.1.2.dylib
 ```
 
 ## 解决办法
 
 在Nginx源代码目录中修改以下文件
 
-  ```
-  vim objs/Makefile
+```
+vim objs/Makefile
 ```
 
 找到如下内容
 
-  ```
-  && ./config --prefix=/Users/elong/Applications/build_openresty/nginx-1.12.1/../openssl-1.0.1p/.ope     nssl no-shared
+```
+&& ./config --prefix=/Users/elong/Applications/build_openresty/nginx-1.12.1/../openssl-1.0.1p/.ope     nssl no-shared
 ```
 
 将其中 `./config` 修改为 `./Configure darwin64-x86_64-cc`，注意修改后不要再次执行 `configure` 命令。

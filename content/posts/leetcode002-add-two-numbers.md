@@ -6,7 +6,7 @@ tags:
   - LeetCode
 ---
 
-![](https://peierlong-blog.oss-cn-hongkong.aliyuncs.com/uPic/Add Two Number.png)
+![](https://peierlong-blog.oss-cn-hongkong.aliyuncs.com/uPic/Add%20Two%20Number.png)
 
 ## 读题
 
@@ -36,25 +36,25 @@ tags:
 
 ## 上代码
 
- ```java
- public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
- ListNode node = new ListNode(0);
- ListNode result = node;
- int idx = 0;
- while (l1 != null || l2 != null || idx != 0){
-     int sum = (l1 != null ? l1.val : 0) + (l2 != null ? l2.val : 0) + idx;
-     idx = sum / 10;
-     node.next = new ListNode(sum % 10);
-     node = node.next;
-     l1 = l1 != null ? l1.next : null;
-     l2 = l2 != null ? l2.next : null;
- }
- return result.next;
- }
+```java
+public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+ListNode node = new ListNode(0);
+ListNode result = node;
+int idx = 0;
+while (l1 != null || l2 != null || idx != 0){
+    int sum = (l1 != null ? l1.val : 0) + (l2 != null ? l2.val : 0) + idx;
+    idx = sum / 10;
+    node.next = new ListNode(sum % 10);
+    node = node.next;
+    l1 = l1 != null ? l1.next : null;
+    l2 = l2 != null ? l2.next : null;
+}
+return result.next;
+}
 ```
 
 ## LeetCode Test Cases Result
 
-![](https://peierlong-blog.oss-cn-hongkong.aliyuncs.com/uPic/Add Two Number Result.png)
+![](https://peierlong-blog.oss-cn-hongkong.aliyuncs.com/uPic/Add%20Two%20Number%20Result.png)
 
 The End !

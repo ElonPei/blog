@@ -1,6 +1,9 @@
 ---
-title: Two Sum 最优解的解读
+title: LeetCode001 Two Sum 最优解的解读
 date: 2018-07-01
+tags:
+  - Algorithm
+  - LeetCode
 ---
 
 LeetCode 上 Two Sum 问题，自己能想到的是双循环的暴力解决法和使用单 Hash Table 来解决。看到有大神写的代码TestCase跑时间消耗为0ms，拜读分析一下。
@@ -9,20 +12,20 @@ LeetCode 上 Two Sum 问题，自己能想到的是双循环的暴力解决法�
 
 代码如下:（ [点击在LeetCode答案分析中时间消耗排行中查找](https://leetcode.com/problems/two-sum/)）
 
- ```java
- public int[] twoSum(int[] nums, int target) {
-   int mod = 2048 -1;
-   int[] map = new int[2048];
-   for(int i=0;i<nums.length;i++){
-       int key = target - nums[i] & mod;
-       if(map[key] != 0){
-           int[] ret = {map[key]-1, i};
-           return ret;
-       }
-       map[nums[i]&mod] = i+1;
-   }
-   throw new IllegalArgumentException("no two sum solution");
- }
+```java
+public int[] twoSum(int[] nums, int target) {
+  int mod = 2048 -1;
+  int[] map = new int[2048];
+  for(int i=0;i<nums.length;i++){
+      int key = target - nums[i] & mod;
+      if(map[key] != 0){
+          int[] ret = {map[key]-1, i};
+          return ret;
+      }
+      map[nums[i]&mod] = i+1;
+  }
+  throw new IllegalArgumentException("no two sum solution");
+}
 ```
 
 代码逻辑分析

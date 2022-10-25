@@ -51,14 +51,14 @@ The monitoring system:
 
 Linux 下 CommitLimit 的大小用来限制用户态可使用的内存资源，通过命令`grep -i commit /proc/meminfo`，`CommitLimit`表示内存分配上限，`Committed-AS`表示已经分配的内存大小。
 
- ```
- CommitLimit = 物理内存 * overcommit_ratio(/proc/sys/vm/overcommit_ratio) + swap
+```
+CommitLimit = 物理内存 * overcommit_ratio(/proc/sys/vm/overcommit_ratio) + swap
 ```
 
 当满足下方公式时，系统就会认为内存不足。
 
- ```
- 应用程序申请内存 + 系统已经分配的内存(Committed-AS) > CommitLimit
+```
+应用程序申请内存 + 系统已经分配的内存(Committed-AS) > CommitLimit
 ```
 
 ### 其次，当满足内存不足时，操作系统根据`overcommit_memory`参数来执行不同的策略。

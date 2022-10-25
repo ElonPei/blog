@@ -8,32 +8,32 @@ tags:
 
 ## 在SpringBoot整合ES时，遇到如下错误。
 
- ```
- ERROR 2075 --- [           main] .d.e.r.s.AbstractElasticsearchRepository : failed to load elasticsearch nodes : org.elasticsearch.client.transport.NoNodeAvailableException: None of the configured nodes are available:
+```
+ERROR 2075 --- [           main] .d.e.r.s.AbstractElasticsearchRepository : failed to load elasticsearch nodes : org.elasticsearch.client.transport.NoNodeAvailableException: None of the configured nodes are available:
 ```
 
 ## 相关配置
 
 `pom.xml`部分配置
 
- ```xml
-   <parent>
-       <groupId>org.springframework.boot</groupId>
-       <artifactId>spring-boot-starter-parent</artifactId>
-       <version>2.0.2.RELEASE</version>
-       <relativePath/> <!-- lookup parent from repository -->
-   </parent>
-   <dependency>
-       <groupId>org.springframework.boot</groupId>
-       <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
-   </dependency>
+```xml
+  <parent>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-parent</artifactId>
+      <version>2.0.2.RELEASE</version>
+      <relativePath/> <!-- lookup parent from repository -->
+  </parent>
+  <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+  </dependency>
 ```
 
 `application.properties` ES相关配置
 
- ```
- spring.data.elasticsearch.repositories.enabled=true
- spring.data.elasticsearch.cluster-nodes=192.168.xxx.xxx\:9300
+```
+spring.data.elasticsearch.repositories.enabled=true
+spring.data.elasticsearch.cluster-nodes=192.168.xxx.xxx\:9300
 ```
 
 ## 版本

@@ -13,8 +13,8 @@ date: 2016-06-01
 ## 使用 nvm 快捷安装 node
 
 
-`
-m install 6.17.0
+```
+nvm install 6.17.0
 ```
 
 ## 报错解决
@@ -22,8 +22,8 @@ m install 6.17.0
 ### 错误1
 
 
-`
-ROR Plugin load failed: hexo-renderer-sass
+```
+ERROR Plugin load failed: hexo-renderer-sass
 ```
 
 ### 解决1
@@ -32,8 +32,8 @@ ROR Plugin load failed: hexo-renderer-sass
 使用brew安装系统 `libsass` 依赖
 
 
-`
-ew reinstall libsass
+```
+brew reinstall libsass
 ```
 
 ### 错误2
@@ -42,11 +42,11 @@ ew reinstall libsass
 node版本与编译版本不一致导致失败
 
 
-`
-ror: The module '/usr/local/lib/node_modules/hexo/node_modules/dtrace-provider/build/Release/DTraceProviderBindings.node'
-s compiled against a different Node.js version using
-DE_MODULE_VERSION 48. This version of Node.js requires
-DE_MODULE_VERSION 67. Please try re-compiling or re-installing
+```
+Error: The module '/usr/local/lib/node_modules/hexo/node_modules/dtrace-provider/build/Release/DTraceProviderBindings.node'
+was compiled against a different Node.js version using
+NODE_MODULE_VERSION 48. This version of Node.js requires
+NODE_MODULE_VERSION 67. Please try re-compiling or re-installing
 ```
 
 ### 解决2
@@ -64,8 +64,8 @@ node_verison.jpg
 使用nvm安装对应版本：
 
 
-`
-m install 6.17.0
+```
+nvm install 6.17.0
 ```
 
 ## 总结

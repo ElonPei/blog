@@ -20,19 +20,19 @@ date: 2019-04-01
 # SQL
 
 
-`sql
-LECT t.class,
-     t.score
-OM `test` AS t
-NER JOIN
-(SELECT i.class,
-        GROUP_CONCAT(i.`score`
-                     ORDER BY i.`score` DESC) grouped_score
- FROM `test` AS i
- GROUP BY i.class) AS group_max ON t.class = group_max.class
-D FIND_IN_SET(t.`score`, grouped_score) BETWEEN 1 AND 3
-DER BY t.class,
-       t.score DESC;
+```sql
+SELECT t.class,
+       t.score
+FROM `test` AS t
+INNER JOIN
+  (SELECT i.class,
+          GROUP_CONCAT(i.`score`
+                       ORDER BY i.`score` DESC) grouped_score
+   FROM `test` AS i
+   GROUP BY i.class) AS group_max ON t.class = group_max.class
+AND FIND_IN_SET(t.`score`, grouped_score) BETWEEN 1 AND 3
+ORDER BY t.class,
+         t.score DESC;
 ```
 
 

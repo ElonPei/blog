@@ -9,13 +9,13 @@ date: 2018-01-01
 简单动态字符串 （Simple Dynamic String)，简称SDS。
 
 
-`c
- 数据结构
-ruct sdshdr{
-int len;
-int free;
-char buf[];
-
+```c
+// 数据结构
+struct sdshdr{
+  int len;
+  int free;
+  char buf[];
+};
 ```
 
 
@@ -51,39 +51,50 @@ sds可以重用部分<string.h>函数库
 #### 源代码
 
 
-`c
+```c
+/*
+ * 双端链表节点
+ */
+typedef struct listNode {
 
- 双端链表节点
-/
-pedef struct listNode {
-  // 前置节点
-  struct listNode *prev;
-  // 后置节点
-  struct listNode *next;
-  // 节点的值
-  void *value;
-listNode;
+    // 前置节点
+    struct listNode *prev;
+
+    // 后置节点
+    struct listNode *next;
+
+    // 节点的值
+    void *value;
+
+} listNode;
 ```
 
 
-`c
+```c
+/*
+ * 双端链表结构
+ */
+typedef struct list {
 
- 双端链表结构
-/
-pedef struct list {
-  // 表头节点
-  listNode *head;
-  // 表尾节点
-  listNode *tail;
-  // 节点值复制函数
-  void *(*dup)(void *ptr);
-  // 节点值释放函数
-  void (*free)(void *ptr);
-  // 节点值对比函数
-  int (*match)(void *ptr, void *key);
-  // 链表所包含的节点数量
-  unsigned long len;
-list;
+    // 表头节点
+    listNode *head;
+
+    // 表尾节点
+    listNode *tail;
+
+    // 节点值复制函数
+    void *(*dup)(void *ptr);
+
+    // 节点值释放函数
+    void (*free)(void *ptr);
+
+    // 节点值对比函数
+    int (*match)(void *ptr, void *key);
+
+    // 链表所包含的节点数量
+    unsigned long len;
+
+} list;
 ```
 
 
@@ -107,73 +118,85 @@ list;
 底层实现：一个hash表中有多个hash节点，每个hash节点保存一个键值对。
 
 
-`c
+```c
+/*
+ * 字典
+ */
+typedef struct dict {
 
- 字典
-/
-pedef struct dict {
-  // 类型特定函数
-  dictType *type;
-  // 私有数据
-  void *privdata;
-  // 哈希表
-  dictht ht[2];
-  // rehash 索引
-  // 当 rehash 不在进行时，值为 -1
-  int rehashidx; /* rehashing not in progress if rehashidx == -1 */
-  // 目前正在运行的安全迭代器的数量
-  int iterators; /* number of iterators currently running */
-dict;
+    // 类型特定函数
+    dictType *type;
+
+    // 私有数据
+    void *privdata;
+
+    // 哈希表
+    dictht ht[2];
+
+    // rehash 索引
+    // 当 rehash 不在进行时，值为 -1
+    int rehashidx; /* rehashing not in progress if rehashidx == -1 */
+
+    // 目前正在运行的安全迭代器的数量
+    int iterators; /* number of iterators currently running */
+
+} dict;
 ```
 
 
-`c
+```c
+/*
+ * 哈希表
+ *
+ * 每个字典都使用两个哈希表，从而实现渐进式 rehash 。
+ */
+typedef struct dictht {
+    
+    // 哈希表数组
+    dictEntry **table;
 
- 哈希表
+    // 哈希表大小
+    unsigned long size;
+    
+    // 哈希表大小掩码，用于计算索引值
+    // 总是等于 size - 1
+    unsigned long sizemask;
 
- 每个字典都使用两个哈希表，从而实现渐进式 rehash 。
-/
-pedef struct dictht {
-  
-  // 哈希表数组
-  dictEntry **table;
-  // 哈希表大小
-  unsigned long size;
-  
-  // 哈希表大小掩码，用于计算索引值
-  // 总是等于 size - 1
-  unsigned long sizemask;
-  // 该哈希表已有节点的数量
-  unsigned long used;
-dictht;
+    // 该哈希表已有节点的数量
+    unsigned long used;
+
+} dictht;
 ```
 
 
-`c
+```c
+/*
+ * 哈希表节点
+ */
+typedef struct dictEntry {
+    
+    // 键
+    void *key;
 
- 哈希表节点
-/
-pedef struct dictEntry {
-  
-  // 键
-  void *key;
-  // 值
-  union {
-      void *val;
-      uint64_t u64;
-      int64_t s64;
-  } v;
-  // 指向下个哈希表节点，形成链表
-  struct dictEntry *next;
-dictEntry;
+    // 值
+    union {
+        void *val;
+        uint64_t u64;
+        int64_t s64;
+    } v;
+
+    // 指向下个哈希表节点，形成链表
+    struct dictEntry *next;
+
+} dictEntry;
 ```
 
 
 #### hash算法
 
 
-`c
-dex = dict->type->hashFunction(key)  & dict->ht[x].sizemask;
+```c
+index = dict->type->hashFunction(key)  & dict->ht[x].sizemask;
 ```
 
 
@@ -197,16 +220,19 @@ dex = dict->type->hashFunction(key)  & dict->ht[x].sizemask;
 ## 整数集合的实现
 
 
-`c
-pedef struct intset {
-  
-  // 编码方式
-  uint32_t encoding;
-  // 集合包含的元素数量
-  uint32_t length;
-  // 保存元素的数组
-  int8_t contents[];
-intset;
+```c
+typedef struct intset {
+    
+    // 编码方式
+    uint32_t encoding;
+
+    // 集合包含的元素数量
+    uint32_t length;
+
+    // 保存元素的数组
+    int8_t contents[];
+
+} intset;
 ```
 
 
@@ -222,19 +248,25 @@ intset;
 ## 对象
 
 
-`c
-pedef struct redisObject {
-  // 类型
-  unsigned type:4;
-  // 编码
-  unsigned encoding:4;
-  // 对象最后一次被访问的时间
-  unsigned lru:REDIS_LRU_BITS; /* lru time (relative to server.lruclock) */
-  // 引用计数
-  int refcount;
-  // 指向实际值的指针
-  void *ptr;
-robj;
+```c
+typedef struct redisObject {
+
+    // 类型
+    unsigned type:4;
+
+    // 编码
+    unsigned encoding:4;
+
+    // 对象最后一次被访问的时间
+    unsigned lru:REDIS_LRU_BITS; /* lru time (relative to server.lruclock) */
+
+    // 引用计数
+    int refcount;
+
+    // 指向实际值的指针
+    void *ptr;
+
+} robj;
 ```
 
 

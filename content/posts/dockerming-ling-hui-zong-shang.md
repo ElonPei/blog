@@ -31,10 +31,11 @@ date: 2016-10-01
 ### 1. 列出机器上的镜像（images）
 
 
-`
-docker images 
-POSITORY               TAG             IMAGE ID        CREATED         VIRTUAL SIZE
-untu                   14.10           2185fd50e2ca    13 days ago     236.9 MB
+```
+# docker images 
+REPOSITORY               TAG             IMAGE ID        CREATED         VIRTUAL SIZE
+ubuntu                   14.10           2185fd50e2ca    13 days ago     236.9 MB
+…
 ```
 
 
@@ -47,10 +48,10 @@ IMAGE ID列其实是缩写，要显示完整则带上`--no-trunc`选项
 `Usage: docker search TERM`
 
 
-`
-docker search seanlo
-ME                DESCRIPTION           STARS     OFFICIAL   AUTOMATED
-anloook/centos6   sean's docker repos         0
+```
+# docker search seanlo
+NAME                DESCRIPTION           STARS     OFFICIAL   AUTOMATED
+seanloook/centos6   sean's docker repos         0
 ```
 
 
@@ -63,8 +64,8 @@ anloook/centos6   sean's docker repos         0
 `Usage: docker pull [OPTIONS] NAME[:TAG]`
 
 
-`
-docker pull centos
+```
+# docker pull centos
 ```
 
 
@@ -73,8 +74,8 @@ docker pull centos
 也可以明确指定具体的镜像：
 
 
-`
-docker pull centos:centos6
+```
+# docker pull centos:centos6
 ```
 
 
@@ -84,8 +85,8 @@ docker pull centos:centos6
 `docker pull username/repository<:tag_name>` 
 
 
-`
-docker pull seanlook/centos:centos6
+```
+# docker pull seanlook/centos:centos6
 ```
 
 
@@ -95,8 +96,8 @@ docker pull seanlook/centos:centos6
 `docker pull registry.domain.com:5000/repos`
 
 
-`
-docker pull dl.dockerpool.com:5000/mongo:latest
+```
+# docker pull dl.dockerpool.com:5000/mongo:latest
 ```
 
 
@@ -106,9 +107,9 @@ docker pull dl.dockerpool.com:5000/mongo:latest
 与上面的pull对应，可以推送到Docker Hub的Public、Private以及私服，但不能推送到Top Level Repository。
 
 
-`
-docker push seanlook/mongo
-docker push registry.tp-link.net:5000/mongo:2014-10-27
+```
+# docker push seanlook/mongo
+# docker push registry.tp-link.net:5000/mongo:2014-10-27
 ```
 
 
@@ -146,9 +147,9 @@ registry.tp-link.net也可以写成172.29.88.222。
 #### 5.1 使用image创建container并执行相应命令，然后停止
 
 
-`
-docker run ubuntu echo "hello world"
-llo word
+```
+# docker run ubuntu echo "hello world"
+hello word
 ```
 
 
@@ -160,9 +161,9 @@ llo word
 #### 使用image创建container并进入交互模式, login shell是/bin/bash
 
 
-`
-docker run -i -t --name mytest centos:centos6 /bin/bash
-sh-4.1#
+```
+# docker run -i -t --name mytest centos:centos6 /bin/bash
+bash-4.1#
 ```
 
 
@@ -172,9 +173,10 @@ sh-4.1#
 #### 5.2 运行出一个container放到后台运行
 
 
-`
-docker run -d ubuntu /bin/sh -c "while true; do echo hello world; sleep 2; done"
-60c4b642058fefcc61ada85a610914bed9f5df0e2aa147100eab85cea785dc
+```
+# docker run -d ubuntu /bin/sh -c "while true; do echo hello world; sleep 2; done"
+ae60c4b642058fefcc61ada85a610914bed9f5df0e2aa147100eab85cea785dc
+
 ```
 
 
@@ -194,19 +196,21 @@ docker run -d ubuntu /bin/sh -c "while true; do echo hello world; sleep 2; done"
 映射主机到容器的端口是很有用的，比如在container中运行memcached，端口为11211，运行容器的host可以连接container的 internel_ip:11211 访问，如果有从其他主机访问memcached需求那就可以通过-p选项
 
 
-`
- 11211:11211 这个即是默认情况下，绑定主机所有网卡（0.0.0.0）的11211端口到容器的11211端口上
- 127.0.0.1:11211:11211 只绑定localhost这个接口的11211端口
- 127.0.0.1::5000
- 127.0.0.1:80:8080
+```
+-p 11211:11211 这个即是默认情况下，绑定主机所有网卡（0.0.0.0）的11211端口到容器的11211端口上
+-p 127.0.0.1:11211:11211 只绑定localhost这个接口的11211端口
+-p 127.0.0.1::5000
+-p 127.0.0.1:80:8080
+
 ```
 
 
 目录映射其实是“绑定挂载”host的路径到container的目录，这对于内外传送文件比较方便，在搭建私服那一节，为了避免私服container停止以后保存的images不被删除，就要把提交的images保存到挂载的主机目录下。使用比较简单，`-v `，绑定多个目录时再加`-v`。
 
 
-`
- /tmp/docker:/tmp/docker
+```
+-v /tmp/docker:/tmp/docker
+
 ```
 
 
@@ -215,11 +219,12 @@ docker run -d ubuntu /bin/sh -c "while true; do echo hello world; sleep 2; done"
 下面是一个例子：
 
 
-`
-docker run --name nginx_test \
--v /tmp/docker:/usr/share/nginx/html:ro \
--p 80:80 -d \
-nginx:1.7.6
+```
+# docker run --name nginx_test \
+> -v /tmp/docker:/usr/share/nginx/html:ro \
+> -p 80:80 -d \
+> nginx:1.7.6
+
 ```
 
 
@@ -238,18 +243,23 @@ nginx:1.7.6
 只能提交正在运行的container，即通过`docker ps`可以看见的容器，
 
 
-`
-刚运行过的容器
-docker ps -l
-NTAINER ID   IMAGE     COMMAND      CREATED       STATUS        PORTS   NAMES
-fdf26326c9   nginx:1   nginx -g..   3 hours ago   Exited (0)..     nginx_test
-一个已存在的容器（run是从image新建容器后再启动），以下也可以使用docker start nginx_test代替  
-oot@hostname docker]# docker start c9fdf26326c9
-fdf26326c9
-cker run -i -t --sig-proxy=false 21ffe545748baf /bin/bash
-inx服务没有启动
-docker commit -m "some tools installed" fcbd0a5348ca seanlook/ubuntu:14.10_tutorial
-022762070b09866eaab47bc943ccb796e53f3f416abf3f2327481b446a9503
+```
+查看刚运行过的容器
+# docker ps -l
+CONTAINER ID   IMAGE     COMMAND      CREATED       STATUS        PORTS   NAMES
+c9fdf26326c9   nginx:1   nginx -g..   3 hours ago   Exited (0)..     nginx_test
+
+启动一个已存在的容器（run是从image新建容器后再启动），以下也可以使用docker start nginx_test代替  
+[root@hostname docker]# docker start c9fdf26326c9
+c9fdf26326c9
+
+
+docker run -i -t --sig-proxy=false 21ffe545748baf /bin/bash
+nginx服务没有启动
+
+
+# docker commit -m "some tools installed" fcbd0a5348ca seanlook/ubuntu:14.10_tutorial
+fe022762070b09866eaab47bc943ccb796e53f3f416abf3f2327481b446a9503
 ```
 
 

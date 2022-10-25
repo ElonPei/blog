@@ -1,6 +1,8 @@
 ---
 title: 微信支付生成10位一天内不能重复的数字工具类
 date: 2019-04-01
+tags:
+  - Algorithm
 ---
 
 在开发微信支付现金红包功能时遇到生成商户号的需要生成10位一天内不能重复的数字，如果用单纯的随机数，有可能随机数碰撞，产生相同商户号的问题，所以自己写了个工具类。
@@ -12,30 +14,30 @@ date: 2019-04-01
 ## 代码实现
 
 
-`Java
-  private static List<String> list = new ArrayList<>();
-  private static String todayIndex = DateUtil.getSDFFDate();
-  
-  /**
-   * 商户订单号（每个订单号必须唯一）
-   * <p>
-   * 组成：mch_id+yyyymmdd+10位一天内不能重复的数字
-   *
-   * @return
-   */
-  public synchronized static String generateRedPackMchBillno() {
-      if (!todayIndex.equals(DateUtil.getSDFFDate())) {
-          list.clear();
-      }
-      String mchBillno = MAC_ID + DateUtil.getSDFFDate() + getRandomNumber();
-      if (list.contains(mchBillno)) {
-          return generateRedPackMchBillno();
-      } else {
-          list.add(mchBillno);
-          todayIndex = DateUtil.getSDFFDate();
-      }
-      return mchBillno;
-  }
+```Java
+    private static List<String> list = new ArrayList<>();
+    private static String todayIndex = DateUtil.getSDFFDate();
+    
+    /**
+     * 商户订单号（每个订单号必须唯一）
+     * <p>
+     * 组成：mch_id+yyyymmdd+10位一天内不能重复的数字
+     *
+     * @return
+     */
+    public synchronized static String generateRedPackMchBillno() {
+        if (!todayIndex.equals(DateUtil.getSDFFDate())) {
+            list.clear();
+        }
+        String mchBillno = MAC_ID + DateUtil.getSDFFDate() + getRandomNumber();
+        if (list.contains(mchBillno)) {
+            return generateRedPackMchBillno();
+        } else {
+            list.add(mchBillno);
+            todayIndex = DateUtil.getSDFFDate();
+        }
+        return mchBillno;
+    }
 ```
 
 
@@ -45,13 +47,14 @@ date: 2019-04-01
 DateUtil部分代码如下：
 
 
-`Java
-  static SimpleDateFormat sdff = new SimpleDateFormat("yyyyMMdd");
-  
-  public static String getSDFFDate(){
-      return sdff.format(new Date());
-  }
-  
+```Java
+
+    static SimpleDateFormat sdff = new SimpleDateFormat("yyyyMMdd");
+    
+    public static String getSDFFDate(){
+        return sdff.format(new Date());
+    }
+    
 ```
 
 

@@ -12,27 +12,31 @@ Jute是Zookeeper中的序列化组件，最初也是Hadoop中的默认序列化�
 
 Zookeeper从最早的版本开始就一直使用Jute作为序列化工具，直到现在最新的版本zookeeper-3.4.9依然使用Jute；至于为什么没有换成性能更好，通用性更强的如：Apache Avro，Thrift，Protobuf等序列化组件，主要还是由于考虑到新老版本序列化组件的兼容性，另一方面Jute并没有成为Zookeeper的瓶颈所在；下面针对Jute使用和部分源码的分析。
 
-
 ### **简单使用**
 
 
 首先对Jute简单使用，对Jute有一个初步的了解：
 
-
 #### 1.提供一个实现接口Record的bean
 
 
-`java
-blic class TestBean implements Record {
+```java
+public class TestBean implements Record {
+
   private int intV;
   private String stringV;
+
   public TestBean() {
+
   }
+
   public TestBean(int intV, String stringV) {
       this.intV = intV;
       this.stringV = stringV;
   }
+
       //get/set方法
+
   @Override
   public void deserialize(InputArchive archive, String tag)
           throws IOException {
@@ -41,6 +45,7 @@ blic class TestBean implements Record {
       this.stringV = archive.readString("stringV");
       archive.endRecord(tag);
   }
+
   @Override
   public void serialize(OutputArchive archive, String tag) throws IOException {
       archive.startRecord(this, tag);
@@ -48,17 +53,19 @@ blic class TestBean implements Record {
       archive.writeString(stringV, "stringV");
       archive.endRecord(this, tag);
   }
+
+}
 ```
 
 
 实现的Record接口，主要实现了2个方法deserialize和serialize。
 
-
 #### 2.序列化和反序列
 
 
-`java
-blic class BinaryTest1 {
+```java
+public class BinaryTest1 {
+
   public static void main(String[] args) throws IOException {
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       BinaryOutputArchive boa = BinaryOutputArchive.getArchive(baos);
@@ -75,38 +82,36 @@ blic class BinaryTest1 {
       bais.close();
       baos.close();
   }
+}
 ```
 
 
 分别提供了序列化器BinaryOutputArchive和反序列化器ByteArrayInputStream，然后将TestBean指定tag1标记进行序列化和反序列化，最终对比序列化前的数据和序列化后的数据。
 
-
 ### **使用分析**
-
 
 #### Record接口
 
 
-`java
-blic interface Record {
+```java
+public interface Record {
   public void serialize(OutputArchive archive, String tag)
       throws IOException;
   public void deserialize(InputArchive archive, String tag)
       throws IOException;
+}
 ```
 
 
 OutputArchive表示序列化器，InputArchive表示反序列器，tag用于标识对象，主要是因为同一个序列化器可以序列化多个对象，所以需要给每个对象一个标识。
 
-
 ### OutputArchive和InputArchive相关
-
 
 #### OutputArchive接口
 
 
-`java
-blic interface OutputArchive {
+```java
+public interface OutputArchive {
   public void writeByte(byte b, String tag) throws IOException;
   public void writeBool(boolean b, String tag) throws IOException;
   public void writeInt(int i, String tag) throws IOException;
@@ -123,6 +128,8 @@ blic interface OutputArchive {
   public void endVector(List v, String tag) throws IOException;
   public void startMap(TreeMap v, String tag) throws IOException;
   public void endMap(TreeMap v, String tag) throws IOException;
+
+}
 ```
 
 
@@ -134,7 +141,6 @@ blic interface OutputArchive {
 
 InputArchive接口同理。
 
-
 #### 实现类
 
 
@@ -143,7 +149,6 @@ OutputArchive和InputArchive的实现类，可以从代码结构中看到，主�
 OutputArchive实现类：BinaryOutputArchive，CsvOutputArchive和XmlOutputArchive
 
 InputArchive实现类：BinaryInputArchive，CsvInputArchive和XmlInputArchive
-
 
 #### 用途
 
@@ -156,7 +161,6 @@ XmlInputArchive：将数据以xml保存和还原
 
 在Zookeeper中更多的地方用于网络传输和本地磁盘的存储，所以BinaryOutputArchive使用最为广泛，上面的实例也是以BinaryOutputArchive作为序列化类。
 
-
 ### 数据描述语言
 
 
@@ -168,7 +172,6 @@ Zookeeper中的很多类都是通过描述语言生成的，对应的描述文�
 
 JavaGenerator，CSharpGenerator，CppGenerator，CGenerator；分别对应生成java，c#，c++，c语言的类文件；
 
-
 ### **与Protobuf简单对比**
 
 
@@ -178,29 +181,29 @@ Protobuf：protobuf-3.0.0
 
 jute:zookeeper-3.4.9
 
-
 ##### protobuf描述文件：
 
 
-`
-ntax = "proto3";
-tion java_package = "protobuf.clazz"; 
-tion java_outer_classname = "GoodsPicInfo";
-ssage PicInfo { 
+```
+syntax = "proto3";
+option java_package = "protobuf.clazz"; 
+option java_outer_classname = "GoodsPicInfo";
+
+message PicInfo { 
  int32 ID = 1; 
  int64 GoodID = 2;        
  string Url = 3; 
  string Guid = 4; 
  string Type = 5; 
  int32 Order = 6; 
+}
 ```
-
 
 ##### jute描述文件：
 
 
-`
-dule test {
+```
+module test {
   class PicInfo {
       int ID;
       long GoodID;
@@ -209,14 +212,15 @@ dule test {
       ustring Type;
       int Order;
   }
+}
 ```
 
 
 protobuf测试代码：
 
 
-`java
-blic class Protobuf_Test {
+```java
+public class Protobuf_Test {
   public static void main(String[] args)
           throws InvalidProtocolBufferException {
       long startTime = System.currentTimeMillis();
@@ -236,6 +240,7 @@ blic class Protobuf_Test {
       long endTime = System.currentTimeMillis();
       System.out.println("字节数大小:" + result.length + ",序列化花费时间:"
               + (endTime - startTime) + "ms");
+
       for (int i = 0; i < 50000; i++) {
           GoodsPicInfo.PicInfo newBean = GoodsPicInfo.PicInfo
                   .getDefaultInstance();
@@ -246,14 +251,15 @@ blic class Protobuf_Test {
       long endTime2 = System.currentTimeMillis();
       System.out.println("反序列化花费时间:" + (endTime2 - endTime) + "ms");
   }
+}
 ```
 
 
 jute测试代码：
 
 
-`java
-blic class Jute_test {
+```java
+public class Jute_test {
   public static void main(String[] args) throws IOException {
       long startTime = System.currentTimeMillis();
       byte array[] = null;
@@ -267,6 +273,7 @@ blic class Jute_test {
       long endTime = System.currentTimeMillis();
       System.out.println("字节数大小:" + array.length + ",序列化花费时间:"
               + (endTime - startTime) + "ms");
+
       for (int i = 0; i < 50000; i++) {
           ByteArrayInputStream bais = new ByteArrayInputStream(array);
           BinaryInputArchive bia = BinaryInputArchive.getArchive(bais);
@@ -276,6 +283,7 @@ blic class Jute_test {
       long endTime2 = System.currentTimeMillis();
       System.out.println("反序列化花费时间:" + (endTime2 - endTime) + "ms");
   }
+}
 ```
 
 
@@ -286,7 +294,6 @@ protobuf:字节数大小:48,序列化花费时间:141ms,反序列化花费时间
 jute:字节数大小:66,序列化花费时间:94ms,反序列化花费时间:62ms
 
 jute在序列化的花费的时间上占有一定的优势，但是字节数大小不太理想。
-
 
 ### **总结**
 

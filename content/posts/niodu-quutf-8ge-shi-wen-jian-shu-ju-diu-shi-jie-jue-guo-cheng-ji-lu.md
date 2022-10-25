@@ -19,19 +19,19 @@ tags:
 
 来自: http://stackoverflow.com/questions/29559842/what-is-charsetdecoder-decodebytebuffer-charbuffer-endofinput
 
- ```
- Apparently it does not work correctly if you start decoding in the middle of a character. The decoder expects that the first thing it reads is the start of a valid UTF-8 sequence.
- 
- edit - When the decoder reports UNDERFLOW, it expects you to add more data to the input buffer and then try to call decode() again, but you must re-offer it the data from the start of the UTF-8 sequence that you are trying to decode. You can't continue in the middle of an UTF-8 sequence.
+```
+Apparently it does not work correctly if you start decoding in the middle of a character. The decoder expects that the first thing it reads is the start of a valid UTF-8 sequence.
+
+edit - When the decoder reports UNDERFLOW, it expects you to add more data to the input buffer and then try to call decode() again, but you must re-offer it the data from the start of the UTF-8 sequence that you are trying to decode. You can't continue in the middle of an UTF-8 sequence.
 ```
 
 后来又搜索到另一个答案：
 
 来自：http://stackoverflow.com/questions/14792654/decoding-multibyte-utf8-symbols-with-charset-decoder-in-byte-by-byte-manner
 
- ```
- If my theory is correct then the answer is that you cannot decode UTF-8 by providing the decoder with byte buffers containing exactly one byte. But you could implement byte-by-byte decoding by starting with a ByteBuffer containing one byte and adding extra bytes until the decoder succeeds in outputing a character. Just make sure that you don't clobber input bytes that haven't been consumed yet.
-   Note that decoding like this is not efficient. The API design is optimized for decoding a large number of bytes in one go.
+```
+If my theory is correct then the answer is that you cannot decode UTF-8 by providing the decoder with byte buffers containing exactly one byte. But you could implement byte-by-byte decoding by starting with a ByteBuffer containing one byte and adding extra bytes until the decoder succeeds in outputing a character. Just make sure that you don't clobber input bytes that haven't been consumed yet.
+  Note that decoding like this is not efficient. The API design is optimized for decoding a large number of bytes in one go.
 ```
 
 ## 思考

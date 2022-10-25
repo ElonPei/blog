@@ -1,8 +1,7 @@
 ---
-title: 每日算法 #953 表达式计算树求非连续元素的最大总和
-date: 953
+title: 每日算法 953 表达式计算树求非连续元素的最大总和
+date: 2021-08-03
 tags:
-  - 2021-08-03
   - Algorithm
 ---
 
@@ -28,19 +27,19 @@ Follow-up: Can you do this in O(N) time and constant space?
 这是一道典型的动态规划来解决的问题，假设A是给定的数组arr，另一个数组Sum表示从arr[0]…arr[i]中非连续元素的最大和。
 
 
-`
-m[0] = arr[0]
-m[1] = max(Sum[0], arr[1])
-m[2] = max(Sum[0] + arr[2], Sum[1])
-.
-m[i] = max(Sum(i-2) + arr[i], Sum[i-1]) when i>=2
+```
+Sum[0] = arr[0]
+Sum[1] = max(Sum[0], arr[1])
+Sum[2] = max(Sum[0] + arr[2], Sum[1])
+...
+Sum[i] = max(Sum(i-2) + arr[i], Sum[i-1]) when i>=2
 ```
 
 # 代码
 
 
-`java
-blic static int getSum(int[] arr, int n) {
+```java
+public static int getSum(int[] arr, int n) {
 int[] sum = new int[n];
 for (int i = 0; i < arr.length; i++) {
     if (i == 0) {
@@ -52,4 +51,5 @@ for (int i = 0; i < arr.length; i++) {
     }
 }
 return sum[n - 1];
+}
 ```

@@ -23,41 +23,46 @@ tags:
 饿汉式，线程安全，坏处是不节约资源。
 
 
-`java
-ivate static Singleton uniqueInstance = new Singleton();
+```java
+private static Singleton uniqueInstance = new Singleton();
 ```
 
 
 懒汉式，线程安全的写法，好处是节约资源，坏处是在多线程的环境下，线程会阻塞时间过长，有性能问题，不建议试用该方法。
 
 
-`java
-blic static synchronized Singleton getUniqueInstance() {
-  if (uniqueInstance == null) {
-      uniqueInstance = new Singleton();
-  }
-  return uniqueInstance;
+```java
+public static synchronized Singleton getUniqueInstance() {
+    if (uniqueInstance == null) {
+        uniqueInstance = new Singleton();
+    }
+    return uniqueInstance;
+}
 ```
 
 
 双重校验锁，是线程安全的写法，这种写法高并发也没有问题，也是懒加载的。
 
 
-`java
-blic class Singleton {
-  private volatile static Singleton uniqueInstance;
-  private Singleton() {
-  }
-  public static Singleton getUniqueInstance() {
-      if (uniqueInstance == null) {
-          synchronized (Singleton.class) {
-              if (uniqueInstance == null) {
-                  uniqueInstance = new Singleton();
-              }
-          }
-      }
-      return uniqueInstance;
-  }
+```java
+public class Singleton {
+
+    private volatile static Singleton uniqueInstance;
+
+    private Singleton() {
+    }
+
+    public static Singleton getUniqueInstance() {
+        if (uniqueInstance == null) {
+            synchronized (Singleton.class) {
+                if (uniqueInstance == null) {
+                    uniqueInstance = new Singleton();
+                }
+            }
+        }
+        return uniqueInstance;
+    }
+}
 ```
 
 
@@ -69,16 +74,20 @@ volatile 关键字可以防止指令重排序。
 静态内部类实现，懒加载，JVM能够保证实例只被实例化一次。
 
 
-`java
-blic class Singleton {
-  private Singleton() {
-  }
-  private static class SingletonHolder {
-      private static final Singleton INSTANCE = new Singleton();
-  }
-  public static Singleton getUniqueInstance() {
-      return SingletonHolder.INSTANCE;
-  }
+```java
+public class Singleton {
+
+    private Singleton() {
+    }
+
+    private static class SingletonHolder {
+        private static final Singleton INSTANCE = new Singleton();
+    }
+
+    public static Singleton getUniqueInstance() {
+        return SingletonHolder.INSTANCE;
+    }
+}
 ```
 
 

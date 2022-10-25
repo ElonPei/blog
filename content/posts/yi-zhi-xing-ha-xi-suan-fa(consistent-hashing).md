@@ -1,5 +1,5 @@
 ---
-title: 理解一致性哈希算法(consistent hashing)
+title: 一致性哈希算法(consistent hashing)
 date: 2016-10-10
 tags:
   - Algorithm

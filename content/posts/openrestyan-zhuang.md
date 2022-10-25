@@ -9,9 +9,9 @@ date: 2018-01-01
 #### step1. 创建安装目录
 
 
-`shell
-dir -p /usr/servers
- /usr/servers
+```shell
+mkdir -p /usr/servers
+cd /usr/servers
 ```
 
 <!-- more -->
@@ -20,56 +20,56 @@ dir -p /usr/servers
 #### step2. 安装依赖
 
 
-`shell
-m install libreadline-dev libncurses5-dev libpcre3-dev libssl-dev perl
+```shell
+yum install libreadline-dev libncurses5-dev libpcre3-dev libssl-dev perl
 ```
 
 #### step3. 下载ngx_openresty-1.7.7.2.tar.gz并解压
 
 
-`shell
-et http://openresty.org/download/ngx_openresty-1.7.7.2.tar.gz
-r -xzvf ngx_openresty-1.7.7.2.tar.gz
+```shell
+wget http://openresty.org/download/ngx_openresty-1.7.7.2.tar.gz
+tar -xzvf ngx_openresty-1.7.7.2.tar.gz
 ```
 
 
 #### step4. 安装LuaJIT
 
 
-`shell
- bundle/LuaJIT-2.1-20150120/  
-ke clean && make && make install  
- -sf luajit-2.1.0-alpha /usr/local/bin/luajit  
+```shell
+cd bundle/LuaJIT-2.1-20150120/  
+make clean && make && make install  
+ln -sf luajit-2.1.0-alpha /usr/local/bin/luajit  
 ```
 
 
 #### step5. 下载ngx_cache_purge模块，该模块用于清理nginx缓存
 
 
-`shell
- /usr/servers/ngx_openresty-1.7.7.2/bundle  
-et https://github.com/FRiCKLE/ngx_cache_purge/archive/2.3.tar.gz  
-r -xvf 2.3.tar.gz
+```shell
+cd /usr/servers/ngx_openresty-1.7.7.2/bundle  
+wget https://github.com/FRiCKLE/ngx_cache_purge/archive/2.3.tar.gz  
+tar -xvf 2.3.tar.gz
 ```
 
 
 #### step6. 下载nginx_upstream_check_module模块，该模块用于ustream健康检查
 
 
-`shell
- /usr/servers/ngx_openresty-1.7.7.2/bundle  
-et https://github.com/yaoweibin/nginx_upstream_check_module/archive/v0.3.0.tar.gz  
-r -xvf v0.3.0.tar.gz  
+```shell
+cd /usr/servers/ngx_openresty-1.7.7.2/bundle  
+wget https://github.com/yaoweibin/nginx_upstream_check_module/archive/v0.3.0.tar.gz  
+tar -xvf v0.3.0.tar.gz  
 ```
 
 
 #### step7. 安装ngx_openresty
 
 
-`shell
- /usr/servers/ngx_openresty-1.7.7.2  
-configure --prefix=/usr/servers --with-http_realip_module  --with-pcre  --with-luajit --add-module=./bundle/ngx_cache_purge-2.3/ --add-module=./bundle/nginx_upstream_check_module-0.3.0/ -j2  
-ke && make install
+```shell
+cd /usr/servers/ngx_openresty-1.7.7.2  
+./configure --prefix=/usr/servers --with-http_realip_module  --with-pcre  --with-luajit --add-module=./bundle/ngx_cache_purge-2.3/ --add-module=./bundle/nginx_upstream_check_module-0.3.0/ -j2  
+make && make install
 ```
 
 
@@ -95,9 +95,9 @@ ke && make install
 #### step8. 到/usr/servers目录下 
 
 
-`shell
- /usr/servers/  
-   
+```shell
+cd /usr/servers/  
+ll   
 ```
 
 

@@ -76,65 +76,69 @@ tags:
 
 ## 答案
 
-`Java
-port java.io.BufferedReader;
-port java.io.File;
-port java.io.FileReader;
-port java.io.IOException;
-port java.text.SimpleDateFormat;
-port java.util.ArrayList;
-port java.util.Date;
-port java.util.Locale;
-*
- @Date 	2016-4-06
- @author 	Peiel
- @E-Mail  peielcn@gmail.com
+```Java
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+/**
+ * @Date 	2016-4-06
+ * @author 	Peiel
+ * @E-Mail  peielcn@gmail.com
+ *
+ */
+public class Test {
+	public static SimpleDateFormat sdf = new SimpleDateFormat("dd/MMMM/yyyy:HH:mm:ss",Locale.US);	//其中月份为英文显示
+	public static final long mm_30 = 30*60*1000; 	//30分钟的毫秒数
 
-/
-blic class Test {
-ublic static SimpleDateFormat sdf = new SimpleDateFormat("dd/MMMM/yyyy:HH:mm:ss",Locale.US);	//其中月份为英文显示
-ublic static final long mm_30 = 30*60*1000; 	//30分钟的毫秒数
-**
-* 获取日志文件中的数据，提取出时间，并存放在ArrayList中
-* @return	ArrayList
-*/
-ublic static ArrayList<Date> getData(){
-ArrayList<Date> data = new ArrayList<Date>();
-File file = new File("C:\\2013-05-30.log");
-BufferedReader reader = null;
-try {
-	reader = new BufferedReader(new FileReader(file));
-	String tempString = null;
-	while ((tempString = reader.readLine()) != null) {
-		String source = tempString.substring(tempString.indexOf("[")+1, tempString.length()-1);
-		data.add(sdf.parse(source));
-	}
-} catch (Exception e) {
-	e.printStackTrace();
-} finally {
-	if (reader != null) {
+	/**
+	 * 获取日志文件中的数据，提取出时间，并存放在ArrayList中
+	 * @return	ArrayList
+	 */
+	public static ArrayList<Date> getData(){
+		ArrayList<Date> data = new ArrayList<Date>();
+		File file = new File("C:\\2013-05-30.log");
+		BufferedReader reader = null;
 		try {
-			reader.close();
-		} catch (IOException e) {
+			reader = new BufferedReader(new FileReader(file));
+			String tempString = null;
+			while ((tempString = reader.readLine()) != null) {
+				String source = tempString.substring(tempString.indexOf("[")+1, tempString.length()-1);
+				data.add(sdf.parse(source));
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			if (reader != null) {
+				try {
+					reader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return data;
+	}
+	
+	public static void main(String[] args) {
+		ArrayList<Date> data = getData();
+		int j = 0;
+		for (int i = 0; i < data.size()-1; i++) {
+			//比较首个时间和第二个时间的时间差，如果小于30分钟，跳出当前循环，然后下次循环比较首个时间和第三个时间的时间差，以此类推，直到大于30分钟跳到else输出，并重置首个时间索引！
+			if (Math.abs(data.get(j).getTime()-data.get(i+1).getTime()) < mm_30) {	
+				continue;
+			}else{
+				System.out.println(sdf.format(data.get(j)) + "	" + sdf.format(data.get(i)) + "	" + Math.abs(data.get(j).getTime()-data.get(i).getTime()));
+				j = i + 1;
+			}
 		}
 	}
+	
 }
-return data;
-
-ublic static void main(String[] args) {
-ArrayList<Date> data = getData();
-int j = 0;
-for (int i = 0; i < data.size()-1; i++) {
-	//比较首个时间和第二个时间的时间差，如果小于30分钟，跳出当前循环，然后下次循环比较首个时间和第三个时间的时间差，以此类推，直到大于30分钟跳到else输出，并重置首个时间索引！
-	if (Math.abs(data.get(j).getTime()-data.get(i+1).getTime()) < mm_30) {	
-		continue;
-	}else{
-		System.out.println(sdf.format(data.get(j)) + "	" + sdf.format(data.get(i)) + "	" + Math.abs(data.get(j).getTime()-data.get(i).getTime()));
-		j = i + 1;
-	}
-}
-
 ```
 
 #### 程序运行结果
