@@ -1,1 +1,22 @@
 $global-font-size: 1.2rem !important;
+
+.single .content p {
+    margin: 0.9rem 0.2rem !important;
+}
+
+body {
+    font-family: "Times New Roman","Noto Serif CJK SC","Songti SC","Microsoft YaHei",serif,-apple-system,BlinkMacSystemFont !important;
+}
+
+.page {
+    max-width: 900px !important;
+}
+
+#header-desktop {
+    height: 3rem !important;
+    line-height: 3rem !important;
+}
+
+#header-desktop .header-wrapper {
+    padding: 0 2rem 0 calc(10vw + 100% - 100vw) !important;
+}
