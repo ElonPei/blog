@@ -21,11 +21,10 @@ jobs:
     # 切换分支
     - name: Checkout
       uses: actions/checkout@main
+      with:
+        submodules: true  # Fetch Hugo themes (true OR recursive)
+        fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
-    # Update references
-    - name: Git Sumbodule Update
-      run: |
-        git submodule update --init
     
     # install hugo
     - name: install hugo
