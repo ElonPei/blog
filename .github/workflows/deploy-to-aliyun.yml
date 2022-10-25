@@ -31,7 +31,9 @@ jobs:
     - name: Build
       # remove --minify tag if you do not need it
       # docs: https://gohugo.io/hugo-pipes/minification/
-      run: hugo
+      run: | 
+        hugo
+        hugo mod graph
 
     # Deploy
     - name: Deploy
