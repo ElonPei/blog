@@ -61,23 +61,25 @@ LanguageCode = "zh-CN"
     tileColor = "#da532c"
   [params.search]
     enable = true
-    contentLength = 4000  # 文章内容最长索引长度
-    placeholder = ""  # 搜索框的占位提示语
-    maxResultLength = 10  # 最大结果数目
-    snippetLength = 50  # 结果内容片段长度
-    highlightTag = "em"  # 搜索结果中高亮部分的 HTML 标签
-    absoluteURL = true  # 是否在搜索索引中使用基于 baseURL 的绝对路径
-    [params.search.fuse]
-      # https://fusejs.io/api/options.html
-      isCaseSensitive = false
-      minMatchCharLength = 2
-      findAllMatches = false
-      location = 0
-      threshold = 0.1
-      distance = 100
-      ignoreLocation = true
-      useExtendedSearch = false
-      ignoreFieldNorm = false
+    # type of search engine ["lunr", "algolia"]
+    type = "lunr"
+    # max index length of the chunked content
+    contentLength = 4000
+    # placeholder of the search bar
+    placeholder = ""
+    #  max number of results length
+    maxResultLength = 10
+    #  snippet length of the result
+    snippetLength = 30
+    #  HTML tag name of the highlight part in results
+    highlightTag = "em"
+    #  whether to use the absolute URL based on the baseURL in search index
+    absoluteURL = false
+    [params.search.algolia]
+      index = ""
+      appID = ""
+      searchKey = ""
+
 
   [params.home]
     rss = 10  # RSS 文章数目
