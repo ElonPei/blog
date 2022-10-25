@@ -26,19 +26,19 @@ java.util.Spliterator
 
 ### Intermediate 操作
 
-🕢 lazy
+> lazy
 
 包含的操作有：map (mapToInt, flatMap 等)、 filter、 distinct、 sorted、 peek、 limit、 skip、 parallel、 sequential、 unordered
 
 ### Terminal 操作
 
-🕢 一个流只能有一个Terminal操作，执行一次后流就用光了。
+> 一个流只能有一个Terminal操作，执行一次后流就用光了。
 
 forEach、 forEachOrdered、 toArray、 reduce、 collect、 min、 max、 count、 anyMatch、 allMatch、 noneMatch、 findFirst、 findAny、 iterator
 
 ### short-circuiting 操作
 
-🕢 主要是针对无限的流 转换为 有限的结果。
+> 主要是针对无限的流 转换为 有限的结果。
 
 anyMatch、 allMatch、 noneMatch、 findFirst、 findAny、 limit
 
@@ -46,50 +46,50 @@ anyMatch、 allMatch、 noneMatch、 findFirst、 findAny、 limit
 
 ### map/flatMap
 
-转换为大写
+- 转换为大写
 
-平方数
+- 平方数
 
-一对多
+- 一对多
 
 ### filter
 
-留下偶数
+- 留下偶数
 
-把单词挑出来
+- 把单词挑出来
 
 ### foreach
 
-打印姓名
+- 打印姓名
 
 ### peek
 
-打印 > 转换大写 > 打印 > 返回 list
+- 打印 > 转换大写 > 打印 > 返回 list
 
 ### reduce
 
-🕢 理解为对规则的作用，像 sum min max 这一类就是一种特殊的 reduce。
+> 理解为对规则的作用，像 sum min max 这一类就是一种特殊的 reduce。
 
-字符串连接
+- 字符串连接
 
-求最小值
+- 求最小值
 
-求和
+- 求和
 
 ### sorted
 
-根据函数参数进行排序
+- 根据函数参数进行排序
 
 ### min/max/distinct
 
-找出文件中最长一行的长度
+- 找出文件中最长一行的长度
 
 ## 进阶：自己生成流
 
 ### Stream.generate
 
-生成10个随机的整数
+- 生成10个随机的整数
 
 ### Stream.iterate
 
-生产一个等差数列
+- 生产一个等差数列
