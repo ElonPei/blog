@@ -2,7 +2,7 @@
 title: macOS 下 MySQL 重置密码
 date: 2018-08-01
 tags:
-  - MySQL
+  - MySQL,
   - macOS
 ---
 

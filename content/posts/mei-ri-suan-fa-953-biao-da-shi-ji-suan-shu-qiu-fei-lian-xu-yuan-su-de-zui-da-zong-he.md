@@ -1,12 +1,12 @@
 ---
 title: 每日算法 953 表达式计算树求非连续元素的最大总和
 date: 2021-08-03
+tags:
+  - Algorithm
 ---
 
+
 > 思路参考：stackoverflow
-
->
-
 
 # 原题说明
 
@@ -40,13 +40,13 @@ Sum[i] = max(Sum(i-2) + arr[i], Sum[i-1]) when i>=2
 public static int getSum(int[] arr, int n) {
 int[] sum = new int[n];
 for (int i = 0; i < arr.length; i++) {
-    if (i == 0) {
-        sum[0] = arr[0];
-    } else if (i == 1) {
-        sum[1] = Math.max(arr[0], arr[1]);
-    } else {
-        sum[i] = Math.max(sum[i - 2] + arr[i], sum[i - 1]);
-    }
+  if (i == 0) {
+      sum[0] = arr[0];
+  } else if (i == 1) {
+      sum[1] = Math.max(arr[0], arr[1]);
+  } else {
+      sum[i] = Math.max(sum[i - 2] + arr[i], sum[i - 1]);
+  }
 }
 return sum[n - 1];
 }

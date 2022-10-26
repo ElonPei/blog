@@ -1,6 +1,9 @@
 ---
 title: LeetCode009 Palindrome Number
 date: 2018-07-01
+tags:
+  - Algorithm
+  - LeetCode
 ---
 
 

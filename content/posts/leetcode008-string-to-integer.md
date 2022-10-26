@@ -1,6 +1,9 @@
 ---
 title: LeetCode008 String to Integer
 date: 2018-07-01
+tags:
+  - Algorithm
+  - LeetCode
 ---
 
 

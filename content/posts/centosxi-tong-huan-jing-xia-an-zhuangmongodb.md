@@ -3,6 +3,7 @@ title: CentOS系统环境下安装MongoDB
 date: 2018-01-01
 ---
 
+
 1. 根据自己的实际系统环境，下载所要的文件
 
 2. 然后解压：
@@ -58,8 +59,7 @@ echo "/usr/local/mongodb/bin/mongod --dbpath=/usr/local/mongodb/data/db --logpat
 tail -f /usr/local/mongodb/logs/mongodb.log
 ```
 
-
-## 参数解释: 
+## 参数解释:
 
 `--dbpath` 数据库路径(数据文件)
 

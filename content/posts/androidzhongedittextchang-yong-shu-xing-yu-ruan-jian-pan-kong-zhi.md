@@ -3,11 +3,11 @@ title: Android中EditText常用属性与软键盘控制
 date: 2015-02-25
 ---
 
+
 Android中EditText常用属性与软键盘控制
 
 
 <!--more-->
-
 
 #### 为EditText对应的软键盘添加关闭按钮
 

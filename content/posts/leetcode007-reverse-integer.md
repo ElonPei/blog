@@ -1,6 +1,9 @@
 ---
 title: LeetCode007 Reverse Integer
 date: 2018-07-01
+tags:
+  - Algorithm
+  - LeetCode
 ---
 
 ## 读题

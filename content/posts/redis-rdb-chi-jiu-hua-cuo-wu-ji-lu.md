@@ -1,6 +1,8 @@
 ---
 title: Redis RDB 持久化错误记录
 date: 2022-01-03
+tags:
+  - Redis
 ---
 
 ## 问题描述

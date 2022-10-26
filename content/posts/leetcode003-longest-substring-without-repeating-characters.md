@@ -1,6 +1,9 @@
 ---
 title: LeetCode003 Longest Substring Without Repeating Characters
 date: 2022-04-24
+tags:
+  - Algorithm
+  - LeetCode
 ---
 
 ## 读题

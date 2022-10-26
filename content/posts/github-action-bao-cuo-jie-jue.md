@@ -1,6 +1,8 @@
 ---
 title: GitHub Action 报错解决
 date: 2022-04-29
+tags:
+  - DevOps
 ---
 
 ## 问题

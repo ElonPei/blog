@@ -1,6 +1,9 @@
 ---
 title: LeetCode001 Two Sum
 date: 2022-04-22
+tags:
+  - Algorithm
+  - LeetCode
 ---
 
 ## 个人解题思路

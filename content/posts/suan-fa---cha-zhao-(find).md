@@ -1,6 +1,9 @@
 ---
 title: 算法 - 查找 (Find)
 date: 2021-06-03
+tags:
+  - Algorithm
+  - Java
 ---
 
 ## 1. 二分查找

@@ -1,7 +1,10 @@
 ---
 title: 二分查找的增长阶数
 date: 2017-12-01
+tags:
+  - Algorithm
 ---
+
 
 <script type="text/x-mathjax-config">
 
@@ -25,7 +28,6 @@ src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
 
 https://www.coursera.org/learn/algorithms-part1/lecture/Xk03a/order-of-growth-classifications
 
-
 ### 原题
 
 
@@ -46,12 +48,10 @@ C. linear
 
 D. linearithmic
 
-
 ### 读题
 
 
 下列哪个增长阶数的分类表示用于二分查找长度为n的数组访问的最大值？
-
 
 ### 解题
 

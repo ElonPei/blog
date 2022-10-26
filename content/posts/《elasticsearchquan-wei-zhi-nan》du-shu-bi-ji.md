@@ -1,6 +1,8 @@
 ---
 title: 《Elasticsearch权威指南》读书笔记
 date: 2018-03-06
+tags:
+  - ES
 ---
 
 > 本文为《Elasticsearch权威指南》阅读笔记，原书链接请点击这里查看。

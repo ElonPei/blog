@@ -3,11 +3,11 @@ title: Android代码笔记
 date: 2015-03-03
 ---
 
+
 Android代码笔记
 
 
 <!--more-->
-
 
 ## 返回数据给上一个Activity
 
@@ -54,7 +54,7 @@ default:
 
 } 
 
-} 
+}
 
 ## 调用系统拨号
 
@@ -62,7 +62,7 @@ Intent intent = new Intent(Intent.ACTION_DIAL);
 
 intent.setData(Uri.parse("tel:10086")); 
 
-startActivity(intent); 
+startActivity(intent);
 
 ## Activity启动模式
 
@@ -82,7 +82,6 @@ android:launchMode = “standard”   //默认启动模式
 >
 
 </activity>
-
 
 ## 统一退出所有Activity的类
 
@@ -116,8 +115,7 @@ activity.finish();
 
 } 
 
-} 
-
+}
 
 ## 比较好的传递数据的代码习惯
 
@@ -154,7 +152,6 @@ SecondActivity.actionStart(FirstActivity.this, "data1", "data2");
 }
 
 });
-
 
 ## 自定义标题栏控件
 
