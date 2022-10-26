@@ -1,8 +1,9 @@
 ---
-title: MacOS编译Nginx1.12.1报错解决
+title: macOS 编译 Nginx 1.12.1 报错解决
 date: 2018-01-01
 tags:
-  - Mac
+  - macOS
+  - Nginx
 ---
 
 

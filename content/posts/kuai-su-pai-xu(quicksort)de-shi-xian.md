@@ -1,8 +1,6 @@
 ---
 title: 快速排序(QuickSort)的实现
 date: 2017-12-01
-tags:
-  - Algorithm
 ---
 
 ## 快速的排序逻辑

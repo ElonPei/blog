@@ -1,7 +1,10 @@
 ---
 title: Python自动化部署工具Fabric简介
 date: 2017-01-04
+tags:
+  - Python
 ---
+
 
 ## Install
 

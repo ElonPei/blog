@@ -1,8 +1,6 @@
 ---
 title: 插入排序(InsertionSort)的实现
 date: 2017-12-13
-tags:
-  - Algorithm
 ---
 
 ## 插入排序的排序逻辑

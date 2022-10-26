@@ -5,6 +5,7 @@ tags:
   - Java
 ---
 
+
 ## 1. 使用@Value方式读取，示例如下
 
 在 `application.properties` 中加入如下内容

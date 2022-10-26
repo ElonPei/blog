@@ -1,8 +1,6 @@
 ---
 title: 双调数组(bitonic array)的高效(~2lgN)搜索
 date: 2018-01-01
-tags:
-  - Algorithm
 ---
 
 本题为《算法4》作者 Robert Sedgewick 和 Kevin Wayne 在 Cursera 上开设的公开课的习题解答，本题为WEEK1中第二部分课后题。地址为：

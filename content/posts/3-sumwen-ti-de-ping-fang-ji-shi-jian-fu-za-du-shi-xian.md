@@ -1,8 +1,6 @@
 ---
 title: 3-SUM问题的平方级时间复杂度实现
 date: 2017-12-05
-tags:
-  - Algorithm
 ---
 
 本题为《算法4》作者 Robert Sedgewick 和 Kevin Wayne 在 Cursera 上开设的公开课的习题解答，本题出自以下地址中的课后题。

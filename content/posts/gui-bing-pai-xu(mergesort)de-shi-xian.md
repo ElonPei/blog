@@ -1,8 +1,6 @@
 ---
 title: 归并排序(MergeSort)的实现
 date: 2017-12-01
-tags:
-  - Algorithm
 ---
 
 ## 归并排序的排序逻辑

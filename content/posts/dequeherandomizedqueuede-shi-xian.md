@@ -1,8 +1,6 @@
 ---
 title: Deque和RandomizedQueue的实现
 date: 2017-12-11
-tags:
-  - Algorithm
 ---
 
 本文为《算法4》作者 Robert Sedgewick 和 Kevin Wayne 在 Cursera 上开设的公开课的编程作业，出自WEEK2编程作业，作业详情链接。

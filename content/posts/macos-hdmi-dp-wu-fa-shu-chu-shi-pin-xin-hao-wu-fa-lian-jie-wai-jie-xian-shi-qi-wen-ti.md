@@ -2,8 +2,9 @@
 title: MacOS HDMI DP 无法输出视频信号无法链接外接显示器问题
 date: 2020-07-01
 tags:
-  - Mac
+  - macOS
 ---
+
 
 ## 解决方式
 

@@ -1,8 +1,6 @@
 ---
 title: MySQL InnoDB 缓冲策略相关知识
 date: 2022-01-03
-tags:
-  - MySQL
 ---
 
 > MySQL5.6

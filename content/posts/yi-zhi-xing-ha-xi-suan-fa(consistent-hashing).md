@@ -1,8 +1,6 @@
 ---
 title: 一致性哈希算法(consistent hashing)
 date: 2016-10-10
-tags:
-  - Algorithm
 ---
 
 Distributed Hash Table（DHT） 是一种哈希分布方式，其目的是为了克服传统哈希分布在服务器节点数量变化时大量数据迁移的问题。

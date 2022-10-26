@@ -1,8 +1,6 @@
 ---
 title: 8Puzzle问题实现与踩坑
 date: 2018-01-23
-tags:
-  - Algorithm
 ---
 
 > 8Puzzle问题算法使用`A*算法`，数据结构主要是`优先队列`。

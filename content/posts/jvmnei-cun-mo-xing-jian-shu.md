@@ -5,6 +5,7 @@ tags:
   - Java
 ---
 
+
 > 本文大部分的知识来自于周志明大神的《深入理解Java虚拟机（第2版）》一书，系统学习JVM相关知识的强烈推荐。
 
 Java内存区域概括性的来讲，分为线程独占的虚拟机栈(VM Stack)、本地方法栈(Native Method Stack)、程序计数器(Programer Counter Register)和线程共享的方法区(Method Area)、堆(Heap)。

@@ -1,10 +1,11 @@
 ---
-title: Mac 下 MySQL 重置密码
+title: macOS 下 MySQL 重置密码
 date: 2018-08-01
 tags:
   - MySQL
-  - Mac
+  - macOS
 ---
+
 
 ## 1. 关闭 MySQL 服务
 

@@ -1,8 +1,6 @@
 ---
 title: 求非连续元素的最大总和
 date: 2021-12-23
-tags:
-  - Java
 ---
 
 > Maximum sum of non consecutive elements

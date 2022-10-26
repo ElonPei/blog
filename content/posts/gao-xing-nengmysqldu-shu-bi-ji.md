@@ -1,8 +1,6 @@
 ---
 title: 高性能MySQL读书笔记
 date: 2022-02-08
-tags:
-  - MySQL
 ---
 
 ## 一、范式与反范式

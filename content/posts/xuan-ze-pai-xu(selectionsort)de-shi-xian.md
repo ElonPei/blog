@@ -1,8 +1,6 @@
 ---
 title: 选择排序(SelectionSort)的实现
 date: 2017-12-13
-tags:
-  - Algorithm
 ---
 
 ## 选择排序的排序逻辑

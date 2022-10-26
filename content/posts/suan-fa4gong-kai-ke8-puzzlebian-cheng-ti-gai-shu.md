@@ -1,8 +1,6 @@
 ---
 title: 算法4公开课8-Puzzle编程题概述
 date: 2018-01-18
-tags:
-  - Algorithm
 ---
 
 原题地址：http://coursera.cs.princeton.edu/algs4/assignments/8puzzle.html

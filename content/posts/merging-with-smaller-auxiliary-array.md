@@ -1,8 +1,6 @@
 ---
 title: Merging with smaller auxiliary array
 date: 2017-12-01
-tags:
-  - Algorithm
 ---
 
 本题为《算法4》作者 Robert Sedgewick 和 Kevin Wayne 在 Cursera 上开设的公开课的习题解答，本题为WEEK3中第一部分面试题。地址为：

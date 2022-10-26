@@ -1,9 +1,6 @@
 ---
 title: LeetCode001 Two Sum 最优解的解读
 date: 2018-07-01
-tags:
-  - Algorithm
-  - LeetCode
 ---
 
 LeetCode 上 Two Sum 问题，自己能想到的是双循环的暴力解决法和使用单 Hash Table 来解决。看到有大神写的代码TestCase跑时间消耗为0ms，拜读分析一下。

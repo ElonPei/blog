@@ -2,7 +2,7 @@
 title: MacOS 10.14 取消4位数密码限制
 date: 2022-01-03
 tags:
-  - Mac
+  - macOS
 ---
 
 

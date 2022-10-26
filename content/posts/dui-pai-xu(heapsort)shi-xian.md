@@ -1,8 +1,6 @@
 ---
 title: 堆排序(HeapSort)实现
 date: 2017-12-01
-tags:
-  - Algorithm
 ---
 
 ## 堆排序实现思路

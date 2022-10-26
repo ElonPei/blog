@@ -1,9 +1,6 @@
 ---
 title: 再次开始刷LeetCode的思考
 date: 2022-04-22
-tags:
-  - Algorithm
-  - LeetCode
 ---
 
 最近感觉自己的代码功底有所下降，写起代码也不够熟练了，于是决定从现在开始每天刷一道 `LeetCode` 的题，暂时计划先刷满100道后停止。

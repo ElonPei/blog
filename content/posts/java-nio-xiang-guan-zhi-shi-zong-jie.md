@@ -1,10 +1,9 @@
 ---
-title: Java NIO相关知识总结
+title: Java NIO 相关知识总结
 date: 2018-03-01
 tags:
   - Java
 ---
-
 
 
 ### 1. 缓冲区Buffer
@@ -14,7 +13,6 @@ Buffer是一个对象，它包含一些要写入或者读出的数据。在面�
 
 
 每一种`Buffer`类都是`Buffer`接口的子类型，除了`Boolean`类型，每一种Java的基本类型都有对应的Buffer
-
 
 ByteBuffer
 
@@ -33,7 +31,6 @@ ShortBuffer
 
 其中`ByteBuffer`要特殊一些，它在具有一般缓冲区的操作之外还提供了一些特有的操作，以方便网络读写。
 
-
 ### 2.通道Channel
 
 
@@ -45,9 +42,7 @@ ShortBuffer
 
 http://ifeve.com/wp-content/uploads/2013/06/overview-channels-buffers1.png
 
-
 ### Chanel的主要实现
-
 
 FileChannel
 
@@ -59,7 +54,6 @@ ServerSocketChannel
 
 
 这些实现覆盖了UDP和TCP的网络IO，以及文件的IO。
-
 
 ### 3.选择器Selector
 

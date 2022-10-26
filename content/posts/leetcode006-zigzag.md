@@ -1,9 +1,6 @@
 ---
 title: LeetCode006 Zigzag
 date: 2022-04-29
-tags:
-  - Algorithm
-  - LeetCode
 ---
 
 ![](https://peierlong-blog.oss-cn-hongkong.aliyuncs.com/uPic/Zigzag.png)

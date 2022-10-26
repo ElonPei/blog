@@ -1,8 +1,6 @@
 ---
 title: 希尔排序(ShellSort)的实现
 date: 2017-12-01
-tags:
-  - Algorithm
 ---
 
 ## 希尔排序的排序逻辑

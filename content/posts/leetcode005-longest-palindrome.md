@@ -1,9 +1,6 @@
 ---
 title: LeetCode005 Longest Palindrome
 date: 2022-04-28
-tags:
-  - Algorithm
-  - LeetCode
 ---
 
 ![](https://peierlong-blog.oss-cn-hongkong.aliyuncs.com/uPic/Longest%20Palindrome.png)

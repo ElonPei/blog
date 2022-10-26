@@ -1,8 +1,6 @@
 ---
 title: 根据不同规模样本计算程序运行时间公式
 date: 2017-11-22
-tags:
-  - Algorithm
 ---
 
 本题为《算法4》作者 Robert Sedgewick 和 Kevin Wayne 在 Cursera 上开设的公开课的习题解答，本题为WEEK1中第二部分视频中的选择题。地址为：

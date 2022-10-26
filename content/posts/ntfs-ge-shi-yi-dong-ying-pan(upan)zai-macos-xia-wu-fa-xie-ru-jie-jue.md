@@ -1,9 +1,10 @@
 ---
-title: NTFS格式移动硬盘(U盘)在Mac OS下无法写入解决
+title: NTFS 格式移动硬盘(U盘)在 macOS 下无法写入解决
 date: 2017-12-01
 tags:
-  - Mac
+  - macOS
 ---
+
 
 > 由于OS X不支持NTFS格式硬盘的写入，最方便的方法就是把系统的mount_ntfs默认加载方式由只读改为读写
 
@@ -15,7 +16,7 @@ tags:
 diskutil list
 ```
 
-显示硬盘的格式是NTFS。
+显示硬盘的格式是 NTFS。
 
 ## 操作流程
 

@@ -1,8 +1,6 @@
 ---
 title: 每日算法 959 求一个整型的二进制1的个数
 date: 2021-08-16
-tags:
-  - Algorithm
 ---
 
 ```java

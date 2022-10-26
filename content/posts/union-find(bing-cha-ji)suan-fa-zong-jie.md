@@ -1,8 +1,6 @@
 ---
 title: Union-find(并查集)算法总结
 date: 2017-12-01
-tags:
-  - Algorithm
 ---
 
 # 并查集算法总结

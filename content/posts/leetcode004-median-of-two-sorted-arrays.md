@@ -1,9 +1,6 @@
 ---
 title: LeetCode004 Median of Two Sorted Arrays
 date: 2022-04-27
-tags:
-  - Algorithm
-  - LeetCode
 ---
 
 Median of Two Sorted Arrays

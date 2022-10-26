@@ -1,9 +1,6 @@
 ---
 title: 数据结构基础
 date: 2021-10-31
-tags:
-  - Algorithm
-  - Java
 ---
 
 ## 一、数据结构的存储方式

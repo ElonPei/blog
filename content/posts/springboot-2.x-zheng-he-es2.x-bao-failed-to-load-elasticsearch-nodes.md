@@ -1,5 +1,5 @@
 ---
-title: SpringBoot2.x整合ES2.x报failed to load elasticsearch nodes
+title: SpringBoot 2.x 整合 ES2.x 报 failed to load elasticsearch nodes
 date: 2018-06-30
 tags:
   - Java

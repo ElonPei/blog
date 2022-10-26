@@ -1,17 +1,14 @@
 ---
-title: Java程序内存占用情况概述
+title: Java 程序内存占用情况概述
 date: 2018-03-01
 tags:
   - Java
 ---
 
 
-
 以下内存大小都是Java语言在64位操作系统下的占用情况。
 
-
 ## 基本类型
-
 
 boolean —> 1bytes
 
@@ -27,9 +24,7 @@ long —> 8bytes
 
 double —> 8bytes
 
-
 ## 一维数组
-
 
 char[] —> 2N + 24bytes
 
@@ -37,9 +32,7 @@ int[] —> 4N + 24bytes
 
 double[] —> 8N + 24bytes
 
-
 ## 二维数组
-
 
 char[][] —> ~2MNbytes
 
@@ -47,9 +40,7 @@ int[][] —> ~4MNbytes
 
 double[][] —> ~8MNbytes
 
-
 ## 对象相关
-
 
 对象开销 —> 16bytes
 
@@ -57,9 +48,7 @@ double[][] —> ~8MNbytes
 
 Padding —> Each object uses a multiple of 8 bytes
 
-
 ## 数据类型值的总内存使用情况
-
 
 基本数据类型：4byte for int, 8bytes for double, …
 

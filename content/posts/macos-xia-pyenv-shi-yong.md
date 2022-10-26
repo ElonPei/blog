@@ -1,10 +1,11 @@
 ---
-title: Mac下pyenv使用
+title: macOS 下 pyenv 使用
 date: 2018-03-01
 tags:
-  - Mac
+  - macOS
   - Python
 ---
+
 
 ## pyenv 相关
 

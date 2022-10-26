@@ -1,8 +1,6 @@
 ---
 title: MySQL EXPLAIN 参数解析
 date: 2021-11-08
-tags:
-  - MySQL
 ---
 
 ## 各个结果解析

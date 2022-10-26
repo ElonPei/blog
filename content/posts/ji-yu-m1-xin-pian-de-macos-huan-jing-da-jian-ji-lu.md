@@ -1,10 +1,11 @@
 ---
-title: 基于M1芯片的Mac环境搭建记录
+title: 基于 M1 芯片的 macOS 环境搭建记录
 date: 2022-01-16
 tags:
-  - Mac
+  - macOS
   - M1
 ---
+
 
 > 💡 作为 Java 程序员，在 M1 芯片的 Mac 平台工作已经接近两年，近期购入 M1 Pro 的 MacBook Pro 后，简单折腾和优化了下开发环境，并记录本文章，供后续查看。
 

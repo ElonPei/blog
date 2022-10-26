@@ -1,10 +1,10 @@
 ---
-title: 阿里云OSS文件上传Python脚本
+title: 阿里云 OSS 文件上传 Python 脚本
 date: 2020-07-10
 tags:
   - Python
-  - 效率
 ---
+
 
 ## oss2mk
 

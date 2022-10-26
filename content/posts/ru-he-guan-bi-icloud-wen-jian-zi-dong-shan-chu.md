@@ -1,9 +1,11 @@
 ---
-title: 如何关闭iCloud文件自动删除
+title: 如何关闭 iCloud 文件自动删除
 date: 2022-01-01
 tags:
-  - Mac
+  - macOS
+  - iCloud
 ---
+
 
 ## 背景
 

@@ -1,9 +1,6 @@
 ---
 title: LeetCode002 Add Two Numbers
 date: 2022-04-23
-tags:
-  - Algorithm
-  - LeetCode
 ---
 
 ![](https://peierlong-blog.oss-cn-hongkong.aliyuncs.com/uPic/Add%20Two%20Number.png)
