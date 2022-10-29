@@ -43,7 +43,7 @@ public static int maxArea(int[] height) {
 
 ### 思路二：双指针法
 
-左右两侧分别防止两个指针，那个短就向里移动一次，移动后比较取最大值即可。
+左右两侧分别放置两个指针，那个短就向里移动一次，移动后比较取最大值即可。
 
 ```java
 public static int maxArea(int[] height) {
