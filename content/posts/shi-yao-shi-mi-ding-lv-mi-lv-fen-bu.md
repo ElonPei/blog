@@ -12,13 +12,13 @@ tags:
 
 是一种数学模型，比如二八原则，20%的人口拥有80%的财富，20%的上市公司创造80%的利润等等。
 
-![http://peierlong-blog.oss-cn-hongkong.aliyuncs.com/uPic/USZG1e.png](http://peierlong-blog.oss-cn-hongkong.aliyuncs.com/uPic/USZG1e.png)
+![https://peierlong-blog.oss-cn-hongkong.aliyuncs.com/uPic/USZG1e.png](https://peierlong-blog.oss-cn-hongkong.aliyuncs.com/uPic/USZG1e.png)
 
 ## 算法分析中的应用
 
 如果你绘制了一个双对数坐标表示两个量的关系，如果显示线性关系，那么表明这两个量具有幂律分布。
 
-![http://peierlong-blog.oss-cn-hongkong.aliyuncs.com/uPic/power-law-dist.png](http://peierlong-blog.oss-cn-hongkong.aliyuncs.com/uPic/power-law-dist.png)
+![https://peierlong-blog.oss-cn-hongkong.aliyuncs.com/uPic/power-law-dist.png](https://peierlong-blog.oss-cn-hongkong.aliyuncs.com/uPic/power-law-dist.png)
 
 ## 个人思考
 
