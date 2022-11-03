@@ -46,6 +46,7 @@ LanguageCode = "zh-CN"
   defaultTheme = "auto"  # 网站默认主题 ("light", "dark", "auto")
   gitRepo = "https://github.com/peiel/blog"
   dateFormat = "2006-01-02"
+  images = ["/images/logo.jpg"]
   description = "A boy dreaming of traveling around the world.<br>This blog is used to record my study, thinking and life."
   keywords = []
   author = "peiel"
@@ -84,10 +85,12 @@ LanguageCode = "zh-CN"
   [params.home]
     rss = 10  # RSS 文章数目
     [params.home.profile]
+      avatarURL = "images/logo.jpg"
+      altLogoURL = "https://peierlong-blog.oss-cn-hongkong.aliyuncs.com/uPic/logo.JPG"
       title = "Peiel"
       subtitle = "Welcome to my blog!"
     [params.home.posts]
-      paginate = 5
+      paginate = 2
   [params.social]
     GitHub = "peiel"
     Email = "peielcn@gmail.com"
