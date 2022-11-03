@@ -21,8 +21,6 @@ tags:
 
 > 需要能区分单词的词性和其在句子中的成分
 
-常见规律
-
 冠词 + 名词
 
 a cat
@@ -70,9 +68,6 @@ nor is it clean
 who Peter met yesterday
 
 but she doesn't like hime
-
-
-更多示例
 
 主语 + 谓语
 
