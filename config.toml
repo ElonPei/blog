@@ -166,6 +166,15 @@ LanguageCode = "zh-CN"
         name = "peiel"
         logoUrl = "https://peiel.com/images/logo.jpg"
 
+    # Analytics config
+    # 网站分析配置
+    [params.analytics]
+      enable = true
+      # Baidu Analytics
+      # 百度统计
+      [params.analytics.baidu]
+        id = "b0a46a3345d11bcc0ff5ac3a178ea845"
+
   # [params.comment]
   #     enable = true
   #     [params.comment.giscus]
