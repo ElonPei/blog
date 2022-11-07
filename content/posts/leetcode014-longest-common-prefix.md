@@ -11,7 +11,7 @@ tags:
 
 原题 [链接](https://leetcode.com/problems/longest-common-prefix/)
 
-![原题截图](https://cdn.jsdelivr.net/gh/snail-tech/oss@master/uPic/2TkbKl.png){:height 598, :width 746}
+![原题截图](https://cdn.jsdelivr.net/gh/snail-tech/oss@master/uPic/2TkbKl.png)
 
 给定一个字符串，求出字符串的最长公共前缀。
 
