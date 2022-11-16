@@ -11,7 +11,7 @@ tags:
 
 ![problem](https://cdn.jsdelivr.net/gh/snail-tech/oss@master/uPic/osTnju.png)
 
-有个手机表盘，每个数字都有对应的 `n` 个字母
+有个手机表盘，每个数字都有对应的 `n` 个字母。
 
 给定一个数字的组合，返回数字对应的字母的所有组合的集合。
 
@@ -66,6 +66,8 @@ public List<String> letterCombinations(String digits) {
 }
 ```
 
-LeetCode测试用例返回结果
+LeetCode 测试用例返回结果：
 
 ![result](https://cdn.jsdelivr.net/gh/snail-tech/oss@master/uPic/dkhcb5.png)
+
+时间复杂度：`O(4^n)`
