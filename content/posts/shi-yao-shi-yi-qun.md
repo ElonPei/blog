@@ -2,8 +2,8 @@
 title: 什么是意群
 date: 2022-09-15
 tags:
-  - English
-  - ThoughtGroup
+  - 英语
+  - 意群
 ---
 
 

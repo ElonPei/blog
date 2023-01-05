@@ -99,3 +99,5 @@ docker run --name my-nginx -p 8080:80 -v /Users/peiel/nginx/html:/usr/share/ngin
 ```bash
 docker run -d --name uat_rabbitmq -p 5672:5672 -p 15672:15672 -e RABBITMQ_DEFAULT_USER=guest -e RABBITMQ_DEFAULT_PASS=guest rabbitmq:3-management
 ```
+
+TODO Docker 启动 Seata 环境
