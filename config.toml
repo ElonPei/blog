@@ -1,7 +1,7 @@
 baseURL = "https://peiel.com/"
 relativeURLs = true
 theme = "LoveIt"
-title = "Peiel"
+title = "源码赏析"
 defaultContentLanguage = "zh-cn"
 disableHugoGeneratorInject = true
 enableRobotsTXT = true
